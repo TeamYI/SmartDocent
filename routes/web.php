@@ -11,10 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/login', function(){
-    return view('login');
-});
+Route::get('/','PageController@login');
+/*Route::get('/main','PageController@main');*/
+Route::post('/login', 'ModelController@login');
+Route::get('/member_manage','PageController@member_manage');
+Route::get('/cultural_manage','PageController@cultural_manage');
