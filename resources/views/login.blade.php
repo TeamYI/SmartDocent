@@ -32,11 +32,11 @@
      <!-- laravel에서 post 전송시에는 csrf_token이 필요하기에 token을 포함해주어야함 -->
     <div style="text-align:center">
         <span uk-icon="user"></span>
-        <input type='TEXT' name = 'id' value='Username'>
+        <input type='TEXT' name = 'id' placeholder='Username'>
     </div><!-- 아이디 텍스트-->
     <div style="text-align:center">
         <span uk-icon="lock"></span>
-        <input type='password' name = 'password' value='password'>
+        <input type='password' name = 'password' placeholder='password'>
     </div><!--  비밀번호 텍스트 -->
     <div style="text-align:center">
         <input type='submit' value="로그인" onclick="">

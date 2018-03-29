@@ -11,13 +11,24 @@
     </style>
 </head>
 <body>
-
 <div id='home_title' style="text-align:center">SMART DOCENT</div>
 
 <ul>
     <a href="/cultural_manage">문화재 등록</a></li>
     <a href="/member_get">회원 관리</a></li>
 </ul>
+
+<form aligen="center">
+    <div>
+        아이디 : <input type="text" name="update_id">
+    </div>
+    <div>
+        비밀번호 : <input type="text" name="update_pw">
+    </div>
+    <div>
+        <input type="submit" value = "수정">
+    </div>
+</form>
+
 </body>
-문화재 등록 페이지
 </html>

@@ -12,10 +12,10 @@ class ModelController extends Controller
         $id = $_POST['id'];
         $password = $_POST['password'];
 
-        /*$guests = [
+        $guests = [
             $id,
             $password
-        ];*/
+        ];
 
         $result = DB::select('select * from member where id="root"');
         /*
@@ -54,5 +54,6 @@ class ModelController extends Controller
 
 
     }
+
 }
 

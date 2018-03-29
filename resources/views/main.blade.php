@@ -16,8 +16,9 @@
 
             <ul>
                 <a href="/cultural_manage">문화재 관리</a></li>
-                <a href="/member_manage">회원 관리</a></li>
+                <a href="/member_get">회원 관리</a></li>
             </ul>
+
 
 </body>
 </html>
