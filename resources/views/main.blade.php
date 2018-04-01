@@ -15,7 +15,7 @@
 <div id='home_title' style="text-align:center">SMART DOCENT</div>
 
             <ul>
-                <a href="/cultural_manage">문화재 관리</a></li>
+                <a href="/cultural_manage">문화재 등록</a></li>
                 <a href="/member_get">회원 관리</a></li>
             </ul>
 
