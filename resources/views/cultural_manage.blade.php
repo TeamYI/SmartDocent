@@ -5,6 +5,14 @@
     <title>Document</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.40/css/uikit.min.css" />
 
+    <!--ms 밑에 4개 sortalbe사용하기위해서-->
+    <link rel="stylesheet" href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
+    <script src="//apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+    <!--
+    <link rel="stylesheet" href="jqueryui/style.css">
+    -->
+
     <!-- UIkit JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.40/js/uikit.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.40/js/uikit-icons.min.js"></script>
@@ -18,6 +26,15 @@
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCojf9IKqAfeYPYAuRGi-CbRDRxW9KhEtM
 "></script>
+
+    <!-- ms sortable 쓰기위해서 필요하데-->
+    <script>
+        $(function() {
+            $( "#ms_point_list" ).sortable();
+            $( "#ms_point_list" ).disableSelection();
+        });
+    </script>
+
     <style>
         div span{
             margin: 0;
@@ -32,6 +49,10 @@
             margin: 0;
             padding: 0;
         }
+
+        <!--ms 포인트리스트 스타일-->
+            #ms_point_list li span { position: absolute; margin-left: -1.3em; }
+
         #menu_content_map {z-index: -1 ;}
         #wrap {
             width: 100%;
@@ -281,7 +302,23 @@
 
 
 
-        <div class="nav_content" id="tab3">해설</div>
+        <div class="nav_content" id="tab3">
+            <!-- 해설부분 codename:민석-->
+            <div>
+                <span>해설</span>
+            </div>
+            <div>
+                <img src="/image/dot.png" data-code='dot.png' class="drag_image" width="50px" height="50px" alt="" style="cursor: pointer">
+                <img src="" alt="">
+                <img src="" alt="">
+            </div>
+            <div class="uk-placeholder upload_img_wrap" >
+                <!--ms포인트리스트-->
+                <ul id = "ms_point_list"></ul>
+            </div>
+
+
+        </div>
     </div>
 </div>
 <div id="menu_content_map"></div>

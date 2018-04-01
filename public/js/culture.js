@@ -2,6 +2,8 @@ var map;
 var map_illustrations = []; //일러스트 이미지 배열에 넣기
 var img_src = "" ; // 지도에 이미지를 넣을 때 담는 변수
 var map_latLng_event ; // 안내소 이미지를 드래그할때 일어나는 구글맵 이벤트 담는 변수
+var ms_point_count = 0; // ms_지도에 찍히는 번호 담는 변수 선언 (전역)
+
 $(document).ready(function(){
     //지도 불러오기
     map = new google.maps.Map(document.getElementById("menu_content_map"),{
@@ -82,19 +84,25 @@ $(document).ready(function(){
 
     //일러스트 이미지 - 파일업로드 클릭했을때
     $("#input_img").on("change",handleImgFileSelect);
-    
+
 })
 //구글 위도, 경도 알아내는 이벤트 발생할 때 위도 경도값에 마커띄워줌
 function mapPositionImage(position,img_src){
     var result;
+    ms_point_count++; //ms_지도 한번찍을때마다 번호+1
     result = position + "" ;
 
     console.log("position : " + result+ "img_src : " + img_src.naturalWidth);
+
     if(img_src != "") {
         result = result.replace(/\)/g,"");
         result = result.replace(/\(/ig,"");
         result = result.split(",") ;
         console.log("position2 : " + img_src.substr(0,9));
+
+        //ms_포인트리스트에 동적으로 html 소스 추가
+        var html = "<li>"+"point : " + ms_point_count+"<BR>"+result[0]+ result[1]+"</li>"
+        $("#ms_point_list").append(html);
 
         //일러스트이미지 등록할때
         if(img_src.substr(0,10) == 'data:image'){
