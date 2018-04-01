@@ -1,23 +1,26 @@
+<!doctype html>
 <html>
 <head>
-        <style>
-                #home_title {
-                        color: black;
-                        font-size: 50px;
-                        font-weight: 1000px;
-                        width: 1500px;
-                        margin: 0 auto;
-                }
-        </style>
+        <meta charset="UTF-8">
+        <title>Document</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.40/css/uikit.min.css" />
+
+        <!-- UIkit JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.40/js/uikit.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.40/js/uikit-icons.min.js"></script>
+        <script src="/js/jQuery3.3.1.js"></script>
+        <script
+                src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+                integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+                crossorigin="anonymous"></script>
+
+        <script src="/js/culture.js"></script>
+        <script async defer
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCojf9IKqAfeYPYAuRGi-CbRDRxW9KhEtM
+"></script>
 </head>
 <body>
-
-<div id='home_title' style="text-align:center">SMART DOCENT</div>
-
-<ul>
-        <a href="/cultural_manage">문화재 등록</a></li>
-        <a href="/member_get">회원 관리</a></li>
-</ul>
+@include('header')
         <div>
                 <form method='POST' name = 'member_serch' action='/member_serch'>
                 <input type = "hidden" name = "_token" value="{{csrf_token()}}">
@@ -69,5 +72,4 @@
         </table>
 </div>
 </body>
-
 </html>

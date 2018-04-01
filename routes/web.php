@@ -11,7 +11,7 @@
 |
 */
 //초기진입시 로그인 페이지로 감
-Route::get('/','PageController@login');
+//Route::get('/','PageController@login');
 /*Route::get('/main','PageController@main');*/
 //아이디, 비밀번호 검사
 Route::post('/login', 'ModelController@login');
@@ -21,3 +21,7 @@ Route::get('/member_get','MemberController@member_get');
 Route::post('/member_serch','MemberController@member_serch');
 Route::post('/page_update','PageController@member_update');
 Route::post('/member_delete','MemberController@member_delete');
+
+Route::get("/",function(){
+    return view("main");
+});
