@@ -1,23 +1,19 @@
+<!doctype html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.40/css/uikit.min.css" />
+
+    <!-- UIkit JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.40/js/uikit.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.40/js/uikit-icons.min.js"></script>
     <style>
-        #home_title {
-            color: black;
-            font-size: 50px;
-            font-weight: 1000px;
-            width: 1500px;
-            margin: 0 auto;
-        }
-        </style>
+
+    </style>
 </head>
 <body>
-
-<div id='home_title' style="text-align:center">SMART DOCENT</div>
-
-            <ul>
-                <a href="/cultural_manage">문화재 관리</a></li>
-                <a href="/member_get">회원 관리</a></li>
-            </ul>
+@include('header')
 
 
 </body>
