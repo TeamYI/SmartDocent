@@ -308,13 +308,14 @@
                 <span>해설</span>
             </div>
             <div>
-                <img src="/image/dot.png" data-code='dot.png' class="drag_image" width="50px" height="50px" alt="" style="cursor: pointer">
-                <img src="" alt="">
-                <img src="" alt="">
+                <img id = "ms_img" src="/image/number_1.png" data-code='number' class="drag_image" width="50px" height="50px" alt="" style="cursor: pointer">
             </div>
             <div class="uk-placeholder upload_img_wrap" >
                 <!--ms포인트리스트-->
                 <ul id = "ms_point_list"></ul>
+            </div>
+            <div>
+                <input type="submit" value = "수정" onclick="">
             </div>
 
 
