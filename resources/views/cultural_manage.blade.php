@@ -205,6 +205,56 @@
             width: 79.7%;
 
         }
+
+        .culture_register  {
+            width: 800px;
+            height: 850px;
+        }
+
+        .culture_explanation{
+            width: 100%;
+            height: 300px;
+            overflow-y: auto;
+            background: #ced4da;
+        }
+        .culture_explanation_language {
+            margin: 10px;
+            position: relative;
+            border-bottom: 1px solid #6c757d;
+            width: 98% ;
+            height: 190px;
+        }
+        .culture_explanation_language select{
+            position: absolute;
+            right: 18px;
+            top : 30px;
+        }
+        .culture_name{
+            position: absolute;
+            top : 10px;
+            left: 15px;
+            margin: 0;
+            padding: 0;
+        }
+        .culture_name input[type='text']{
+            width: 300px;
+            height: 20px;
+        }
+        .culture_detail{
+            position: absolute;
+            top : 75px;
+            left: 15px;
+            margin: 0;
+            padding: 0;
+        }
+        #culture_language_plus {
+            border: 1px solid black;
+        }
+        #culture_language_minus {
+            border: 1px solid black;
+            display: none;
+        }
+
     </style>
 
 </head>
@@ -223,7 +273,7 @@
             <div>
                 <ul uk-accordion>
                     <ll>
-                        <a href="#" class="uk-accordion-title accordion_title_province">경기도</a>
+                        <a href="#" class="uk-accordion-title accordion_title_province">서울특별시</a>
                         <div class="uk-accordion-content accordion_content_province">
                             <ul uk-accordion>
                                 <ll>
@@ -261,6 +311,240 @@
                     </ll>
                     <ll>
                         <a href="#" class="uk-accordion-title accordion_title_province">경기도</a>
+                        <div class="uk-accordion-content accordion_content_province">
+                            <ul uk-accordion>
+                                <ll>
+                                    <a href="#" class="uk-accordion-title accordion_title_cultural">경기도</a>
+                                    <div class="uk-accordion-content accordion_content_cultural ">
+                                        <li>dddddddd</li>
+                                        <li>dddddddd</li>
+                                        <li>dddddddd</li>
+                                        <li>dddddddd</li>
+
+                                    </div>
+                                </ll>
+                            </ul>
+
+                        </div>
+                    </ll>
+                    <ll>
+                        <a href="#" class="uk-accordion-title accordion_title_province">강원도</a>
+                        <div class="uk-accordion-content accordion_content_province">
+                            <ul uk-accordion>
+                                <ll>
+                                    <a href="#" class="uk-accordion-title accordion_title_cultural">경기도</a>
+                                    <div class="uk-accordion-content accordion_content_cultural ">
+                                        <li>dddddddd</li>
+                                        <li>dddddddd</li>
+                                        <li>dddddddd</li>
+                                        <li>dddddddd</li>
+
+                                    </div>
+                                </ll>
+                            </ul>
+
+                        </div>
+                    </ll>
+                    <ll>
+                        <a href="#" class="uk-accordion-title accordion_title_province">충청북도</a>
+                        <div class="uk-accordion-content accordion_content_province">
+                            <ul uk-accordion>
+                                <ll>
+                                    <a href="#" class="uk-accordion-title accordion_title_cultural">경기도</a>
+                                    <div class="uk-accordion-content accordion_content_cultural ">
+                                        <li>dddddddd</li>
+                                        <li>dddddddd</li>
+                                        <li>dddddddd</li>
+                                        <li>dddddddd</li>
+
+                                    </div>
+                                </ll>
+                            </ul>
+
+                        </div>
+                    </ll>
+                    <ll>
+                        <a href="#" class="uk-accordion-title accordion_title_province">충청남도</a>
+                        <div class="uk-accordion-content accordion_content_province">
+                            <ul uk-accordion>
+                                <ll>
+                                    <a href="#" class="uk-accordion-title accordion_title_cultural">경기도</a>
+                                    <div class="uk-accordion-content accordion_content_cultural ">
+                                        <li>dddddddd</li>
+                                        <li>dddddddd</li>
+                                        <li>dddddddd</li>
+                                        <li>dddddddd</li>
+
+                                    </div>
+                                </ll>
+                            </ul>
+
+                        </div>
+                    </ll>
+                    <ll>
+                        <a href="#" class="uk-accordion-title accordion_title_province">인천광역시</a>
+                        <div class="uk-accordion-content accordion_content_province">
+                            <ul uk-accordion>
+                                <ll>
+                                    <a href="#" class="uk-accordion-title accordion_title_cultural">경기도</a>
+                                    <div class="uk-accordion-content accordion_content_cultural ">
+                                        <li>dddddddd</li>
+                                        <li>dddddddd</li>
+                                        <li>dddddddd</li>
+                                        <li>dddddddd</li>
+
+                                    </div>
+                                </ll>
+                            </ul>
+
+                        </div>
+                    </ll>
+                    <ll>
+                        <a href="#" class="uk-accordion-title accordion_title_province">대구광역시</a>
+                        <div class="uk-accordion-content accordion_content_province">
+                            <ul uk-accordion>
+                                <ll>
+                                    <a href="#" class="uk-accordion-title accordion_title_cultural">경기도</a>
+                                    <div class="uk-accordion-content accordion_content_cultural ">
+                                        <li>dddddddd</li>
+                                        <li>dddddddd</li>
+                                        <li>dddddddd</li>
+                                        <li>dddddddd</li>
+
+                                    </div>
+                                </ll>
+                            </ul>
+
+                        </div>
+                    </ll>
+                    <ll>
+                        <a href="#" class="uk-accordion-title accordion_title_province">경상북도</a>
+                        <div class="uk-accordion-content accordion_content_province">
+                            <ul uk-accordion>
+                                <ll>
+                                    <a href="#" class="uk-accordion-title accordion_title_cultural">경기도</a>
+                                    <div class="uk-accordion-content accordion_content_cultural ">
+                                        <li>dddddddd</li>
+                                        <li>dddddddd</li>
+                                        <li>dddddddd</li>
+                                        <li>dddddddd</li>
+
+                                    </div>
+                                </ll>
+                            </ul>
+
+                        </div>
+                    </ll>
+                    <ll>
+                        <a href="#" class="uk-accordion-title accordion_title_province">경상남도</a>
+                        <div class="uk-accordion-content accordion_content_province">
+                            <ul uk-accordion>
+                                <ll>
+                                    <a href="#" class="uk-accordion-title accordion_title_cultural">경기도</a>
+                                    <div class="uk-accordion-content accordion_content_cultural ">
+                                        <li>dddddddd</li>
+                                        <li>dddddddd</li>
+                                        <li>dddddddd</li>
+                                        <li>dddddddd</li>
+
+                                    </div>
+                                </ll>
+                            </ul>
+
+                        </div>
+                    </ll>
+                    <ll>
+                        <a href="#" class="uk-accordion-title accordion_title_province">전라남도</a>
+                        <div class="uk-accordion-content accordion_content_province">
+                            <ul uk-accordion>
+                                <ll>
+                                    <a href="#" class="uk-accordion-title accordion_title_cultural">경기도</a>
+                                    <div class="uk-accordion-content accordion_content_cultural ">
+                                        <li>dddddddd</li>
+                                        <li>dddddddd</li>
+                                        <li>dddddddd</li>
+                                        <li>dddddddd</li>
+
+                                    </div>
+                                </ll>
+                            </ul>
+
+                        </div>
+                    </ll>
+                    <ll>
+                        <a href="#" class="uk-accordion-title accordion_title_province">전라북도</a>
+                        <div class="uk-accordion-content accordion_content_province">
+                            <ul uk-accordion>
+                                <ll>
+                                    <a href="#" class="uk-accordion-title accordion_title_cultural">경기도</a>
+                                    <div class="uk-accordion-content accordion_content_cultural ">
+                                        <li>dddddddd</li>
+                                        <li>dddddddd</li>
+                                        <li>dddddddd</li>
+                                        <li>dddddddd</li>
+
+                                    </div>
+                                </ll>
+                            </ul>
+
+                        </div>
+                    </ll>
+                    <ll>
+                        <a href="#" class="uk-accordion-title accordion_title_province">울산광역시</a>
+                        <div class="uk-accordion-content accordion_content_province">
+                            <ul uk-accordion>
+                                <ll>
+                                    <a href="#" class="uk-accordion-title accordion_title_cultural">경기도</a>
+                                    <div class="uk-accordion-content accordion_content_cultural ">
+                                        <li>dddddddd</li>
+                                        <li>dddddddd</li>
+                                        <li>dddddddd</li>
+                                        <li>dddddddd</li>
+
+                                    </div>
+                                </ll>
+                            </ul>
+
+                        </div>
+                    </ll>
+                    <ll>
+                        <a href="#" class="uk-accordion-title accordion_title_province">부산광역시</a>
+                        <div class="uk-accordion-content accordion_content_province">
+                            <ul uk-accordion>
+                                <ll>
+                                    <a href="#" class="uk-accordion-title accordion_title_cultural">경기도</a>
+                                    <div class="uk-accordion-content accordion_content_cultural ">
+                                        <li>dddddddd</li>
+                                        <li>dddddddd</li>
+                                        <li>dddddddd</li>
+                                        <li>dddddddd</li>
+
+                                    </div>
+                                </ll>
+                            </ul>
+
+                        </div>
+                    </ll>
+                    <ll>
+                        <a href="#" class="uk-accordion-title accordion_title_province">대전광역시</a>
+                        <div class="uk-accordion-content accordion_content_province">
+                            <ul uk-accordion>
+                                <ll>
+                                    <a href="#" class="uk-accordion-title accordion_title_cultural">경기도</a>
+                                    <div class="uk-accordion-content accordion_content_cultural ">
+                                        <li>dddddddd</li>
+                                        <li>dddddddd</li>
+                                        <li>dddddddd</li>
+                                        <li>dddddddd</li>
+
+                                    </div>
+                                </ll>
+                            </ul>
+
+                        </div>
+                    </ll>
+                    <ll>
+                        <a href="#" class="uk-accordion-title accordion_title_province">제주도</a>
                         <div class="uk-accordion-content accordion_content_province">
                             <ul uk-accordion>
                                 <ll>
@@ -301,7 +585,6 @@
         </div>
 
 
-
         <div class="nav_content" id="tab3">
             <!-- 해설부분 codename:민석-->
             <div>
@@ -320,6 +603,7 @@
 
 
         </div>
+
     </div>
 </div>
 <div id="menu_content_map"></div>
@@ -328,23 +612,65 @@
 --}}
 
 {{--문화재 등록 모달 창--}}
-<div id="modal-sections" uk-modal>
-    <div class="uk-modal-dialog">
+<div id="modal-sections"  uk-modal>
+    <div class="uk-modal-dialog culture_register">
         <button class="uk-modal-close-default" type="button" uk-close></button>
         <div class="uk-modal-header">
-            <h2 class="uk-modal-title">Modal Title</h2>
+            <h2 class="uk-modal-title">문화재 등록</h2>
         </div>
         <div class="uk-modal-body">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <div class="culture_explanation">
+                <div class="culture_explanation_language" >
+                    <select>
+                        <option value="korean" selected>한국어</option>
+                        <option value="english">영어</option>
+                        <option value="Chinese">중국어</option>
+                        <option value="Japanese">일본어</option>
+                    </select>
+                    <div class="culture_name">
+                        <div>문화재명</div>
+                        <input type="text">
+                    </div>
+                    <div class="culture_detail">
+                        <div>문화재 설명</div>
+                        <textarea name="" id="" cols="90" rows="5"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div id="add-plus-minus">
+                <span uk-icon="icon: plus" id="culture_language_plus"></span>
+                <span uk-icon='icon: minus' id='culture_language_minus'></span>
+            </div>
+            <div id="culture_common" style="border-top:1px solid black ; width: 100%;  margin: 10px">
+                <div>
+                    <div style="display: inline-block ; width: 32%; height:250px" class="culture_image" >
+                        <div>문화재 사진</div>
+                        <input type="file" data-name="image" class="img_upload_file">
+                        <img src="http://placehold.it/200x200" class="culture_images" style="width: 200px; height: 200px" >
+                    </div>
+                    <div style="display: inline-block ; width: 32%; height: 250px" class="culture_qr">
+                        <div>QR코드</div>
+                        <input type="file" data-name="qr" class="img_upload_file">
+                        <img src="http://placehold.it/200x200" class="culture_images" style="width: 200px; height: 200px">
+                    </div>
+                    <div style="display: inline-block; width: 32%; height: 250px" class="culture_ar">
+                        <div>AR</div>
+                        <input type="file" data-name="ar" class="img_upload_file">
+                        <img src="http://placehold.it/200x200" alt="" class="culture_images" style="width: 200px; height: 200px">
+                    </div>
+                </div>
+                <div>
+                    <div>문화재 주소</div>
+                    <input type="type" size="100px">
+                </div>
+            </div>
         </div>
         <div class="uk-modal-footer uk-text-right">
             <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
-            <button class="uk-button uk-button-primary" type="button">Save</button>
+            <button class="uk-button uk-button-primary" type="button" onclick="submitAction();">Save</button>
         </div>
     </div>
 </div>
-
-
 
 </body>
 </html>

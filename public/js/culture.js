@@ -1,4 +1,6 @@
 var map;
+var markers = [] ; // 지도에 마커를 넣기 위한 배열
+var uniqueId = 1; //배열에 마커를 넣기위해 인덱스값
 var map_illustrations = []; //일러스트 이미지 배열에 넣기
 var img_src = "" ; // 지도에 이미지를 넣을 때 담는 변수
 var map_latLng_event ; // 안내소 이미지를 드래그할때 일어나는 구글맵 이벤트 담는 변수
@@ -44,6 +46,46 @@ $(document).ready(function(){
         $(this).css("color", "#999");
     });
 
+    $("#culture_language_plus").click(function(){
+
+        var text = "<div class='culture_explanation_language'>"
+                        + "<select>"
+                        + "<option value='korean' selected>한국어</option>"
+                        + "<option value='english'>영어</option>"
+                        + "<option value='Chinese'>중국어</option>"
+                        + "<option value='Japanese'>일본어</option>"
+                        + "</select>"
+                        + "<div class='culture_name'>"
+                            + "<div>문화재명</div>"
+                            + "<input type='text'>"
+                        + "</div>"
+                        + "<div class='culture_detail'>"
+                            + "<div>문화재 설명</div>"
+                            + "<textarea name='' id='' cols='90' rows='5'></textarea>"
+                        +"</div>"
+                    +"</div>";
+        $('.culture_explanation').append(text);
+
+        if($(".culture_explanation_language").length == 2){
+            $("#culture_language_minus").css("display","inline-block");
+        }
+
+    })
+
+    $("#add-plus-minus").on("click","#culture_language_minus",function(){
+
+        $(".culture_explanation_language:last").remove();
+
+        if($(".culture_explanation_language").length == 1 ){
+            $("#culture_language_minus").css("display","none");
+        }
+    })
+
+    $(".img_upload_file").change(function(){
+        readURL(this, $(this).attr("data-name"));
+    })
+
+
     //지도에 문화재 이미지 입힐 때
     // 일러스트
     $(".drag_image").draggable({
@@ -80,7 +122,7 @@ $(document).ready(function(){
                 mapPositionImage(mouseEvent.latLng,img_src);
             })
 
-            console.log("img srcs tyipe " + typeof(img_src));
+            console.log("img srcs tyipe " + img_src);
 
         }
     })
@@ -104,7 +146,7 @@ function mapPositionImage(position,img_src){
     var result;
     result = position + "" ;
 
-    console.log("position : " + result+ "img_src : " + img_src.naturalWidth);
+    console.log("position5 : " + result+ "img_src : " + img_src);
 
     if(img_src != "") {
         result = result.replace(/\)/g,"");
@@ -149,16 +191,45 @@ function mapPositionImage(position,img_src){
                 scaledSize: new google.maps.Size(25, 25)
             };
         }
-        var beachMarker = new google.maps.Marker({
+        var marker = new google.maps.Marker({
             position: {lat: Number(result[0]), lng: Number(result[1])},
             map: map,
             icon: image
-
         });
+        //Set unique id
+        marker.id = uniqueId;
+        uniqueId++;
+        //마커 클릭했을 때, infowindow창 나타남
+        var infowindow = new google.maps.InfoWindow({
+            content: 'Latitude: ' + Number(result[0]) + '<br />Longitude: ' + Number(result[1])
+                   + "<br/><input type = 'button' value = 'Delete' onclick = 'DeleteMarker(" + marker.id + ");' value = 'Delete' />"
+        });
+        marker.addListener('click', function() {
+           infowindow.open(map, marker);
+        });
+        markers.push(marker);
         this.img_src = "";
+        console.log("img_srceeee3333 : " + this.img_src);
         google.maps.event.removeListener(map_latLng_event);
+
     }
+
 }
+// 마커 삭제 함수
+function DeleteMarker(id) {
+    console.log("marker_id : " + id);
+    //Find and remove the marker from the Array
+    for (var i = 0; i < markers.length; i++) {
+        if (markers[i].id == id) {
+            //Remove the marker from Map
+            markers[i].setMap(null);
+
+            //Remove the marker from array.
+            markers.splice(i, 1);
+            return;
+        }
+    }
+};
 
 
 function fileUploadAction(){
@@ -213,4 +284,31 @@ function deleteImageAction(index){
     var img_id = "#img_"+index ;
     $(img_id).remove();
     console.log(map_illustrations);
+<<<<<<< HEAD
 }
+=======
+}
+
+function readURL(input,position) {
+
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            var name = '.culture_' + position ;
+            console.log($(name));
+            $(name).children(".culture_images").attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+// 이미지 디비에 올릴때
+function submitAction(){
+    var data = new FormData();
+
+}
+
+
+
+>>>>>>> origin/master
