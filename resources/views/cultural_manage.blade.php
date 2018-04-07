@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Document</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.40/css/uikit.min.css" />
 
@@ -272,6 +273,10 @@
             <button id="cultural_register" class="map_upload_button" onmouseover="nav_content_button(this)" href="#modal-sections" uk-toggle>문화재 등록</button>
             <div>
                 <ul uk-accordion>
+                    @foreach($array as $value){
+                        {{$value -> cultural_code}}
+                    }
+                    @endforeach
                     <ll>
                         <a href="#" class="uk-accordion-title accordion_title_province">서울특별시</a>
                         <div class="uk-accordion-content accordion_content_province">
@@ -561,6 +566,7 @@
 
                         </div>
                     </ll>
+
                 </ul>
             </div>
         </div>
@@ -618,57 +624,61 @@
         <div class="uk-modal-header">
             <h2 class="uk-modal-title">문화재 등록</h2>
         </div>
-        <div class="uk-modal-body">
-            <div class="culture_explanation">
-                <div class="culture_explanation_language" >
-                    <select>
-                        <option value="korean" selected>한국어</option>
-                        <option value="english">영어</option>
-                        <option value="Chinese">중국어</option>
-                        <option value="Japanese">일본어</option>
-                    </select>
-                    <div class="culture_name">
-                        <div>문화재명</div>
-                        <input type="text">
+        <form action="{{URL::to('upload') }}" method="post" enctype="multipart/form-data">
+            <div class="uk-modal-body">
+                <input type="hidden" value="1" name="culture_type">
+                <div class="culture_explanation">
+                    <div class="culture_explanation_language" >
+                        <select class="language_select">
+                            <option value="korean" selected>한국어</option>
+                            <option value="english">영어</option>
+                            <option value="chinese">중국어</option>
+                            <option value="japanese">일본어</option>
+                        </select>
+                        <div class="culture_name">
+                            <div>문화재명</div>
+                            <input type="text" name="korean_name">
+                        </div>
+                        <div class="culture_detail">
+                            <div>문화재 설명</div>
+                            <textarea name="korean_text" id="" cols="90" rows="5"></textarea>
+                        </div>
                     </div>
-                    <div class="culture_detail">
-                        <div>문화재 설명</div>
-                        <textarea name="" id="" cols="90" rows="5"></textarea>
+                </div>
+                <div id="add-plus-minus">
+                    <span uk-icon="icon: plus" id="culture_language_plus"></span>
+                    <span uk-icon='icon: minus' id='culture_language_minus'></span>
+                </div>
+                <div id="culture_common" style="border-top:1px solid black ; width: 100%;  margin: 10px">
+                    <div>
+                        <div style="display: inline-block ; width: 32%; height:250px" class="culture_image" >
+                            <div>문화재 사진</div>
+                            <input type="file" data-code="0" class="img_upload_file" name="culture">
+                            <img src="http://placehold.it/200x200" class="culture_images" style="width: 200px; height: 200px" >
+                        </div>
+                        <div style="display: inline-block ; width: 32%; height: 250px" class="culture_qr">
+                            <div>QR코드</div>
+                            <input type="file" data-code="1" class="img_upload_file" name="qr">
+                            <img src="http://placehold.it/200x200" class="culture_images" style="width: 200px; height: 200px">
+                        </div>
+                        <div style="display: inline-block; width: 32%; height: 250px" class="culture_ar">
+                            <div>AR</div>
+                            <input type="file" data-code="2" class="img_upload_file" name="ar">
+                            <img src="http://placehold.it/200x200" alt="" class="culture_images" style="width: 200px; height: 200px">
+                        </div>
+                    </div>
+                    <div>
+                        <div>문화재 주소</div>
+                        <input type="type" size="100px" name="culture_address">
                     </div>
                 </div>
             </div>
-            <div id="add-plus-minus">
-                <span uk-icon="icon: plus" id="culture_language_plus"></span>
-                <span uk-icon='icon: minus' id='culture_language_minus'></span>
+            <div class="uk-modal-footer uk-text-right">
+                <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+                <input type="hidden" value="{{ csrf_token() }}" name="_token">
+                <input type="submit" class="uk-button uk-button-primary" value="SAVE">
             </div>
-            <div id="culture_common" style="border-top:1px solid black ; width: 100%;  margin: 10px">
-                <div>
-                    <div style="display: inline-block ; width: 32%; height:250px" class="culture_image" >
-                        <div>문화재 사진</div>
-                        <input type="file" data-name="image" class="img_upload_file">
-                        <img src="http://placehold.it/200x200" class="culture_images" style="width: 200px; height: 200px" >
-                    </div>
-                    <div style="display: inline-block ; width: 32%; height: 250px" class="culture_qr">
-                        <div>QR코드</div>
-                        <input type="file" data-name="qr" class="img_upload_file">
-                        <img src="http://placehold.it/200x200" class="culture_images" style="width: 200px; height: 200px">
-                    </div>
-                    <div style="display: inline-block; width: 32%; height: 250px" class="culture_ar">
-                        <div>AR</div>
-                        <input type="file" data-name="ar" class="img_upload_file">
-                        <img src="http://placehold.it/200x200" alt="" class="culture_images" style="width: 200px; height: 200px">
-                    </div>
-                </div>
-                <div>
-                    <div>문화재 주소</div>
-                    <input type="type" size="100px">
-                </div>
-            </div>
-        </div>
-        <div class="uk-modal-footer uk-text-right">
-            <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
-            <button class="uk-button uk-button-primary" type="button" onclick="submitAction();">Save</button>
-        </div>
+        </form>
     </div>
 </div>
 

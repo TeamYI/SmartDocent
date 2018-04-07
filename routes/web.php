@@ -25,3 +25,9 @@ Route::post('/member_delete','MemberController@member_delete');
 Route::get("/",function(){
     return view("main");
 });
+
+Route::post('upload','UploadController@upload') ;
+Route::get('culturalManage','UploadController@CulturalManageGet')->name('upload.cultureManager');
+
+//controller 추가부문
+Route::resource('culture_register','CultureRegisterController');

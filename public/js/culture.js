@@ -49,11 +49,11 @@ $(document).ready(function(){
     $("#culture_language_plus").click(function(){
 
         var text = "<div class='culture_explanation_language'>"
-                        + "<select>"
+                        + "<select class='language_select'>"
                         + "<option value='korean' selected>한국어</option>"
                         + "<option value='english'>영어</option>"
-                        + "<option value='Chinese'>중국어</option>"
-                        + "<option value='Japanese'>일본어</option>"
+                        + "<option value='chinese'>중국어</option>"
+                        + "<option value='japanese'>일본어</option>"
                         + "</select>"
                         + "<div class='culture_name'>"
                             + "<div>문화재명</div>"
@@ -81,8 +81,15 @@ $(document).ready(function(){
         }
     })
 
+
+    $(".culture_explanation").on('change','.language_select',function(){
+        var language = $(this).val();
+        $(this).next().children("input").attr('name',language+"_name");
+        $(this).next().next().children("textarea").attr('name',language+"_text");
+    });
+    //문화재 등록에서 이미지 파일 선택할 때 실행
     $(".img_upload_file").change(function(){
-        readURL(this, $(this).attr("data-name"));
+        readURL(this, $(this).attr("data-code"));
     })
 
 
@@ -288,26 +295,26 @@ function deleteImageAction(index){
 }
 =======
 }
-
+// 문화재 등록할 때, 이미지 프리뷰
 function readURL(input,position) {
+    var select ;
 
     if (input.files && input.files[0]) {
         var reader = new FileReader();
-
+        $("#culture_common input[type='file']").each(function(){
+            if(position == $(this).attr("data-code")){
+                select = $(this);
+                console.log(select);
+            }
+            console.log(position + "data : " + $(this).attr("data-code"));
+        })
         reader.onload = function(e) {
-            var name = '.culture_' + position ;
-            console.log($(name));
-            $(name).children(".culture_images").attr('src', e.target.result);
+            select.next().attr('src', e.target.result);
         }
-
         reader.readAsDataURL(input.files[0]);
     }
 }
-// 이미지 디비에 올릴때
-function submitAction(){
-    var data = new FormData();
 
-}
 
 
 
