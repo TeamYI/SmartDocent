@@ -42,7 +42,7 @@
 <div id="wrap-header">
     <div id='home_title'>SMART DOCENT</div>
     <ul>
-        <a href="/cultural_manage">문화재 등록</a></li>
+        <a href="/culturalManage">문화재 등록</a></li>
         <a href="/member_get">회원 관리</a></li>
     </ul>
 </div>

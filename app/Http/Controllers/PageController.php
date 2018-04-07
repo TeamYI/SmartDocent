@@ -18,6 +18,7 @@ class PageController extends Controller
 
     public function cultural_manage()
     {
+
         return view('cultural_manage');
     }
 
