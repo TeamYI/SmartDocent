@@ -49,6 +49,7 @@ $(document).ready(function(){
     $("#culture_language_plus").click(function(){
 
         var text = "<div class='culture_explanation_language'>"
+
                         + "<select class='language_select'>"
                         + "<option value='korean' selected>한국어</option>"
                         + "<option value='english'>영어</option>"
@@ -64,6 +65,23 @@ $(document).ready(function(){
                             + "<textarea name='' id='' cols='90' rows='5'></textarea>"
                         +"</div>"
                     +"</div>";
+
+            + "<select>"
+            + "<option value='korean' selected>한국어</option>"
+            + "<option value='english'>영어</option>"
+            + "<option value='Chinese'>중국어</option>"
+            + "<option value='Japanese'>일본어</option>"
+            + "</select>"
+            + "<div class='culture_name'>"
+            + "<div>문화재명</div>"
+            + "<input type='text'>"
+            + "</div>"
+            + "<div class='culture_detail'>"
+            + "<div>문화재 설명</div>"
+            + "<textarea name='' id='' cols='90' rows='5'></textarea>"
+            +"</div>"
+            +"</div>";
+
         $('.culture_explanation').append(text);
 
         if($(".culture_explanation_language").length == 2){
@@ -161,25 +179,86 @@ function mapPositionImage(position,img_src){
         result = result.split(",") ;
         console.log("position2 : " + img_src.substr(0,9));
 
-        // 해설 이미지 등록 할때
+        // ms_해설 이미지 등록 할때
         var ms_img_src = img_src;
         var ms_location=[];
 
         if(ms_img_src.substr(0,13) == "/image/number"){
-            var ms_test = $.map($('ms_point_list'), function (element){ return $(element).text(); }).get();
-            console.log("ms_test", ms_test);
+            //var ms_test = $.map($('ms_point_list'), function (element){ return $(element).text(); }).get();
+            //console.log("ms_test", ms_test);
+            ms_point_count++; //ms_지도 한번찍을때마다 번호+1
+
+            ms_location.push(ms_point_count);
             ms_location.push(result[0]);
             ms_location.push(result[1]);
             ms_location.push(img_src);
             ms_number_list.push(ms_location);
-            ms_point_count++; //ms_지도 한번찍을때마다 번호+1
+
 
             //ms_포인트리스트에 동적으로 html 소스 추가
-            var html = "<li>" + "point : " + ms_point_count + "<BR>" + result[0] + result[1] + "</li>"
+            var html = "<li data-code=list_"+ms_point_count+">" +
+                ms_point_count + "<BR>" +
+                result[0]+"<BR>" + result[1] + "</li>";
+
             $("#ms_point_list").append(html);
+            //console.log((ms_number_list[0]));
+
+            /*
+            //ms_해설포인트 지도에 등록시 db에 추가하기 임시로 막아둔거임
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url : "guide_point_add",
+                type : "POST",
+                data : {
+                    guide_point_code : ms_point_count, //해설코드번호
+                    first_cultural_code : 1, // 문화재 주소
+                    turn : ms_point_count, // 해설순번
+                    latitude:result[0], // 위도
+                    longitude:result[1], //경도
+                    radius:6//반경
+                },
+                success : function (data) {
+                    alert(data);
+                },
+                error : function (){
+                    alert("fail");
+                }
+            })
+            */
+            /*
+            //ms_cultural_model call 해설포인트 등록 마다 db에 값추가
+            $('#ms_php_code').append("<script type = 'text/javascript'> location.href='/guide_point_add'; </script>");
+*/
 
             ms_number(ms_point_count);
+
+            var ms_count = 0;
         }
+
+        //ms_배열의 값과 li 순서를 동일하게 해주는 소스
+        $("#ms_point_list>li").each(function(index){
+            $temp = index+1;
+            //ms_number_list[0][0] = $temp; // 해설 배열의 인덱스번호를 바뀐순서대로 바꿈
+            $point = (($(this).text()).substr(0,1));
+            /*console.log("~~~~point : "+$point);
+            console.log("1 == ms_number_list[$point][0] : "+ms_number_list[$point-1][0]);
+            console.log($temp + ' : ' + $(this).text());
+            console.log("index : "+index);*/
+            ms_number_list[$point-1][0] = $temp; // 배열의 값과 li리스트 순서를 똑같이 해줌
+            console.log("li순서 : "+$temp+" == 배열 순서인 ms_number_list[$point-1][0] : "+ms_number_list[$point-1][0]);
+
+            for(var i =0; i<ms_number_list.length;i++){
+                var marker1 = new google.maps.Marker({
+                    position: {lat: Number(result[0]), lng: Number(result[1])},
+                    map: map,
+                    icon: image
+                });
+            }
+
+
+        });
 
         //일러스트이미지 등록할때
         if(img_src.substr(0,10) == 'data:image'){
@@ -187,7 +266,7 @@ function mapPositionImage(position,img_src){
                 url: img_src,
                 //size: new google.maps.Size(500, 500),
                 //origin: new google.maps.Point(0,0),
-                anchor: new google.maps.Point(250, 250),
+                anchor: new google.maps.Point(0, 0),
             };
         }else { //
             var image = {
@@ -209,10 +288,10 @@ function mapPositionImage(position,img_src){
         //마커 클릭했을 때, infowindow창 나타남
         var infowindow = new google.maps.InfoWindow({
             content: 'Latitude: ' + Number(result[0]) + '<br />Longitude: ' + Number(result[1])
-                   + "<br/><input type = 'button' value = 'Delete' onclick = 'DeleteMarker(" + marker.id + ");' value = 'Delete' />"
+            + "<br/><input type = 'button' value = 'Delete' onclick = 'DeleteMarker(" + marker.id + ");' value = 'Delete' />"
         });
         marker.addListener('click', function() {
-           infowindow.open(map, marker);
+            infowindow.open(map, marker);
         });
         markers.push(marker);
         this.img_src = "";
@@ -283,6 +362,7 @@ function handleImgFileSelect(e){
         reader.readAsDataURL(f) ;
     })
 }
+
 // 일러스트 이미지 삭제
 function deleteImageAction(index){
     console.log("index : " + index) ;
@@ -291,11 +371,10 @@ function deleteImageAction(index){
     var img_id = "#img_"+index ;
     $(img_id).remove();
     console.log(map_illustrations);
-<<<<<<< HEAD
-}
-=======
 }
 // 문화재 등록할 때, 이미지 프리뷰
+
+
 function readURL(input,position) {
     var select ;
 
@@ -318,4 +397,3 @@ function readURL(input,position) {
 
 
 
->>>>>>> origin/master

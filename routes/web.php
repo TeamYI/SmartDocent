@@ -21,6 +21,7 @@ Route::get('/member_get','MemberController@member_get');
 Route::post('/member_serch','MemberController@member_serch');
 Route::post('/page_update','PageController@member_update');
 Route::post('/member_delete','MemberController@member_delete');
+Route::post('/guide_point_add','CulturalController@guide_point_add');
 
 Route::get("/",function(){
     return view("main");

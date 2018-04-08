@@ -582,7 +582,7 @@
             <div id="detail_icon" style="width: 100% ; height: 180px; background: red; font-size: 20px; font-weight: bold;">
                 <span>상세 아이콘</span>
                 <div id="detail_icon_box" style="padding:0 5px ;;width:96.6% ; height: 142px; background: gray">
-                    <img src="/image/information.png" data-code='info.png' class="drag_image" width="50px" height="50px" alt="" style="cursor: pointer">
+                    <img src="/image/information.png" data-code='info.png' class="drag_image" width="50px" height="50px"  alt="" style="cursor: pointer; z-index:9999">
                     <img src="" alt="">
                     <img src="" alt="">
                     <img src="" alt="">
@@ -601,7 +601,9 @@
             </div>
             <div class="uk-placeholder upload_img_wrap" >
                 <!--ms포인트리스트-->
-                <ul id = "ms_point_list"></ul>
+                <ul id = "ms_point_list" ></ul>
+                <span id ="ms_php_code"></span>
+
             </div>
             <div>
                 <input type="submit" value = "수정" onclick="">
@@ -645,6 +647,7 @@
                         </div>
                     </div>
                 </div>
+<<<<<<< HEAD
                 <div id="add-plus-minus">
                     <span uk-icon="icon: plus" id="culture_language_plus"></span>
                     <span uk-icon='icon: minus' id='culture_language_minus'></span>
@@ -666,6 +669,24 @@
                             <input type="file" data-code="2" class="img_upload_file" name="ar">
                             <img src="http://placehold.it/200x200" alt="" class="culture_images" style="width: 200px; height: 200px">
                         </div>
+=======
+            </div>
+            <div id="add-plus-minus">
+                <span uk-icon="icon: plus" id="culture_language_plus"></span>
+                <span uk-icon='icon: minus' id='culture_language_minus'></span>
+            </div>
+            <div id="culture_common" style="border-top:1px solid black ; width: 100%; gin: 10px">
+                <div>
+                    <div style="display: inline-block ; width: 32%; height:250px" class="culture_image" >
+                        <div>문화재 사진</div>
+                        <input type="file" data-name="image" class="img_upload_file">
+                        <img src="http://placehold.it/200x200" class="culture_images" style="width: 200px; height: 200px" >
+                    </div>
+                    <div style="display: inline-block ; width: 32%; height: 250px" class="culture_qr">
+                        <div>QR코드</div>
+                        <input type="file" data-name="qr" class="img_upload_file">
+                        <img src="http://placehold.it/200x200" class="culture_images" style="width: 200px; height: 200px">
+>>>>>>> refs/remotes/origin/20180407-v00_ms
                     </div>
                     <div>
                         <div>문화재 주소</div>
