@@ -647,7 +647,7 @@
                         </div>
                     </div>
                 </div>
-<<<<<<< HEAD
+
                 <div id="add-plus-minus">
                     <span uk-icon="icon: plus" id="culture_language_plus"></span>
                     <span uk-icon='icon: minus' id='culture_language_minus'></span>
@@ -669,7 +669,7 @@
                             <input type="file" data-code="2" class="img_upload_file" name="ar">
                             <img src="http://placehold.it/200x200" alt="" class="culture_images" style="width: 200px; height: 200px">
                         </div>
-=======
+
             </div>
             <div id="add-plus-minus">
                 <span uk-icon="icon: plus" id="culture_language_plus"></span>
@@ -686,7 +686,7 @@
                         <div>QR코드</div>
                         <input type="file" data-name="qr" class="img_upload_file">
                         <img src="http://placehold.it/200x200" class="culture_images" style="width: 200px; height: 200px">
->>>>>>> refs/remotes/origin/20180407-v00_ms
+
                     </div>
                     <div>
                         <div>문화재 주소</div>

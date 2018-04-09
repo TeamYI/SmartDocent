@@ -85,7 +85,6 @@ class UploadController extends Controller
 
     public function CulturalManageGet(){
         $array = $this->Cultural->cultural_list();
-        echo $array;
         return view('cultural_manage',compact('array','array'));
     }
 

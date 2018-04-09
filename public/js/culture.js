@@ -1,11 +1,13 @@
 var map;
 var markers = [] ; // 지도에 마커를 넣기 위한 배열
 var uniqueId = 1; //배열에 마커를 넣기위해 인덱스값
+var ms_markers = [] // 지도에 해설포인트.마커를 넣기 위한 배열
+var ms_uniqueId = 1; //배열에 해설포인트마커를 넣기위해 인덱스값
 var map_illustrations = []; //일러스트 이미지 배열에 넣기
 var img_src = "" ; // 지도에 이미지를 넣을 때 담는 변수
 var map_latLng_event ; // 안내소 이미지를 드래그할때 일어나는 구글맵 이벤트 담는 변수
 var ms_point_count = 0; // ms_지도에 찍히는 번호 담는 변수 선언 (전역)
-var ms_number_list = []; // 번호담는 배열 선언(전역)
+var ms_number_list = []; // 번호담는 배열 선언(전역) [0]은 넣는 순서, [1] : 위도, [2] : 경도 , [3] : 이미지
 
 $(document).ready(function(){
 
@@ -182,11 +184,7 @@ function mapPositionImage(position,img_src){
         // ms_해설 이미지 등록 할때
         var ms_img_src = img_src;
         var ms_location=[];
-
         if(ms_img_src.substr(0,13) == "/image/number"){
-            //var ms_test = $.map($('ms_point_list'), function (element){ return $(element).text(); }).get();
-            //console.log("ms_test", ms_test);
-            ms_point_count++; //ms_지도 한번찍을때마다 번호+1
 
             ms_location.push(ms_point_count);
             ms_location.push(result[0]);
@@ -194,14 +192,13 @@ function mapPositionImage(position,img_src){
             ms_location.push(img_src);
             ms_number_list.push(ms_location);
 
-
+            ms_point_count++; //ms_지도 한번찍을때마다 번호+1
             //ms_포인트리스트에 동적으로 html 소스 추가
             var html = "<li data-code=list_"+ms_point_count+">" +
                 ms_point_count + "<BR>" +
                 result[0]+"<BR>" + result[1] + "</li>";
 
             $("#ms_point_list").append(html);
-            //console.log((ms_number_list[0]));
 
             /*
             //ms_해설포인트 지도에 등록시 db에 추가하기 임시로 막아둔거임
@@ -235,30 +232,34 @@ function mapPositionImage(position,img_src){
             ms_number(ms_point_count);
 
             var ms_count = 0;
+            $temp = [];
+            //ms_배열의 값과 li 순서를 동일하게 해주는 소스
+            $("#ms_point_list>li").each(function(index){
+                $list_count = index;
+                $temp.push(($(this).text()).substr(0,1));
+
+
+            });
+
+            /*지도 위 해설포인트 삭제하는 소스*/
         }
 
-        //ms_배열의 값과 li 순서를 동일하게 해주는 소스
-        $("#ms_point_list>li").each(function(index){
-            $temp = index+1;
-            //ms_number_list[0][0] = $temp; // 해설 배열의 인덱스번호를 바뀐순서대로 바꿈
-            $point = (($(this).text()).substr(0,1));
-            /*console.log("~~~~point : "+$point);
-            console.log("1 == ms_number_list[$point][0] : "+ms_number_list[$point-1][0]);
-            console.log($temp + ' : ' + $(this).text());
-            console.log("index : "+index);*/
-            ms_number_list[$point-1][0] = $temp; // 배열의 값과 li리스트 순서를 똑같이 해줌
-            console.log("li순서 : "+$temp+" == 배열 순서인 ms_number_list[$point-1][0] : "+ms_number_list[$point-1][0]);
+        var temp0 = [];
 
-            for(var i =0; i<ms_number_list.length;i++){
-                var marker1 = new google.maps.Marker({
-                    position: {lat: Number(result[0]), lng: Number(result[1])},
-                    map: map,
-                    icon: image
-                });
-            }
-
-
-        });
+        for(var i=0;i<ms_number_list.length;i++){
+            var temparray = [];
+            temparray.push(ms_number_list[$temp[i]-1][0]);
+            temparray.push(ms_number_list[$temp[i]-1][1]);
+            temparray.push(ms_number_list[$temp[i]-1][2]);
+            //temparray.push(ms_number_list[$temp[i]-1][3]);
+            temp0.push(temparray);
+        }
+        for(var i=0;i<ms_number_list.length;i++){
+            ms_number_list[i][0] = temp0[i][0];
+            ms_number_list[i][1] = temp0[i][1];
+            ms_number_list[i][2] = temp0[i][2];
+            //ms_number_list[i][3] = temp0[i][3];
+        }
 
         //일러스트이미지 등록할때
         if(img_src.substr(0,10) == 'data:image'){
@@ -268,7 +269,18 @@ function mapPositionImage(position,img_src){
                 //origin: new google.maps.Point(0,0),
                 anchor: new google.maps.Point(0, 0),
             };
-        }else { //
+        }
+        //해설 이미지라면
+        else if (img_src.substr(0,13) == "/image/number"){
+            var image = {
+                url: img_src,
+                //size: new google.maps.Size(500, 500),
+                //origin: new google.maps.Point(0,0),
+                //anchor: new google.maps.Point(200, 210),
+                scaledSize: new google.maps.Size(20, 20)
+            };
+        }
+        else { //
             var image = {
                 url: img_src,
                 //size: new google.maps.Size(500, 500),
@@ -277,33 +289,113 @@ function mapPositionImage(position,img_src){
                 scaledSize: new google.maps.Size(25, 25)
             };
         }
-        var marker = new google.maps.Marker({
-            position: {lat: Number(result[0]), lng: Number(result[1])},
-            map: map,
-            icon: image
-        });
-        //Set unique id
-        marker.id = uniqueId;
-        uniqueId++;
-        //마커 클릭했을 때, infowindow창 나타남
-        var infowindow = new google.maps.InfoWindow({
-            content: 'Latitude: ' + Number(result[0]) + '<br />Longitude: ' + Number(result[1])
-            + "<br/><input type = 'button' value = 'Delete' onclick = 'DeleteMarker(" + marker.id + ");' value = 'Delete' />"
-        });
-        marker.addListener('click', function() {
-            infowindow.open(map, marker);
-        });
-        markers.push(marker);
-        this.img_src = "";
-        console.log("img_srceeee3333 : " + this.img_src);
-        google.maps.event.removeListener(map_latLng_event);
+
+        // /image/number == 해설이미지라면 따로 배열에 담음
+        if(img_src.substr(0,13) == "/image/number"){
+            var ms_marker = new google.maps.Marker({
+                position : {lat : Number(result[0]), lng: Number(result[1])},
+                map: map,
+                icon: image
+            });
+            //Set unique id
+            ms_marker.id = ms_uniqueId;
+            ms_uniqueId++;
+
+            //ms_마커 클릭했을 때, infowindow창 나타남
+            var infowindow = new google.maps.InfoWindow({
+                content: 'Latitude: ' + Number(result[0]) + '<br />Longitude: ' + Number(result[1])
+                + "<br/><input type = 'button' value = 'Delete' onclick = 'DeleteMarker(" + ms_marker.id + ");' value = 'Delete' />"
+            });
+            ms_marker.addListener('click', function() {
+                infowindow.open(map, ms_marker);
+            });
+            ms_markers.push(ms_marker);
+            this.img_src = "";
+            google.maps.event.removeListener(map_latLng_event);
+        }
+
+        else {
+            var marker = new google.maps.Marker({
+                position: {lat: Number(result[0]), lng: Number(result[1])},
+                map: map,
+                icon: image
+            });
+
+            //Set unique id
+            marker.id = uniqueId;
+            uniqueId++;
+
+            //마커 클릭했을 때, infowindow창 나타남
+            var infowindow = new google.maps.InfoWindow({
+                content: 'Latitude: ' + Number(result[0]) + '<br />Longitude: ' + Number(result[1])
+                + "<br/><input type = 'button' value = 'Delete' onclick = 'DeleteMarker(" + marker.id + ");' value = 'Delete' />"
+            });
+            marker.addListener('click', function() {
+                infowindow.open(map, marker);
+            });
+            markers.push(marker);
+            this.img_src = "";
+            console.log("img_srceeee3333 : " + this.img_src);
+            google.maps.event.removeListener(map_latLng_event);
+        }
+
+        ms_DeleteMarker();
+        ms_MakeMarker(map);
 
     }
 
 }
+// 배열에 담긴 배열 포인트  그려줌
+function ms_MakeMarker(map){
+    for(var i = 0; i<ms_number_list.length;i++){
+        var image = {
+
+            url: ms_number_list[i][3],
+            scaledSize: new google.maps.Size(20, 20)
+        };
+
+        var ms_marker = new google.maps.Marker({
+            position : {lat : Number(ms_number_list[i][1]), lng: Number(ms_number_list[i][2])},
+            map: map,
+            icon: image
+        });
+        //Set unique id
+        ms_marker.id = i;
+
+        //ms_마커 클릭했을 때, infowindow창 나타남
+        var infowindow = new google.maps.InfoWindow({
+            content: 'Latitude: ' + Number(ms_number_list[i][1]) + '<br />Longitude: ' + Number(ms_number_list[i][2])
+            + "<br/><input type = 'button' value = 'Delete' onclick = 'DeleteMarker(" + ms_marker.id + ");' value = 'Delete' />"
+        });
+        ms_marker.addListener('click', function() {
+            infowindow.open(map, ms_marker);
+        });
+        ms_markers.push(ms_marker);
+        this.img_src = "";
+        google.maps.event.removeListener(map_latLng_event);
+
+    }
+}
+
+// 모든 마커 삭제 함수
+function ms_DeleteMarker(){
+    for(var i = 0; i < ms_markers.length; i++){
+        ms_markers[i].setMap(null);
+    }
+    ms_markers.splice(0,ms_markers.length);
+}
+
 // 마커 삭제 함수
 function DeleteMarker(id) {
     console.log("marker_id : " + id);
+    for(var i = 0; i < ms_markers.length; i++){
+        if(ms_markers[i].id == id){
+            ms_markers[i].setMap(null);
+            ms_markers.splice(i,1);
+        }
+    }
+
+
     //Find and remove the marker from the Array
     for (var i = 0; i < markers.length; i++) {
         if (markers[i].id == id) {
@@ -372,9 +464,8 @@ function deleteImageAction(index){
     $(img_id).remove();
     console.log(map_illustrations);
 }
+
 // 문화재 등록할 때, 이미지 프리뷰
-
-
 function readURL(input,position) {
     var select ;
 
@@ -393,7 +484,6 @@ function readURL(input,position) {
         reader.readAsDataURL(input.files[0]);
     }
 }
-
 
 
 
