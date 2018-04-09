@@ -8,7 +8,7 @@ class Cultural extends Model
 {
     protected $table = 'cultural';
 
-    //문화재 등록
+    //1차 문화재 등록
     public function cultural_register($type, $address, $cultural_name, $qr_name, $ar_name)
     {
         Cultural::insert([
@@ -17,6 +17,12 @@ class Cultural extends Model
             'cultural_image' => $cultural_name,
             'qr' => $qr_name,
             'ar' => $ar_name
+        ]);
+    }
+    //2차 문화재 등록
+    public function cultural_register_two($type){
+        Cultural::insert([
+           'cultural_type' => $type
         ]);
     }
 
@@ -31,13 +37,19 @@ class Cultural extends Model
     {
         return $this->hasMany('\App\Cultural_detail');
     }
-
-
     public function cultural_list()
     {
         return \App\CulturalDetail::join('cultural as a', "a.cultural_code", "=", 'cultural_detail.cultural_code')
             ->where("cultural_detail.language_code", "=", "1")
-            ->select('a.cultural_code', 'a.cultural_address', 'a.cultural_type')
+            ->select('a.cultural_code', 'a.cultural_address', 'a.cultural_type','cultural_detail.cultural_name')
+            ->get();
+    }
+        public function cultural_one_show($cultural_code){
+        return Cultural::join('cultural_detail as a', "a.cultural_code", "=", 'cultural.cultural_code')
+            ->join("language as b","b.language_code","=","a.language_code")
+            ->where("a.cultural_code", "=", $cultural_code)
+            ->whereNull("a.cultural_include")
+            ->select('cultural.cultural_code', 'cultural.cultural_address', 'cultural.cultural_type','cultural.ar','cultural.qr','cultural.cultural_image','a.cultural_name','a.language_code','a.cultural_detail_explain','a.cultural_detail_code','b.language')
             ->get();
     }
 }

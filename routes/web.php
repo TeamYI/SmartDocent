@@ -28,6 +28,7 @@ Route::get("/",function(){
 
 Route::post('upload','UploadController@upload') ;
 Route::get('culturalManage','UploadController@CulturalManageGet')->name('upload.cultureManager');
-
+Route::post('oneTypeCulturalShow', 'UploadController@oneTypeCulturalShow') ;
+Route::post('twoTypeCulturalShow', 'UploadController@twoTypeCulturalShow') ;
 //controller 추가부문
 Route::resource('culture_register','CultureRegisterController');

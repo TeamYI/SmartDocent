@@ -46,7 +46,10 @@ $(document).ready(function(){
         $(this).css("color", "#999");
     });
 
-    $("#culture_language_plus").click(function(){
+    $(".culture_language_plus").click(function(){
+        var minus = $(this).next();
+        console.log(minus);
+        var explanation = $(this).parent().prev();
 
         var text = "<div class='culture_explanation_language'>"
                         + "<select class='language_select'>"
@@ -64,20 +67,20 @@ $(document).ready(function(){
                             + "<textarea name='' id='' cols='90' rows='5'></textarea>"
                         +"</div>"
                     +"</div>";
-        $('.culture_explanation').append(text);
+         explanation.append(text);
 
-        if($(".culture_explanation_language").length == 2){
-            $("#culture_language_minus").css("display","inline-block");
+        if($(this).parent().prev().children().length == 2){
+            minus.css("display","inline-block");
         }
 
     })
 
-    $("#add-plus-minus").on("click","#culture_language_minus",function(){
-
-        $(".culture_explanation_language:last").remove();
-
-        if($(".culture_explanation_language").length == 1 ){
-            $("#culture_language_minus").css("display","none");
+    $(".add-plus-minus").on("click",".culture_language_minus",function(){
+        var explanation = $(this).parent().prev();
+        var minus = $(this).next();
+        explanation.children().last().remove();
+        if($(this).parent().prev().children().length == 1 ){
+            $(this).css("display","none");
         }
     })
 
@@ -91,6 +94,166 @@ $(document).ready(function(){
     $(".img_upload_file").change(function(){
         readURL(this, $(this).attr("data-code"));
     })
+
+    var language =[];
+    var culture_ex =[];
+    //등록된 문화재 보기 위해서
+    $(".detail_button").click(function(){
+        var cultural_code = $(this).attr("data-code");
+        $("#modal-one-show .culture_explanation").empty();
+        alert(cultural_code);
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url : 'oneTypeCulturalShow' ,
+            type : 'POST',
+            data : {
+                cultural_code : cultural_code
+            },
+            dataType: 'json',
+            success : function(data){
+                if(data.length) {
+                    var text = "";
+                    for (var i = 0; i < data.length; i++) {
+                        console.log("dddd");
+                        language[i] = new Array(4);
+                        language[i][0] = data[0].language;
+                        language[i][1] = data[0].cultural_name;
+                        language[i][2] = data[0].cultural_detail_explain;
+                        language[i][3] = data[0].cultural_detail_code;
+
+                        text += "<div class='culture_explanation_language'>"
+                            + "<input type='hidden' name='data-detail-code-" + i + "' value=" + data[i].cultural_detail_code + ">"
+                            + "<div class='culture_language'>"
+                            + "<div>언어명 : </div>"
+                            + "<div data-code=''>" + data[i].language + "</div>"
+                            + "</div>"
+                            + "<div class='culture_name'>"
+                            + "<div>문화재명</div>"
+                            + "<div>" + data[i].cultural_name + "</div>"
+                            + "</div>"
+                            + "<div class='culture_detail'>"
+                            + "<div>문화재 설명</div>"
+                            + "<div>" + data[i].cultural_detail_explain + "</div>"
+                            + "</div>"
+                            + "</div>";
+                    }
+                    $("#modal-one-show .culture_explanation").append(text);
+
+                    $("#modal-one-show .one_cultural_name").text(data[0].cultural_name);
+                    culture_ex[0] = data[0].cultural_name;
+                    if (data[0].cultural_image) {
+                        var upload = 'uploads/' + data[0].cultural_image;
+                        $("#modal-one-show .culture_image > img").attr("src", upload);
+                    } else {
+                        $("#modal-one-show .culture_image > img").attr("src", "image/no-image.png");
+                        culture_ex[1] = data[0].cultural_name;
+                    }
+                    if (data[0].ar) {
+                        var upload = 'uploads/' + data[0].ar;
+                        $("#modal-one-show .culture_ar > img").attr("src", upload);
+                        culture_ex[2] = data[0].ar;
+                    } else {
+                        $("#modal-one-show .culture_ar > img").attr("src", "image/no-image.png");
+                    }
+                    if (data[0].qr) {
+                        var upload = 'uploads/' + data[0].qr;
+                        $("#modal-one-show .culture_qr > img").attr("src", upload);
+                        culture_ex[3] = data[0].qr;
+                    } else {
+                        $("#modal-one-show .culture_qr > img").attr("src", "image/no-image.png");
+                    }
+                    $("#modal-one-show .culture_address > div:nth-child(2)").text(data[0].cultural_address);
+                    culture_ex[4] = data[0].cultural_address;
+                }
+
+            },
+            error : function(){
+                alert("실패");
+            }
+        })
+    });
+
+    //수정 버튼 눌렀을 때
+    // $(".one-cultural-update").click(function(){
+    //     var text = "<div class='culture_explanation_language'>"
+    //                 +"<input type='hidden' name='data-detail-code-"+i+"' value="+data[0].cultural_detail_code+">"
+    //                     +"<select class='language_select'>"
+    //                         +"<option value='korean' selected>한국어</option>"
+    //                         +"<option value='english'>영어</option>"
+    //                         +"<option value='chinese'>중국어</option>"
+    //                         +"<option value='japanese'>일본어</option>"
+    //                     +"</select>"
+    //                 + "<div class='culture_name'>"
+    //                     +"<div>문화재명</div>"
+    //                     +"<div>"+ data[0].cultural_name +"</div>"
+    //                 +"</div>"
+    //                 + "<div class='culture_detail'>"
+    //                     +"<div>문화재 설명</div>"
+    //                     +"<div>"+ data[0].cultural_detail_explain +"</div>"
+    //                 +"</div>"
+    //             + "</div>" ;
+    // });
+
+    //2차 타입 문화재 등록
+    $(".two-type-culture").on("click",function(){
+       var name = $(this).prev().prev().text();
+       name = name + " 문화재 등록";
+       $("#modal-two-register h2").text(name);
+       var culture_code = ($(this).attr("data-code")) ;
+       $(".culture_code").attr("value",culture_code );
+    });
+
+    //2차 타입 문화재 보기
+    $(".two-detail-button").on('click', function(){
+
+        var cultural_code = $(this).attr("data-code");
+        var cultural_include = $(this).attr("data-include");
+        $("#modal-two-show .culture_explanation").empty();
+
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url : 'twoTypeCulturalShow',
+            type : 'POST',
+            data : {
+                cultural_code : cultural_code,
+                cultural_include : cultural_include
+            },
+            success : function(data){
+                if(data.length){
+                    var text = "";
+                    for (var i = 0; i < data.length; i++) {
+                        console.log("dddd");
+
+                        text += "<div class='culture_explanation_language'>"
+                            + "<input type='hidden' name='data-detail-code-" + i + "' value=" + data[i].cultural_detail_code + ">"
+                            + "<div class='culture_language'>"
+                            + "<div>언어명 : </div>"
+                            + "<div data-code=''>" + data[i].language + "</div>"
+                            + "</div>"
+                            + "<div class='culture_name'>"
+                            + "<div>문화재명</div>"
+                            + "<div>" + data[i].cultural_name + "</div>"
+                            + "</div>"
+                            + "<div class='culture_detail'>"
+                            + "<div>문화재 설명</div>"
+                            + "<div>" + data[i].cultural_detail_explain + "</div>"
+                            + "</div>"
+                            + "</div>";
+                    }
+                    $("#modal-two-show .culture_explanation").append(text);
+
+                    $("#modal-one-show .two_cultural_name").text(data[0].cultural_name);
+                }
+            },
+            error : function(){
+                alert("실패");
+            }
+        })
+    });
 
 
     //지도에 문화재 이미지 입힐 때
@@ -291,9 +454,7 @@ function deleteImageAction(index){
     var img_id = "#img_"+index ;
     $(img_id).remove();
     console.log(map_illustrations);
-<<<<<<< HEAD
-}
-=======
+
 }
 // 문화재 등록할 때, 이미지 프리뷰
 function readURL(input,position) {
@@ -315,7 +476,16 @@ function readURL(input,position) {
     }
 }
 
+var geocoder ;
 
+function geocoding(address){
+    var geocoder = new google.maps.Geocoder();
+    geocoder.geocode( { 'address': address}, function(results, status) {
+        if (status == 'OK') {
+            map.setCenter(results[0].geometry.location);
+        } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+        }
+    });
+}
 
-
->>>>>>> origin/master

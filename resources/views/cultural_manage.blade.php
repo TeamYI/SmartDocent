@@ -129,6 +129,15 @@
             width: 88%;
             padding: 0px 15px;
         }
+        .accordion_title_cultural{
+            float:left ;
+            width: 40%;
+            margin-right: 5px;
+        }
+        .detail_button {
+            float: left;
+            margin-right:5px ;
+        }
         .accordion_content_cultural{
             margin: 5px 0;
             padding : 0px 5px;
@@ -248,12 +257,33 @@
             margin: 0;
             padding: 0;
         }
-        #culture_language_plus {
+        .culture_name div:first-child {
+            font-weight: bold;
+        }
+        .culture_detail> div:first-child{
+             font-weight: bold;
+        }
+        .culture_language> div:first-child{
+            font-weight: bold;
+        }
+        .culture_language> div:nth-child(1){
+            font-weight: bold;
+        }
+        .culture_language{
+            position: absolute;
+            right :50px;
+            top : 20px
+        }
+
+        .culture_language_plus {
             border: 1px solid black;
         }
-        #culture_language_minus {
+        .culture_language_minus {
             border: 1px solid black;
             display: none;
+        }
+        .culture_two_name > li {
+            float: left;
         }
 
     </style>
@@ -273,44 +303,29 @@
             <button id="cultural_register" class="map_upload_button" onmouseover="nav_content_button(this)" href="#modal-sections" uk-toggle>문화재 등록</button>
             <div>
                 <ul uk-accordion>
-                    @foreach($array as $value){
-                        {{$value -> cultural_code}}
-                    }
-                    @endforeach
                     <ll>
                         <a href="#" class="uk-accordion-title accordion_title_province">서울특별시</a>
                         <div class="uk-accordion-content accordion_content_province">
                             <ul uk-accordion>
+                                @foreach($type_one as $one)
+                                    @if(strpos($one->cultural_address ,"서울특별시")!== false)
                                 <ll>
-                                    <a href="#" class="uk-accordion-title accordion_title_cultural">경기도</a>
+                                    <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}')" >{{$one->cultural_name}}</a>
+                                    <button class="detail_button" data-code="{{$one->cultural_code}}" href="#modal-one-show" uk-toggle>보기</button>
+                                    <button class="two-type-culture" data-code="{{$one->cultural_code}}" href="#modal-two-register" uk-toggle>문화재+</button>
                                     <div class="uk-accordion-content accordion_content_cultural ">
-                                        <li>dddddddd</li>
-                                        <li>dddddddd</li>
-                                        <li>dddddddd</li>
-                                        <li>dddddddd</li>
-
+                                        @foreach($type_two as $two)
+                                            @if($one -> cultural_code == $two->cultural_include)
+                                                <div class="culture_two_name">
+                                                    <li>{{$two->cultural_name}}</li>
+                                                    <button class="two-detail-button" data-code="{{$two->cultural_code}}" data-include="{{$two->cultural_include}}" href="#modal-two-show" uk-toggle>보기</button>
+                                                </div>
+                                            @endif
+                                        @endforeach
                                     </div>
                                 </ll>
-                                <ll>
-                                    <a href="#" class="uk-accordion-title accordion_title_cultural">경기도</a>
-                                    <div class="uk-accordion-content accordion_content_cultural ">
-                                        <li>dddddddd</li>
-                                        <li>dddddddd</li>
-                                        <li>dddddddd</li>
-                                        <li>dddddddd</li>
-
-                                    </div>
-                                </ll>
-                                <ll>
-                                    <a href="#" class="uk-accordion-title accordion_title_cultural">경기도</a>
-                                    <div class="uk-accordion-content accordion_content_cultural ">
-                                        <li>dddddddd</li>
-                                        <li>dddddddd</li>
-                                        <li>dddddddd</li>
-                                        <li>dddddddd</li>
-
-                                    </div>
-                                </ll>
+                                    @endif
+                                @endforeach
                             </ul>
                         </div>
                     </ll>
@@ -318,216 +333,264 @@
                         <a href="#" class="uk-accordion-title accordion_title_province">경기도</a>
                         <div class="uk-accordion-content accordion_content_province">
                             <ul uk-accordion>
-                                <ll>
-                                    <a href="#" class="uk-accordion-title accordion_title_cultural">경기도</a>
-                                    <div class="uk-accordion-content accordion_content_cultural ">
-                                        <li>dddddddd</li>
-                                        <li>dddddddd</li>
-                                        <li>dddddddd</li>
-                                        <li>dddddddd</li>
+                                @foreach($type_one as $one)
+                                    @if(strpos($one->cultural_address ,"경기도")!== false)
+                                        <ll>
+                                            <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}')" >{{$one->cultural_name}}</a>
+                                            <button>상세보기</button>
+                                            <div class="uk-accordion-content accordion_content_cultural ">
+                                                <li>dddddddd</li>
+                                                <li>dddddddd</li>
+                                                <li>dddddddd</li>
+                                                <li>dddddddd</li>
 
-                                    </div>
-                                </ll>
+                                            </div>
+                                        </ll>
+                                    @endif
+                                @endforeach
                             </ul>
-
                         </div>
                     </ll>
                     <ll>
                         <a href="#" class="uk-accordion-title accordion_title_province">강원도</a>
                         <div class="uk-accordion-content accordion_content_province">
                             <ul uk-accordion>
-                                <ll>
-                                    <a href="#" class="uk-accordion-title accordion_title_cultural">경기도</a>
-                                    <div class="uk-accordion-content accordion_content_cultural ">
-                                        <li>dddddddd</li>
-                                        <li>dddddddd</li>
-                                        <li>dddddddd</li>
-                                        <li>dddddddd</li>
+                                @foreach($type_one as $one)
+                                    @if(strpos($one->cultural_address ,"강원도")!== false)
+                                        <ll>
+                                            <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}')" >{{$one->cultural_name}}</a>
+                                            <button>상세보기</button>
+                                            <div class="uk-accordion-content accordion_content_cultural ">
+                                                <li>dddddddd</li>
+                                                <li>dddddddd</li>
+                                                <li>dddddddd</li>
+                                                <li>dddddddd</li>
 
-                                    </div>
-                                </ll>
+                                            </div>
+                                        </ll>
+                                    @endif
+                                @endforeach
                             </ul>
-
                         </div>
                     </ll>
                     <ll>
                         <a href="#" class="uk-accordion-title accordion_title_province">충청북도</a>
                         <div class="uk-accordion-content accordion_content_province">
                             <ul uk-accordion>
-                                <ll>
-                                    <a href="#" class="uk-accordion-title accordion_title_cultural">경기도</a>
-                                    <div class="uk-accordion-content accordion_content_cultural ">
-                                        <li>dddddddd</li>
-                                        <li>dddddddd</li>
-                                        <li>dddddddd</li>
-                                        <li>dddddddd</li>
+                                @foreach($type_one as $one)
+                                    @if(strpos($one->cultural_address ,"충청북도")!== false)
+                                        <ll>
+                                            <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}')" >{{$one->cultural_name}}</a>
+                                            <button>상세보기</button>
+                                            <div class="uk-accordion-content accordion_content_cultural ">
+                                                <li>dddddddd</li>
+                                                <li>dddddddd</li>
+                                                <li>dddddddd</li>
+                                                <li>dddddddd</li>
 
-                                    </div>
-                                </ll>
+                                            </div>
+                                        </ll>
+                                    @endif
+                                @endforeach
                             </ul>
-
                         </div>
                     </ll>
                     <ll>
                         <a href="#" class="uk-accordion-title accordion_title_province">충청남도</a>
                         <div class="uk-accordion-content accordion_content_province">
                             <ul uk-accordion>
-                                <ll>
-                                    <a href="#" class="uk-accordion-title accordion_title_cultural">경기도</a>
-                                    <div class="uk-accordion-content accordion_content_cultural ">
-                                        <li>dddddddd</li>
-                                        <li>dddddddd</li>
-                                        <li>dddddddd</li>
-                                        <li>dddddddd</li>
+                                @foreach($type_one as $one)
+                                    @if(strpos($one->cultural_address ,"충청남도")!== false)
+                                        <ll>
+                                            <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}')" >{{$one->cultural_name}}</a>
+                                            <button>상세보기</button>
+                                            <div class="uk-accordion-content accordion_content_cultural ">
+                                                <li>dddddddd</li>
+                                                <li>dddddddd</li>
+                                                <li>dddddddd</li>
+                                                <li>dddddddd</li>
 
-                                    </div>
-                                </ll>
+                                            </div>
+                                        </ll>
+                                    @endif
+                                @endforeach
                             </ul>
-
                         </div>
                     </ll>
                     <ll>
                         <a href="#" class="uk-accordion-title accordion_title_province">인천광역시</a>
                         <div class="uk-accordion-content accordion_content_province">
                             <ul uk-accordion>
-                                <ll>
-                                    <a href="#" class="uk-accordion-title accordion_title_cultural">경기도</a>
-                                    <div class="uk-accordion-content accordion_content_cultural ">
-                                        <li>dddddddd</li>
-                                        <li>dddddddd</li>
-                                        <li>dddddddd</li>
-                                        <li>dddddddd</li>
+                                @foreach($type_one as $one)
+                                    @if(strpos($one->cultural_address ,"인천광역시")!== false)
+                                        <ll>
+                                            <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}')" >{{$one->cultural_name}}</a>
+                                            <button>상세보기</button>
+                                            <div class="uk-accordion-content accordion_content_cultural ">
+                                                <li>dddddddd</li>
+                                                <li>dddddddd</li>
+                                                <li>dddddddd</li>
+                                                <li>dddddddd</li>
 
-                                    </div>
-                                </ll>
+                                            </div>
+                                        </ll>
+                                    @endif
+                                @endforeach
                             </ul>
-
                         </div>
                     </ll>
                     <ll>
                         <a href="#" class="uk-accordion-title accordion_title_province">대구광역시</a>
                         <div class="uk-accordion-content accordion_content_province">
                             <ul uk-accordion>
-                                <ll>
-                                    <a href="#" class="uk-accordion-title accordion_title_cultural">경기도</a>
-                                    <div class="uk-accordion-content accordion_content_cultural ">
-                                        <li>dddddddd</li>
-                                        <li>dddddddd</li>
-                                        <li>dddddddd</li>
-                                        <li>dddddddd</li>
+                                @foreach($type_one as $one)
+                                    @if(strpos($one->cultural_address ,"대구광역시")!== false)
+                                        <ll>
+                                            <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}')" >{{$one->cultural_name}}</a>
+                                            <button>상세보기</button>
+                                            <div class="uk-accordion-content accordion_content_cultural ">
+                                                <li>dddddddd</li>
+                                                <li>dddddddd</li>
+                                                <li>dddddddd</li>
+                                                <li>dddddddd</li>
 
-                                    </div>
-                                </ll>
+                                            </div>
+                                        </ll>
+                                    @endif
+                                @endforeach
                             </ul>
-
                         </div>
                     </ll>
                     <ll>
                         <a href="#" class="uk-accordion-title accordion_title_province">경상북도</a>
                         <div class="uk-accordion-content accordion_content_province">
                             <ul uk-accordion>
-                                <ll>
-                                    <a href="#" class="uk-accordion-title accordion_title_cultural">경기도</a>
-                                    <div class="uk-accordion-content accordion_content_cultural ">
-                                        <li>dddddddd</li>
-                                        <li>dddddddd</li>
-                                        <li>dddddddd</li>
-                                        <li>dddddddd</li>
+                                @foreach($type_one as $one)
+                                    @if(strpos($one->cultural_address ,"경상북도")!== false)
+                                        <ll>
+                                            <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}')" >{{$one->cultural_name}}</a>
+                                            <button>상세보기</button>
+                                            <div class="uk-accordion-content accordion_content_cultural ">
+                                                <li>dddddddd</li>
+                                                <li>dddddddd</li>
+                                                <li>dddddddd</li>
+                                                <li>dddddddd</li>
 
-                                    </div>
-                                </ll>
+                                            </div>
+                                        </ll>
+                                    @endif
+                                @endforeach
                             </ul>
-
                         </div>
                     </ll>
                     <ll>
                         <a href="#" class="uk-accordion-title accordion_title_province">경상남도</a>
                         <div class="uk-accordion-content accordion_content_province">
                             <ul uk-accordion>
-                                <ll>
-                                    <a href="#" class="uk-accordion-title accordion_title_cultural">경기도</a>
-                                    <div class="uk-accordion-content accordion_content_cultural ">
-                                        <li>dddddddd</li>
-                                        <li>dddddddd</li>
-                                        <li>dddddddd</li>
-                                        <li>dddddddd</li>
+                                @foreach($type_one as $one)
+                                    @if(strpos($one->cultural_address ,"경상도")!== false)
+                                        <ll>
+                                            <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}')" >{{$one->cultural_name}}</a>
+                                            <button>상세보기</button>
+                                            <div class="uk-accordion-content accordion_content_cultural ">
+                                                <li>dddddddd</li>
+                                                <li>dddddddd</li>
+                                                <li>dddddddd</li>
+                                                <li>dddddddd</li>
 
-                                    </div>
-                                </ll>
+                                            </div>
+                                        </ll>
+                                    @endif
+                                @endforeach
                             </ul>
-
                         </div>
                     </ll>
                     <ll>
                         <a href="#" class="uk-accordion-title accordion_title_province">전라남도</a>
                         <div class="uk-accordion-content accordion_content_province">
                             <ul uk-accordion>
-                                <ll>
-                                    <a href="#" class="uk-accordion-title accordion_title_cultural">경기도</a>
-                                    <div class="uk-accordion-content accordion_content_cultural ">
-                                        <li>dddddddd</li>
-                                        <li>dddddddd</li>
-                                        <li>dddddddd</li>
-                                        <li>dddddddd</li>
+                                @foreach($type_one as $one)
+                                    @if(strpos($one->cultural_address ,"전라남도")!== false)
+                                        <ll>
+                                            <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}')" >{{$one->cultural_name}}</a>
+                                            <button>상세보기</button>
+                                            <div class="uk-accordion-content accordion_content_cultural ">
+                                                <li>dddddddd</li>
+                                                <li>dddddddd</li>
+                                                <li>dddddddd</li>
+                                                <li>dddddddd</li>
 
-                                    </div>
-                                </ll>
+                                            </div>
+                                        </ll>
+                                    @endif
+                                @endforeach
                             </ul>
-
                         </div>
                     </ll>
                     <ll>
                         <a href="#" class="uk-accordion-title accordion_title_province">전라북도</a>
                         <div class="uk-accordion-content accordion_content_province">
                             <ul uk-accordion>
-                                <ll>
-                                    <a href="#" class="uk-accordion-title accordion_title_cultural">경기도</a>
-                                    <div class="uk-accordion-content accordion_content_cultural ">
-                                        <li>dddddddd</li>
-                                        <li>dddddddd</li>
-                                        <li>dddddddd</li>
-                                        <li>dddddddd</li>
+                                @foreach($type_one as $one)
+                                    @if(strpos($one->cultural_address ,"전라북도")!== false)
+                                        <ll>
+                                            <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}')" >{{$one->cultural_name}}</a>
+                                            <button>상세보기</button>
+                                            <div class="uk-accordion-content accordion_content_cultural ">
+                                                <li>dddddddd</li>
+                                                <li>dddddddd</li>
+                                                <li>dddddddd</li>
+                                                <li>dddddddd</li>
 
-                                    </div>
-                                </ll>
+                                            </div>
+                                        </ll>
+                                    @endif
+                                @endforeach
                             </ul>
-
                         </div>
                     </ll>
                     <ll>
                         <a href="#" class="uk-accordion-title accordion_title_province">울산광역시</a>
                         <div class="uk-accordion-content accordion_content_province">
                             <ul uk-accordion>
-                                <ll>
-                                    <a href="#" class="uk-accordion-title accordion_title_cultural">경기도</a>
-                                    <div class="uk-accordion-content accordion_content_cultural ">
-                                        <li>dddddddd</li>
-                                        <li>dddddddd</li>
-                                        <li>dddddddd</li>
-                                        <li>dddddddd</li>
+                                @foreach($type_one as $one)
+                                    @if(strpos($one->cultural_address ,"울산광역시")!== false)
+                                        <ll>
+                                            <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}')" >{{$one->cultural_name}}</a>
+                                            <button>상세보기</button>
+                                            <div class="uk-accordion-content accordion_content_cultural ">
+                                                <li>dddddddd</li>
+                                                <li>dddddddd</li>
+                                                <li>dddddddd</li>
+                                                <li>dddddddd</li>
 
-                                    </div>
-                                </ll>
+                                            </div>
+                                        </ll>
+                                    @endif
+                                @endforeach
                             </ul>
-
                         </div>
                     </ll>
                     <ll>
                         <a href="#" class="uk-accordion-title accordion_title_province">부산광역시</a>
                         <div class="uk-accordion-content accordion_content_province">
                             <ul uk-accordion>
-                                <ll>
-                                    <a href="#" class="uk-accordion-title accordion_title_cultural">경기도</a>
-                                    <div class="uk-accordion-content accordion_content_cultural ">
-                                        <li>dddddddd</li>
-                                        <li>dddddddd</li>
-                                        <li>dddddddd</li>
-                                        <li>dddddddd</li>
+                                @foreach($type_one as $one)
+                                    @if(strpos($one->cultural_address ,"부산광역시")!== false)
+                                        <ll>
+                                            <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}')" >{{$one->cultural_name}}</a>
+                                            <button>상세보기</button>
+                                            <div class="uk-accordion-content accordion_content_cultural ">
+                                                <li>dddddddd</li>
+                                                <li>dddddddd</li>
+                                                <li>dddddddd</li>
+                                                <li>dddddddd</li>
 
-                                    </div>
-                                </ll>
+                                            </div>
+                                        </ll>
+                                    @endif
+                                @endforeach
                             </ul>
-
                         </div>
                     </ll>
                     <ll>
@@ -552,21 +615,24 @@
                         <a href="#" class="uk-accordion-title accordion_title_province">제주도</a>
                         <div class="uk-accordion-content accordion_content_province">
                             <ul uk-accordion>
-                                <ll>
-                                    <a href="#" class="uk-accordion-title accordion_title_cultural">경기도</a>
-                                    <div class="uk-accordion-content accordion_content_cultural ">
-                                        <li>dddddddd</li>
-                                        <li>dddddddd</li>
-                                        <li>dddddddd</li>
-                                        <li>dddddddd</li>
+                                @foreach($type_one as $one)
+                                    @if(strpos($one->cultural_address ,"제주도")!== false)
+                                        <ll>
+                                            <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}')" >{{$one->cultural_name}}</a>
+                                            <button>상세보기</button>
+                                            <div class="uk-accordion-content accordion_content_cultural ">
+                                                <li>dddddddd</li>
+                                                <li>dddddddd</li>
+                                                <li>dddddddd</li>
+                                                <li>dddddddd</li>
 
-                                    </div>
-                                </ll>
+                                            </div>
+                                        </ll>
+                                    @endif
+                                @endforeach
                             </ul>
-
                         </div>
                     </ll>
-
                 </ul>
             </div>
         </div>
@@ -616,7 +682,6 @@
 {{--지도 띄우는 스크립트문
     1. draggable :false : 지도 확대 막는 부분
 --}}
-
 {{--문화재 등록 모달 창--}}
 <div id="modal-sections"  uk-modal>
     <div class="uk-modal-dialog culture_register">
@@ -645,9 +710,9 @@
                         </div>
                     </div>
                 </div>
-                <div id="add-plus-minus">
-                    <span uk-icon="icon: plus" id="culture_language_plus"></span>
-                    <span uk-icon='icon: minus' id='culture_language_minus'></span>
+                <div class="add-plus-minus">
+                    <span uk-icon="icon: plus" class="culture_language_plus"></span>
+                    <span uk-icon='icon: minus' class='culture_language_minus'></span>
                 </div>
                 <div id="culture_common" style="border-top:1px solid black ; width: 100%;  margin: 10px">
                     <div>
@@ -681,6 +746,104 @@
         </form>
     </div>
 </div>
-
+{{--type : 1 문화재 show 모달 창--}}
+<div id="modal-one-show"  uk-modal>
+    <div class="uk-modal-dialog culture_register">
+        <button class="uk-modal-close-default" type="button" uk-close></button>
+        <div class="uk-modal-header">
+            <h2 class="uk-modal-title one_cultural_name"></h2>
+        </div>
+            <div class="uk-modal-body">
+                <input type="hidden" value="1" name="culture_type">
+                <div class="culture_explanation">
+                </div>
+                <div id="culture_common" style="border-top:1px solid black ; width: 100%;  margin: 10px">
+                    <div>
+                        <div style="display: inline-block ; width: 32%; height:250px" class="culture_image" >
+                            <div>문화재 사진</div>
+                            <img src="" class="culture_images" style="width: 200px; height: 200px" >
+                        </div>
+                        <div style="display: inline-block ; width: 32%; height: 250px" class="culture_qr">
+                            <div>QR코드</div>
+                            <img src="" class="culture_images" style="width: 200px; height: 200px">
+                        </div>
+                        <div style="display: inline-block; width: 32%; height: 250px" class="culture_ar">
+                            <div>AR</div>
+                            <img src="" alt="" class="culture_images" style="width: 200px; height: 200px">
+                        </div>
+                    </div>
+                    <div class="culture_address">
+                        <div>문화재 주소</div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+            <div class="uk-modal-footer uk-text-right">
+                <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+                <input type="hidden" value="{{ csrf_token() }}" name="_token">
+                <button class="uk-button uk-button-primary one-cultural-update">UPDATE</button>
+            </div>
+    </div>
+</div>
+{{--type : 2 문화재 show 모달 창--}}
+<div id="modal-two-show"  uk-modal>
+    <div class="uk-modal-dialog culture_register">
+        <button class="uk-modal-close-default" type="button" uk-close></button>
+        <div class="uk-modal-header">
+            <h2 class="uk-modal-title two_cultural_name"></h2>
+        </div>
+        <div class="uk-modal-body">
+            <div class="culture_explanation">
+            </div>
+        </div>
+        <div class="uk-modal-footer uk-text-right">
+            <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+            <input type="hidden" value="{{ csrf_token() }}" name="_token">
+            <button class="uk-button uk-button-primary one-cultural-update">UPDATE</button>
+        </div>
+    </div>
+</div>
+{{--type : 2 문화재 등록 모달 창--}}
+<div id="modal-two-register"  uk-modal>
+    <div class="uk-modal-dialog culture_register">
+        <button class="uk-modal-close-default" type="button" uk-close></button>
+        <div class="uk-modal-header">
+            <h2 class="uk-modal-title">불국사 문화재 등록</h2>
+        </div>
+        <form action="{{URL::to('upload') }}" method="post" enctype="multipart/form-data">
+            <div class="uk-modal-body">
+                <input type="hidden" value="2" name="culture_type">
+                <input type="hidden" value="" name="culture_code" class="culture_code">
+                <div class="culture_explanation">
+                    <div class="culture_explanation_language" >
+                        <select class="language_select">
+                            <option value="korean" selected>한국어</option>
+                            <option value="english">영어</option>
+                            <option value="chinese">중국어</option>
+                            <option value="japanese">일본어</option>
+                        </select>
+                        <div class="culture_name">
+                            <div>문화재명</div>
+                            <input type="text" name="korean_name">
+                        </div>
+                        <div class="culture_detail">
+                            <div>문화재 설명</div>
+                            <textarea name="korean_text" id="" cols="90" rows="5"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="add-plus-minus">
+                    <span uk-icon="icon: plus" class="culture_language_plus"></span>
+                    <span uk-icon='icon: minus' class='culture_language_minus'></span>
+                </div>
+            </div>
+            <div class="uk-modal-footer uk-text-right">
+                <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+                <input type="hidden" value="{{ csrf_token() }}" name="_token">
+                <input type="submit" class="uk-button uk-button-primary" value="SAVE">
+            </div>
+        </form>
+    </div>
+</div>
 </body>
 </html>
