@@ -8,6 +8,7 @@ var img_src = "" ; // 지도에 이미지를 넣을 때 담는 변수
 var map_latLng_event ; // 안내소 이미지를 드래그할때 일어나는 구글맵 이벤트 담는 변수
 var ms_point_count = 0; // ms_지도에 찍히는 번호 담는 변수 선언 (전역)
 var ms_number_list = []; // 번호담는 배열 선언(전역) [0]은 넣는 순서, [1] : 위도, [2] : 경도 , [3] : 이미지
+var cultural_code ;
 
 $(document).ready(function(){
 
@@ -121,7 +122,7 @@ $(document).ready(function(){
                     var text = "";
                     for (var i = 0; i < data.length; i++) {
                         console.log("dddd");
-                        language[i] = new Array(4);
+                        language[i] = new Array(3);
                         language[i][0] = data[0].language;
                         language[i][1] = data[0].cultural_name;
                         language[i][2] = data[0].cultural_detail_explain;
@@ -154,22 +155,8 @@ $(document).ready(function(){
                         $("#modal-one-show .culture_image > img").attr("src", "image/no-image.png");
                         culture_ex[1] = data[0].cultural_name;
                     }
-                    if (data[0].ar) {
-                        var upload = 'uploads/' + data[0].ar;
-                        $("#modal-one-show .culture_ar > img").attr("src", upload);
-                        culture_ex[2] = data[0].ar;
-                    } else {
-                        $("#modal-one-show .culture_ar > img").attr("src", "image/no-image.png");
-                    }
-                    if (data[0].qr) {
-                        var upload = 'uploads/' + data[0].qr;
-                        $("#modal-one-show .culture_qr > img").attr("src", upload);
-                        culture_ex[3] = data[0].qr;
-                    } else {
-                        $("#modal-one-show .culture_qr > img").attr("src", "image/no-image.png");
-                    }
                     $("#modal-one-show .culture_address > div:nth-child(2)").text(data[0].cultural_address);
-                    culture_ex[4] = data[0].cultural_address;
+                    culture_ex[2] = data[0].cultural_address;
                 }
 
             },
@@ -249,8 +236,7 @@ $(document).ready(function(){
                             + "</div>";
                     }
                     $("#modal-two-show .culture_explanation").append(text);
-
-                    $("#modal-one-show .two_cultural_name").text(data[0].cultural_name);
+                    $(".two_cultural_name").text(data[0].cultural_name);
                 }
             },
             error : function(){
@@ -300,6 +286,8 @@ $(document).ready(function(){
 
         }
     })
+
+
 
     //일러스트 이미지 - 파일업로드 클릭했을때
     $("#input_img").on("change",handleImgFileSelect);
@@ -460,7 +448,6 @@ function mapPositionImage(position,img_src){
             this.img_src = "";
             google.maps.event.removeListener(map_latLng_event);
         }
-
         else {
             var marker = new google.maps.Marker({
                 position: {lat: Number(result[0]), lng: Number(result[1])},
@@ -473,10 +460,21 @@ function mapPositionImage(position,img_src){
             uniqueId++;
 
             //마커 클릭했을 때, infowindow창 나타남
-            var infowindow = new google.maps.InfoWindow({
-                content: 'Latitude: ' + Number(result[0]) + '<br />Longitude: ' + Number(result[1])
-                + "<br/><input type = 'button' value = 'Delete' onclick = 'DeleteMarker(" + marker.id + ");' value = 'Delete' />"
-            });
+            if(img_src.substr(7,2) == "qr") {
+                var infowindow = new google.maps.InfoWindow({
+                    content: 'Latitude: ' + Number(result[0]) + '<br />Longitude: ' + Number(result[1])
+                    + "<br/><button onclick='QRCreate($(this));' style='position:absolute; top: 0; left:0'>qr코드 생성</button>"
+                    + "<button onclick = 'DeleteMarker(" + marker.id + ");'  style='position:absolute; top: 0; left:100px'>Delete</button>"
+                    + "<img src=''>"
+
+                });
+            }else{
+                var infowindow = new google.maps.InfoWindow({
+                    content: 'Latitude: ' + Number(result[0]) + '<br />Longitude: ' + Number(result[1])
+                    + "<br/>"
+                    + "<button onclick = 'DeleteMarker(" + marker.id + ");'  style='position:absolute; top: 0;'>Delete</button>"
+                });
+            }
             marker.addListener('click', function() {
                 infowindow.open(map, marker);
             });
@@ -633,9 +631,12 @@ function readURL(input,position) {
     }
 }
 
+// 주소를 좌표에 찍기
 var geocoder ;
 
-function geocoding(address){
+function geocoding(address, cultural_code){
+    this.cultural_code  = cultural_code ;
+
     var geocoder = new google.maps.Geocoder();
     geocoder.geocode( { 'address': address}, function(results, status) {
         if (status == 'OK') {
@@ -644,5 +645,12 @@ function geocoding(address){
             alert('Geocode was not successful for the following reason: ' + status);
         }
     });
+}
+
+function QRCreate(a){
+    var code = encodeURIComponent(this.cultural_code);
+    googleQRUrl = "https://chart.googleapis.com/chart?chs=177x177&cht=qr&chl=";
+    a.next().next().attr("src",googleQRUrl+"code:"+code);
+
 }
 
