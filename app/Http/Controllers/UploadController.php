@@ -42,24 +42,8 @@ class UploadController extends Controller
                 $file->move('uploads', $cultural_name);
                 echo "<img src='/uploads/".$cultural_name."'/>" ;
             }
-            if(Input::hasFile('qr')){
-                echo 'upload' ;
-                $file = Input::file("qr");
-                $extension = $file->getClientOriginalExtension();
-                $qr_name = uniqid().'_'.time().".".$extension ;
-                $file->move('uploads',$qr_name);
-                echo "<img src='/uploads/".$qr_name."'/>" ;
-            }
-            if(Input::hasFile('ar')){
-                echo 'upload' ;
-                $file = Input::file("ar");
-                $extension = $file->getClientOriginalExtension();
-                $ar_name = uniqid().'_'.time().".".$extension ;
-                $file->move('uploads',$ar_name);
-                echo "<img src='/uploads/".$ar_name."'/>" ;
-            }
             // 문화재 등록하는 곳
-            $this->Cultural->cultural_register($type,$address,$cultural_name,$qr_name,$ar_name);
+            $this->Cultural->cultural_register($type,$address,$cultural_name);
 
             //문화재 id 불러오기
             $code = $this->Cultural->cultural_max();

@@ -16,7 +16,7 @@
 //아이디, 비밀번호 검사
 Route::post('/login', 'ModelController@login');
 Route::get('/member_manage','PageController@member_manage');
-Route::get('/cultural_manage','PageController@cultural_manage');
+//Route::get('/cultural_manage','PageController@cultural_manage');
 Route::get('/member_get','MemberController@member_get');
 Route::post('/member_serch','MemberController@member_serch');
 Route::post('/page_update','PageController@member_update');

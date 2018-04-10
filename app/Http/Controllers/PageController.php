@@ -29,9 +29,9 @@ class PageController extends Controller
         return view('member_update1',compact('u_user'));
     }
 
-/*    public function main()
+    public function main()
     {
-        echo "안녕하세요"
+        echo "안녕하세요" ;
         return view('/main');
-    }*/
+    }
 }

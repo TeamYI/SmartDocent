@@ -9,14 +9,12 @@ class Cultural extends Model
     protected $table = 'cultural';
 
     //1차 문화재 등록
-    public function cultural_register($type, $address, $cultural_name, $qr_name, $ar_name)
+    public function cultural_register($type, $address, $cultural_name)
     {
         Cultural::insert([
             'cultural_type' => $type,
             'cultural_address' => $address,
-            'cultural_image' => $cultural_name,
-            'qr' => $qr_name,
-            'ar' => $ar_name
+            'cultural_image' => $cultural_name
         ]);
     }
     //2차 문화재 등록
