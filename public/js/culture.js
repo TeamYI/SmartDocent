@@ -19,7 +19,7 @@ $(document).ready(function(){
 
     //위도, 경도 값 불러오기
     google.maps.event.addListener(map, 'click', function(mouseEvent){
-        console.log("mouser  L : "  + mouseEvent.latLng);
+        console.log("mouser  LL : "  + mouseEvent.latLng);
     })
 
     // nav content 내용 바꾸기
@@ -319,19 +319,18 @@ function ms_number(count){
 function mapPositionImage(position,img_src){
     var result;
     result = position + "" ;
-
-    console.log("position5 : " + result+ "img_src : " + img_src);
+    console.log("position5 : " + result + "img_src : " + img_src);
 
     if(img_src != "") {
-        result = result.replace(/\)/g,"");
-        result = result.replace(/\(/ig,"");
-        result = result.split(",") ;
-        console.log("position2 : " + img_src.substr(0,9));
+        result = result.replace(/\)/g, "");
+        result = result.replace(/\(/ig, "");
+        result = result.split(",");
+        console.log("position2 : " + img_src.substr(0, 9));
 
         // ms_해설 이미지 등록 할때
         var ms_img_src = img_src;
-        var ms_location=[];
-        if(ms_img_src.substr(0,13) == "/image/number"){
+        var ms_location = [];
+        if (ms_img_src.substr(0, 13) == "/image/number") {
 
             ms_location.push(ms_point_count);
             ms_location.push(result[0]);
@@ -341,9 +340,9 @@ function mapPositionImage(position,img_src){
 
             ms_point_count++; //ms_지도 한번찍을때마다 번호+1
             //ms_포인트리스트에 동적으로 html 소스 추가
-            var html = "<li data-code=list_"+ms_point_count+">" +
+            var html = "<li data-code=list_" + ms_point_count + ">" +
                 ms_point_count + "<BR>" +
-                result[0]+"<BR>" + result[1] + "</li>";
+                result[0] + "<BR>" + result[1] + "</li>";
 
             $("#ms_point_list").append(html);
 
@@ -378,35 +377,34 @@ function mapPositionImage(position,img_src){
 
             ms_number(ms_point_count);
 
-            var ms_count = 0;
+            //var ms_count = 0;
             $temp = [];
             //ms_배열의 값과 li 순서를 동일하게 해주는 소스
-            $("#ms_point_list>li").each(function(index){
+            $("#ms_point_list>li").each(function (index) {
                 $list_count = index;
-                $temp.push(($(this).text()).substr(0,1));
-
-
+                $temp.push(($(this).text()).substr(0, 1));
             });
 
             /*지도 위 해설포인트 삭제하는 소스*/
         }
 
+        { // list 순서와 배열순서 같게해줌
         var temp0 = [];
-
-        for(var i=0;i<ms_number_list.length;i++){
+        for (var i = 0; i < ms_number_list.length; i++) {
             var temparray = [];
-            temparray.push(ms_number_list[$temp[i]-1][0]);
-            temparray.push(ms_number_list[$temp[i]-1][1]);
-            temparray.push(ms_number_list[$temp[i]-1][2]);
+            temparray.push(ms_number_list[$temp[i] - 1][0]);
+            temparray.push(ms_number_list[$temp[i] - 1][1]);
+            temparray.push(ms_number_list[$temp[i] - 1][2]);
             //temparray.push(ms_number_list[$temp[i]-1][3]);
             temp0.push(temparray);
         }
-        for(var i=0;i<ms_number_list.length;i++){
+        for (var i = 0; i < ms_number_list.length; i++) {
             ms_number_list[i][0] = temp0[i][0];
             ms_number_list[i][1] = temp0[i][1];
             ms_number_list[i][2] = temp0[i][2];
             //ms_number_list[i][3] = temp0[i][3];
         }
+    }
 
         //일러스트이미지 등록할때
         if(img_src.substr(0,10) == 'data:image'){
@@ -454,13 +452,13 @@ function mapPositionImage(position,img_src){
                 + "<br/><input type = 'button' value = 'Delete' onclick = 'DeleteMarker(" + ms_marker.id + ");' value = 'Delete' />"
             });
             ms_marker.addListener('click', function() {
-                infowindow.open(map, ms_marker);
+                    infowindow.open(map, ms_marker);
+                console.log("위 : " + result[0] + "경 : " + result[1]);
             });
             ms_markers.push(ms_marker);
             this.img_src = "";
             google.maps.event.removeListener(map_latLng_event);
         }
-
         else {
             var marker = new google.maps.Marker({
                 position: {lat: Number(result[0]), lng: Number(result[1])},
@@ -477,6 +475,7 @@ function mapPositionImage(position,img_src){
                 content: 'Latitude: ' + Number(result[0]) + '<br />Longitude: ' + Number(result[1])
                 + "<br/><input type = 'button' value = 'Delete' onclick = 'DeleteMarker(" + marker.id + ");' value = 'Delete' />"
             });
+            console.log("위 : " + result[0] + " 경 : " + result[1]);
             marker.addListener('click', function() {
                 infowindow.open(map, marker);
             });
@@ -485,42 +484,43 @@ function mapPositionImage(position,img_src){
             console.log("img_srceeee3333 : " + this.img_src);
             google.maps.event.removeListener(map_latLng_event);
         }
-
-        ms_DeleteMarker();
-        ms_MakeMarker(map);
-
+        {//바뀐 배열대로 그림 삭제하고 다시찍음
+            ms_DeleteMarker();
+            ms_MakeMarker(map);
+        }
     }
-
 }
+
 // 배열에 담긴 배열 포인트  그려줌
 function ms_MakeMarker(map){
-    for(var i = 0; i<ms_number_list.length;i++){
+    var ms_i;
+    for(ms_i = 0; ms_i <ms_number_list.length;ms_i++){
         var image = {
 
-            url: ms_number_list[i][3],
+            url: ms_number_list[ms_i ][3],
             scaledSize: new google.maps.Size(20, 20)
         };
 
         var ms_marker = new google.maps.Marker({
-            position : {lat : Number(ms_number_list[i][1]), lng: Number(ms_number_list[i][2])},
+            position : {lat : Number(ms_number_list[ms_i ][1]), lng: Number(ms_number_list[ms_i ][2])},
             map: map,
             icon: image
         });
         //Set unique id
-        ms_marker.id = i;
-
+        ms_marker.id = ms_i ;
+        console.log("민 : " + ms_number_list[ms_i ][1] + "석 : " + ms_number_list[ms_i ][2]);
         //ms_마커 클릭했을 때, infowindow창 나타남
         var infowindow = new google.maps.InfoWindow({
-            content: 'Latitude: ' + Number(ms_number_list[i][1]) + '<br />Longitude: ' + Number(ms_number_list[i][2])
+            content: 'Latitude: ' + Number(result[0]) + '<br />Longitude: ' + Number(result[1])
             + "<br/><input type = 'button' value = 'Delete' onclick = 'DeleteMarker(" + ms_marker.id + ");' value = 'Delete' />"
         });
+        console.log("ms_number_list[ms_i][1] : " + ms_number_list[ms_i][1]);
         ms_marker.addListener('click', function() {
             infowindow.open(map, ms_marker);
         });
         ms_markers.push(ms_marker);
         this.img_src = "";
         google.maps.event.removeListener(map_latLng_event);
-
     }
 }
 
@@ -539,6 +539,7 @@ function DeleteMarker(id) {
         if(ms_markers[i].id == id){
             ms_markers[i].setMap(null);
             ms_markers.splice(i,1);
+            ms_number_list.splice(i,1);
         }
     }
 
