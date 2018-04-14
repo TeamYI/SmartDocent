@@ -9,6 +9,9 @@ var map_latLng_event ; // 안내소 이미지를 드래그할때 일어나는 �
 var ms_point_count = 0; // ms_지도에 찍히는 번호 담는 변수 선언 (전역)
 var ms_number_list = []; // 번호담는 배열 선언(전역) [0]은 넣는 순서, [1] : 위도, [2] : 경도 , [3] : 이미지
 var cultural_code ;
+var element_code; // 특정 엘리멘트 코드 담는 변수
+var maxValue; // element 수정 위한 max값
+
 
 $(document).ready(function(){
 
@@ -249,14 +252,22 @@ $(document).ready(function(){
     //지도에 문화재 이미지 입힐 때
     // 일러스트
     $(".drag_image").draggable({
+
         accept : ".drag_image",
         helper : "clone",
         drag : function (event, ui) {
+            element_code = $(this).attr("data-code");
             img_src = $(this).attr("src");
+
         },
         cursor : "pointer"
 
+
     })
+
+
+
+
 
     //안내 이미지
     $(".upload_img_wrap").on("mouseover",".drag_image",function(){
@@ -454,22 +465,42 @@ function mapPositionImage(position,img_src){
                 icon: image
             });
 
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url : "add_element",
+                type : "POST",
+                data : {
+                    element_code : element_code,
+                    latitude : Number(result[0]),
+                    longitude : Number(result[1])
+                },
+                success : function (data) {
+                    maxValue = data[0].element_detail_code;
+                    return maxValue;
+                },
+                error : function (){
+                    alert("fail");
+                }
+            })
+
             //Set unique id
             marker.id = uniqueId;
             uniqueId++;
 
             //마커 클릭했을 때, infowindow창 나타남
 
-            var infowindow = new google.maps.InfoWindow({
-                content: 'Latitude: ' + Number(result[0]) + '<br />Longitude: ' + Number(result[1])
-                + "<br/><input type = 'button' value = 'Delete' onclick = 'DeleteMarker(" + marker.id + ");' value = 'Delete' />"
-            });
-            console.log("위 : " + result[0] + " 경 : " + result[1]);
+            // var infowindow = new google.maps.InfoWindow({
+            //     content: 'Latitude: ' + Number(result[0]) + '<br />Longitude: ' + Number(result[1])
+            //     + "<br/><input type = 'button' value = 'Delete' onclick = 'DeleteMarker(" + marker.id + ");' value = 'Delete' />"
+            // });
+           /* console.log("위 : " + result[0] + " 경 : " + result[1]);*/
 
-            if(img_src.substr(7,2) == "qr") {
+            if(img_src.substr(7,2) == "qr") { // qr이면 버튼 생성
                 var infowindow = new google.maps.InfoWindow({
                     content: 'Latitude: ' + Number(result[0]) + '<br />Longitude: ' + Number(result[1])
-                    + "<br/><button onclick='QRCreate($(this));' style='position:absolute; top: 0; left:0'>qr코드 생성</button>"
+                    + "<br/><button onclick='QRCreate($(this),maxValue);' style='position:absolute; top: 0; left:0'>qr코드 생성</button>"
                     + "<button onclick = 'DeleteMarker(" + marker.id + ");'  style='position:absolute; top: 0; left:100px'>Delete</button>"
                     + "<img src=''>"
 
@@ -540,7 +571,7 @@ function ms_DeleteMarker(){
 
 // 마커 삭제 함수
 function DeleteMarker(id) {
-    console.log("marker_id : " + id);
+
     for(var i = 0; i < ms_markers.length; i++){
         if(ms_markers[i].id == id){
             ms_markers[i].setMap(null);
@@ -548,6 +579,23 @@ function DeleteMarker(id) {
             ms_number_list.splice(i,1);
         }
     }
+
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url : "del_element",
+        type : "POST",
+        data : {
+             what : what,
+        },
+        success : function (data) {
+            alert("delSuceess");
+        },
+        error : function (){
+            alert("deleteFail"+" "+ id);
+        }
+    });
 
 
     //Find and remove the marker from the Array
@@ -561,6 +609,7 @@ function DeleteMarker(id) {
             return;
         }
     }
+
 };
 
 
@@ -656,10 +705,27 @@ function geocoding(address, cultural_code){
     });
 }
 
-function QRCreate(a){
+function QRCreate(a,maxValue){ // QR코드 생성 눌렀을 때 호출
     var code = encodeURIComponent(this.cultural_code);
     googleQRUrl = "https://chart.googleapis.com/chart?chs=177x177&cht=qr&chl=";
     a.next().next().attr("src",googleQRUrl+"code:"+code);
-
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url : "update_element",
+        type : "POST",
+        data : {
+            maxValue : maxValue,
+            element_detail_file : googleQRUrl
+        },
+        success : function (data) {
+            alert(data);
+        },
+        error : function (){
+            alert("fail");
+        }
+    })
 }
+
 

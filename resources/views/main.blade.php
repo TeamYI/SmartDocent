@@ -60,6 +60,9 @@
             <button>검색</button>
         </div>
     </div>
+    <form action="{{URL::to('update_element') }}" method="post" enctype="multipart/form-data">
+        <input type="submit">
+    </form>
 </div>
 </body>
 </html>

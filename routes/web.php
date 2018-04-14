@@ -31,5 +31,12 @@ Route::post('upload','UploadController@upload') ;
 Route::get('culturalManage','UploadController@CulturalManageGet')->name('upload.cultureManager');
 Route::post('oneTypeCulturalShow', 'UploadController@oneTypeCulturalShow') ;
 Route::post('twoTypeCulturalShow', 'UploadController@twoTypeCulturalShow') ;
+
+
+//Element
+Route::post('add_element','ElementController@add_element');
+Route::post('update_element','ElementController@update_element');
+Route::post('del_element', 'ElementController@del_element');
+
 //controller 추가부문
 Route::resource('culture_register','CultureRegisterController');

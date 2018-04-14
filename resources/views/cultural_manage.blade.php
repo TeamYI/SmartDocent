@@ -703,26 +703,28 @@
                 </ul>
             </div>
         </div>
+        <form method="post" action="{{URL::to('add_element') }}">
         <div class="nav_content" id="tab2">
             <div>
                 <span>일러스트</span>
                 <div class="input_upload">
                     <a href="javascript:" onclick="fileUploadAction();" class="map_upload_button ">파일 업로드</a>
                     <input type="file" id="input_img" multiple/>
+                    <input type="hidden" value="1" name="elementCode" />
                 </div>
                 <div class="uk-placeholder upload_img_wrap" ></div>
             </div>
             <div id="detail_icon" style="width: 100% ; height: 180px; background: red; font-size: 20px; font-weight: bold;">
                 <span>상세 아이콘</span>
                 <div id="detail_icon_box" style="padding:0 5px ;;width:96.6% ; height: 142px; background: gray">
-                    <img src="/image/information.png" data-code='info.png' class="drag_image" width="50px" height="50px"  alt="" style="cursor: pointer; z-index:9999">
-                    <img src="/image/qr.png" data-code='info.png' class="drag_image" width="50px" height="50px"  alt="" style="cursor: pointer; z-index:9999">
+                    <img src="/image/information.png" data-code='1' class="drag_image" width="50px" height="50px"  alt="" style="cursor: pointer; z-index:9999">
+                    <img src="/image/qr.png" data-code='2' class="drag_image" width="50px" height="50px"  alt="" style="cursor: pointer; z-index:9999">
                     <img src="" alt="">
                     <img src="" alt="">
                 </div>
             </div>
         </div>
-
+        </form>
 
         <div class="nav_content" id="tab3">
             <!-- 해설부분 codename:민석-->

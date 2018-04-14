@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Cultural;
 use App\CulturalDetail;
+use App\ElementDetail;
 use Illuminate\Http\Request;
 use \Input as Input;
 use Illuminate\Routing\Route;
@@ -13,10 +14,12 @@ class UploadController extends Controller
     //
     private $Cultural;
     private $CulturalDetail;
+    private $ElementDetail;
     public function __construct()
     {
         $this->Cultural = new Cultural() ;
         $this->CulturalDetail = new CulturalDetail();
+        $this->ElementDetail = new ElementDetail();
     }
 
     public function upload(){
