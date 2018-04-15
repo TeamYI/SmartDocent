@@ -9,7 +9,11 @@ var map_latLng_event ; // 안내소 이미지를 드래그할때 일어나는 �
 var ms_point_count = 0; // ms_지도에 찍히는 번호 담는 변수 선언 (전역)
 var ms_number_list = []; // 번호담는 배열 선언(전역) [0]은 넣는 순서, [1] : 위도, [2] : 경도 , [3] : 이미지
 var cultural_code ;
-
+var cultural_name;
+var priority ;
+var explantion = [] ; //성현 해설포인트 담는 변수
+var explantionMarker = [] ; //성현 해설포인트 담는 변수
+var explanInfowinow = [];
 $(document).ready(function(){
 
     //지도 불러오기
@@ -18,14 +22,94 @@ $(document).ready(function(){
         zoom: 19,
     })
 
+    // 음성파일이 등록되었을 때 실행.
+    if($("#ex_cultural_code").val()){
+        //탭 전환
+        $(".nav_check").removeClass("active").css("color","#4B4B4B");
+        $(".nav_check").css("border-bottom","#BDBDBD 1px solid");
+
+        $(".nav_check:nth-child(3)").addClass("active").css("color","#4B4B4B");
+        $(".nav_check:nth-child(3)").css("border-bottom","#4B4B4B 3px solid");
+        $(".nav_content").hide();
+        var activeTab = $(".nav_check:nth-child(3)").attr("rel");
+        $("#" + activeTab).show();
+
+        explantion = [] ;
+
+        cultural_code = $("#ex_cultural_code").val();
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url : 'explaintionPriority' ,
+            type : 'POST',
+            data : {
+                cultural_code : cultural_code
+            },
+            success : function(data){
+                console.log("data : " +data);
+                if(data.length){
+                    for(var i=0 ; i<data.length ; i++){
+                        console.log(data[i].element_detail_code);
+                        explantion[i] = new Array(3) ;
+                        explantion[i][0] = data[i].element_detail_code;
+                        explantion[i][1] = data[i].latitude;
+                        explantion[i][2] = data[i].longitude;
+                        console.log(data[i].cultural_name);
+                        geocoding(data[i].cultural_address, ex_cultural_code);
+
+                        cultural_name = data[i].cultural_name;
+                        console.log("cucddd : " + cultural_name);
+                        var image = {
+                            url: "image/explantion.png",
+                            scaledSize: new google.maps.Size(40, 40),
+                            labelOrigin: new google.maps.Point(20, 17)
+                        };
+                        var marker = new google.maps.Marker({
+                            position: {lat: data[i].latitude, lng: data[i].longitude},
+                            map: map,
+                            label:{
+                                color :'black',
+                                fontWeight : 'bold',
+                                fontSize : "18px",
+                                text : i+1+""
+                            },
+                            icon : image
+                        });
+                        marker.code = explantion[i][0];
+                        google.maps.event.addListener(marker,"click",function(){
+                            console.log("click : " + this.code);
+                            $(".detail-file-code").attr("value",this.code);
+                            var modal = UIkit.modal("#modal-explanation");
+                            if(modal.show()){
+                                explantionVoice(this.code);
+                            }
+
+                        });
+
+                    }
+                    //안내 시작멘트 나오게 하기
+                    console.log("cultural_name : " + cultural_name);
+                    startGuide(cultural_name);
+                }
+            },
+            error : function(){
+                alert("실패");
+            }
+        })
+
+    }else{
+        // nav content 내용 바꾸기
+        $(".nav_content:first").show();
+        $(".nav_check:first").css("border-bottom","#4B4B4B 3px solid");
+    }
+
+
     //위도, 경도 값 불러오기
     google.maps.event.addListener(map, 'click', function(mouseEvent){
         console.log("mouser  L : "  + mouseEvent.latLng);
     })
 
-    // nav content 내용 바꾸기
-    $(".nav_content:first").show();
-    $(".nav_check:first").css("border-bottom","#4B4B4B 3px solid");
 
     $(".nav_check").click(function(){
         $(".nav_check").removeClass("active").css("color","#4B4B4B");
@@ -247,7 +331,7 @@ $(document).ready(function(){
 
 
     //지도에 문화재 이미지 입힐 때
-    // 일러스트
+    // 안내 이미지
     $(".drag_image").draggable({
         accept : ".drag_image",
         helper : "clone",
@@ -258,7 +342,7 @@ $(document).ready(function(){
 
     })
 
-    //안내 이미지
+    //일러스트 이미지
     $(".upload_img_wrap").on("mouseover",".drag_image",function(){
         $(".drag_image").draggable({
             accept : ".drag_image",
@@ -272,15 +356,29 @@ $(document).ready(function(){
         })
     })
 
+    //해설 포인트
+    $(".priority").draggable({
+        helper : "clone",
+        drag : function (event, ui) {
+            priority = $(this).attr('src');
+        },
+        cursor : "pointer"
+    })
 
+    // drag 하는 곳
     $("#menu_content_map").droppable({
         accept : ".drag_image",
         greedy: true,
         drop : function(event,ui){
-
-            map_latLng_event = google.maps.event.addListener(map, 'mouseover', function (mouseEvent) {
-                mapPositionImage(mouseEvent.latLng,img_src);
-            })
+            if(img_src != ""){
+                map_latLng_event = google.maps.event.addListener(map, 'mouseover', function (mouseEvent) {
+                    mapPositionImage(mouseEvent.latLng,img_src);
+                })
+            }else{
+                e_map_latLng_event = google.maps.event.addListener(map, 'mouseover', function (mouseEvent) {
+                    explanation_point(mouseEvent.latLng,priority);
+                })
+            }
 
             console.log("img srcs tyipe " + img_src);
 
@@ -292,17 +390,279 @@ $(document).ready(function(){
     //일러스트 이미지 - 파일업로드 클릭했을때
     $("#input_img").on("change",handleImgFileSelect);
 
+    // 음성파일 - 파일 업로드 클릭시
+    $(".audio_content").on("change",".audio_register",audioFileSelect);
+    // 음성파일 - 구간 종료 처음
+    $("#tab3").on("change",".audio_register",function() {
+        var file = this.files;
+        var form = new FormData();
+        form.append('file', file[0]);
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: "audioAjaxUpload",
+            type: "POST",
+            processData: false,
+            contentType: false,
+            data: form,
+            success: function (data) {
+                alert(data);
+            },
+            error: function () {
+                alert("fail");
+            }
+        });
+
+        //     var file = this.files ;
+        //
+        //     if(file.length === 1){
+        //         var uploader = new XMLHttpRequest();
+        //         var form = new FormData();
+        //         form.append('file',file[0]);
+        //         uploader.onreadystatechange = function(){
+        //             if(uploader.readyState === 4 && uploader.status === 200){
+        //                  console.log('d');
+        //             }
+        //         }
+        //         uploader.open('POST',"audioAjaxUpload") ;
+        //         uploader.send(form);
+        //     }
+        // });
+    });
+
+
 })
 
+//해설을 등록하고 보이는 부분
+function explantionVoice(code){
 
+    console.log("modal : " + "open" + code);
+    var element_detail_code = code;
+
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url : "audioSelect",
+        type : "POST",
+        async: false,
+        data : {
+            element_detail_code : element_detail_code
+        },
+        success : function (data) {
+            console.log("modal : " + "open" + code);
+            if(data.length) {
+                console.log("modal : " + "open" + code);
+                $(".audio_content").empty();
+                $(".audio-show-footer").empty();
+                $('.explantion_size').css("height","500px");
+                console.log(data);
+                console.log("data :" + data[0].element_detail_code);
+                console.log("data :" + data[0].data_file_name);
+                console.log("data :" + data[0].language);
+                console.log("data :" + data[0].data_file_code);
+                var text ="";
+                for(var i=0; i<data.length;i++) {
+                    text  += "<div class='audio_file' style='height: 80px; position: relative; border-bottom: 1px solid black'>"
+                        + "<div style='display: inline-block; position: absolute; top:30px' >" + data[i].language + "음성파일</div>"
+                            + "<audio src='audio/" + data[i].data_file_name + "' controls style='height: 30px; top:30px; right:100px; position: absolute; '></audio>"
+                        + "</div>"
+                }
+                $(".audio_content").append(text);
+                var footer = "<button class='uk-button uk-button-default uk-modal-close' type='button'>Cancel</button>"
+                            +"<button class='uk-button uk-button-primary'>UPDATE</button>"
+
+                $(".audio-show-footer").append(footer);
+
+
+            }
+        },
+        error : function (){
+            alert("fail");
+        }
+    });
+
+}
+
+// 해설
+function explanation_point(position,priority){
+    var result;
+    result = position + "" ;
+
+    result = result.replace(/\)/g,"");
+    result = result.replace(/\(/ig,"");
+    result = result.split(",") ;
+    var element_detail_code = "";
+    var i = explantion.length;
+    console.log(explantion.length);
+    console.log("e_position : " + position + "priority : "+priority);
+
+    explantion[i] = new Array(3);
+    explantion[i][1] = Number(result[0]);
+    explantion[i][2] = Number(result[1]);
+
+    for(var j=0 ; j<explantion.length; j++){
+        console.log("ex : "+explantion[i][1]);
+        console.log("ex : "+explantion[i][2]);
+    }
+
+    var image = {
+        url: priority,
+        scaledSize: new google.maps.Size(40, 40),
+        labelOrigin: new google.maps.Point(20, 17)
+    };
+    var marker = new google.maps.Marker({
+        position: {lat: Number(result[0]), lng: Number(result[1])},
+        map: map,
+        label:{
+            color :'black',
+            fontWeight : 'bold',
+            fontSize : "18px",
+            text : i+1+""
+        },
+        icon : image
+    });
+    // 해설 포인트 등록
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url : "culturalExplanation",
+        type : "POST",
+        async: false,
+        data : {
+            cultural_code : cultural_code ,
+            priority : i+1 ,
+            latitude : explantion[i][1],
+            longitude : explantion[i][2],
+            element_code : 5
+        },
+        success : function (data) {
+            element_detail_code = data[0].element_detail_code;
+            console.log("elem 1  : " + data[0].element_detail_code);
+            console.log("elem 2  : " + element_detail_code);
+        },
+        error : function (){
+            alert("fail");
+        }
+    })
+
+    console.log("elem 3  : " + element_detail_code);
+    explantion[i][0] = element_detail_code ;
+    marker.code = explantion[i][0];
+    google.maps.event.addListener(marker,"click",function(){
+        console.log("click : " + this.code);
+        $(".detail-file-code").attr("value",this.code);
+        var modal = UIkit.modal("#modal-explanation");
+        if(modal.show()){
+            explantionVoice(this.code);
+        }
+
+    });
+
+    explantionMarker.push(marker);
+    google.maps.event.removeListener(e_map_latLng_event);
+}
+
+function explanationDeleteMarker(size, code){
+    console.log("pri : "+ size + "  code : "+ code);
+    if(explantionMarker != null){
+        for(var i=0 ; i< explantionMarker.length ; i++){
+            explantionMarker[i].setMap(null);
+        }
+    }
+    explantion.splice(size,1) // explantion 삭제
+
+    console.log(explantion.length);
+
+    console.log(explantion);
+    for(var i=0 ; i<explantion.length ; i++)
+        console.log(explantion[i][0]);
+    //console.log(explantion[size][0]); delete
+    //php배열 값 넣어야함
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url : "explainDelete",
+        type : "post",
+        data: {
+            element_detail_code : code,
+            explantion : explantion
+        },
+        success : function(data){
+            if(data.length) {
+                marker_show();
+            }
+        },
+        error : function(){
+
+        }
+    })
+
+}
+
+function marker_show(){
+
+    console.log(explantion);
+    explantionMarker = [];
+    explanInfowinow = [];
+
+    for(var i=0 ; i<explantion.length; i++){
+        var image = {
+            url: "image/explantion.png",
+            scaledSize: new google.maps.Size(40, 40),
+            labelOrigin: new google.maps.Point(20, 17)
+        };
+        var marker = new google.maps.Marker({
+            position: {lat: explantion[i][1], lng: explantion[i][2]},
+            map: map,
+            label:{
+                color :'black',
+                fontWeight : 'bold',
+                fontSize : "18px",
+                text : i+1+""
+            },
+            icon : image
+        });
+
+        // marker.infowindow = new google.maps.InfoWindow({
+        //     content : "<div href='#modal-explanation' uk-toggle></div>"
+        // });
+
+        explantionMarker.push(marker);
+        marker.code = explantion[i][0];
+        google.maps.event.addListener(marker,"click",function(){
+            console.log("click : " + this.code);
+            $(".detail-file-code").attr("value",this.code);
+            var modal = UIkit.modal("#modal-explanation");
+            if(modal.show()){
+                explantionVoice(this.code);
+            }
+
+        });
+        // google.maps.event.addListener(marker, 'click', function(){
+        //     this.infowindow.open(map,this);
+        // });
+    }
+}
+
+function audioFileSelect(e){
+    var sound = $(this).next();
+    console.log(sound);
+    console.log(this.files[0]);
+    sound.attr("src",URL.createObjectURL(this.files[0])) ;
+    sound.onend = function(e){
+        URL.revokeObjectURL(this.src);
+    }
+}
 function ms_number(count){
     var number = count+1;
     var image = document.getElementById('ms_img');
 
     image.src="/image/number_"+number+".png";
 }
-
-
 //구글 위도, 경도 알아내는 이벤트 발생할 때 위도 경도값에 마커띄워줌
 function mapPositionImage(position,img_src){
     var result;
@@ -314,7 +674,6 @@ function mapPositionImage(position,img_src){
         result = result.replace(/\)/g,"");
         result = result.replace(/\(/ig,"");
         result = result.split(",") ;
-        console.log("position2 : " + img_src.substr(0,9));
 
         // ms_해설 이미지 등록 할때
         var ms_img_src = img_src;
@@ -645,12 +1004,42 @@ function geocoding(address, cultural_code){
             alert('Geocode was not successful for the following reason: ' + status);
         }
     });
-}
 
+//    여기서 element_detail 불러오기 해당 좌표의
+
+}
+// qr 생성
 function QRCreate(a){
     var code = encodeURIComponent(this.cultural_code);
     googleQRUrl = "https://chart.googleapis.com/chart?chs=177x177&cht=qr&chl=";
     a.next().next().attr("src",googleQRUrl+"code:"+code);
 
+}
+
+function startGuide(){
+    if(cultural_code){
+        console.log("cultural_name" + cultural_name);
+        $("#explan_cultural_name").text(cultural_name+" 해설포인트");
+        var tab3 = $("#tab3") ;
+        var text = "";
+        text = "<div style='margin-top: 20px'>"
+                    +"<div style='font-size: 20px; font-weight: bold;' >안내시작멘트</div>"
+                    +"<input type='file' class='audio_register' name='start'>"
+                    +"<audio src='' controls style='height: 30px;margin-top: 20px'></audio>"
+                +"</div>"
+                +"<div style='margin-top: 20px'>"
+                    +"<div style='font-size: 20px; font-weight: bold;'>안내종료멘트</div>"
+                    +"<input type='file' class='audio_register'>"
+                    +"<audio src='' controls style='height: 30px;margin-top: 20px'></audio>"
+                +"</div>"
+                +"<div style='margin-top: 20px'>"
+                    +"<div style='font-size: 20px; font-weight: bold;'>구간멘트</div>"
+                    +"<input type='file' class='audio_register'>"
+                    +"<audio src='' controls style='height: 30px;margin-top: 10px'></audio>"
+                +"</div>"
+        tab3.append(text);
+    }else{
+        console.log("cultural_code code 없더여" + cultural_code);
+    }
 }
 
