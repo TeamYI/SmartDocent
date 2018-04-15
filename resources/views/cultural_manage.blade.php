@@ -24,9 +24,7 @@
             crossorigin="anonymous"></script>
 
     <script src="/js/culture.js"></script>
-    <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCojf9IKqAfeYPYAuRGi-CbRDRxW9KhEtM
-"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCojf9IKqAfeYPYAuRGi-CbRDRxW9KhEtM"></script>
 
     <!-- ms sortable 쓰기위해서 필요하데-->
     <script>
@@ -64,8 +62,10 @@
             border: 1px solid #D5D5D5;
             border-top: none ;
             height : 650px;
-            width: 20%;
+            width: 25%;
             float: left;
+            margin-top:70px;
+
         }
         #menu_nav_check {
             border: 1px solid #BDBDBD;
@@ -95,6 +95,7 @@
             border-top: none ;
             width : 100%;
             height: 600px;
+
         }
         #menu_nav_content> div:first-child > span {
             font-size: 20px;
@@ -208,12 +209,22 @@
             float: left;
         }
 
+        /*아이콘*/
+        #detail_icon_box img {
+            padding : 10px;
+            width: 65px;
+            height : 65px;
+            cursor: pointer;
+            z-index:9999;
+        }
+        /*width="50px" height="50px"  alt="" style="cursor: pointer; z-index:9999"*/
+
         #menu_content_map{
             float: left;
             background-color:black;
             height: 650px;
-            width: 79.7%;
-
+            width: 75%;
+            margin-top: 70px;
         }
 
         .culture_register  {
@@ -292,6 +303,10 @@
         .culture_two_name > li {
             float: left;
         }
+        .labels {
+            font-size: 20px;
+            color: red;
+        }
 
     </style>
 
@@ -306,6 +321,10 @@
     </div>
     <div id="menu_nav_content">
         <div class="nav_content" id="tab1">
+            @if(empty($code))
+                @else
+                <input type="hidden" value="{{$code}}" id="ex_cultural_code">
+            @endif
             <span>문화재 리스트</span>
             <button id="cultural_register" class="map_upload_button" onmouseover="nav_content_button(this)" href="#modal-sections" uk-toggle>문화재 등록</button>
             <div>
@@ -317,7 +336,7 @@
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"서울특별시")!== false)
                                 <ll>
-                                    <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}','{{$one -> cultural_code}}')" >{{$one->cultural_name}}</a>
+                                    <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}','{{$one -> cultural_code}}','{{$one->cultural_name}}')" >{{$one->cultural_name}}</a>
                                     <button class="detail_button" data-code="{{$one->cultural_code}}" href="#modal-one-show" uk-toggle>보기</button>
                                     <button class="two-type-culture" data-code="{{$one->cultural_code}}" href="#modal-two-register" uk-toggle>문화재+</button>
                                     <div class="uk-accordion-content accordion_content_cultural ">
@@ -343,7 +362,7 @@
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"경기도")!== false)
                                         <ll>
-                                            <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}','{{$one -> cultural_code}}')" >{{$one->cultural_name}}</a>
+                                            <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}','{{$one -> cultural_code}}','{{$one->cultural_name}}')" >{{$one->cultural_name}}</a>
                                             <button class="detail_button" data-code="{{$one->cultural_code}}" href="#modal-one-show" uk-toggle>보기</button>
                                             <button class="two-type-culture" data-code="{{$one->cultural_code}}" href="#modal-two-register" uk-toggle>문화재+</button>
                                             <div class="uk-accordion-content accordion_content_cultural ">
@@ -369,7 +388,7 @@
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"강원도")!== false)
                                         <ll>
-                                            <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}','{{$one -> cultural_code}}')" >{{$one->cultural_name}}</a>
+                                            <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}','{{$one -> cultural_code}}','{{$one->cultural_name}}')" >{{$one->cultural_name}}</a>
                                             <button class="detail_button" data-code="{{$one->cultural_code}}" href="#modal-one-show" uk-toggle>보기</button>
                                             <button class="two-type-culture" data-code="{{$one->cultural_code}}" href="#modal-two-register" uk-toggle>문화재+</button>
                                             <div class="uk-accordion-content accordion_content_cultural ">
@@ -395,7 +414,7 @@
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"충청북도")!== false)
                                         <ll>
-                                            <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}','{{$one -> cultural_code}}')" >{{$one->cultural_name}}</a>
+                                            <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}','{{$one -> cultural_code}}','{{$one->cultural_name}}')" >{{$one->cultural_name}}</a>
                                             <button class="detail_button" data-code="{{$one->cultural_code}}" href="#modal-one-show" uk-toggle>보기</button>
                                             <button class="two-type-culture" data-code="{{$one->cultural_code}}" href="#modal-two-register" uk-toggle>문화재+</button>
                                             <div class="uk-accordion-content accordion_content_cultural ">
@@ -421,7 +440,7 @@
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"충청남도")!== false)
                                         <ll>
-                                            <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}','{{$one -> cultural_code}}')" >{{$one->cultural_name}}</a>
+                                            <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}','{{$one -> cultural_code}}','{{$one->cultural_name}}')" >{{$one->cultural_name}}</a>
                                             <button class="detail_button" data-code="{{$one->cultural_code}}" href="#modal-one-show" uk-toggle>보기</button>
                                             <button class="two-type-culture" data-code="{{$one->cultural_code}}" href="#modal-two-register" uk-toggle>문화재+</button>
                                             <div class="uk-accordion-content accordion_content_cultural ">
@@ -447,7 +466,7 @@
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"인천광역시")!== false)
                                         <ll>
-                                            <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}','{{$one -> cultural_code}}')" >{{$one->cultural_name}}</a>
+                                            <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}','{{$one -> cultural_code}}','{{$one->cultural_name}}')" >{{$one->cultural_name}}</a>
                                             <button class="detail_button" data-code="{{$one->cultural_code}}" href="#modal-one-show" uk-toggle>보기</button>
                                             <button class="two-type-culture" data-code="{{$one->cultural_code}}" href="#modal-two-register" uk-toggle>문화재+</button>
                                             <div class="uk-accordion-content accordion_content_cultural ">
@@ -473,7 +492,7 @@
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"대구광역시")!== false)
                                         <ll>
-                                            <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}','{{$one -> cultural_code}}')" >{{$one->cultural_name}}</a>
+                                            <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}','{{$one -> cultural_code}}','{{$one->cultural_name}}')" >{{$one->cultural_name}}</a>
                                             <button class="detail_button" data-code="{{$one->cultural_code}}" href="#modal-one-show" uk-toggle>보기</button>
                                             <button class="two-type-culture" data-code="{{$one->cultural_code}}" href="#modal-two-register" uk-toggle>문화재+</button>
                                             <div class="uk-accordion-content accordion_content_cultural ">
@@ -499,7 +518,7 @@
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"경상북도")!== false)
                                         <ll>
-                                            <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}','{{$one -> cultural_code}}')" >{{$one->cultural_name}}</a>
+                                            <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}','{{$one -> cultural_code}}','{{$one->cultural_name}}')" >{{$one->cultural_name}}</a>
                                             <button class="detail_button" data-code="{{$one->cultural_code}}" href="#modal-one-show" uk-toggle>보기</button>
                                             <button class="two-type-culture" data-code="{{$one->cultural_code}}" href="#modal-two-register" uk-toggle>문화재+</button>
                                             <div class="uk-accordion-content accordion_content_cultural ">
@@ -525,7 +544,7 @@
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"경상남도")!== false)
                                         <ll>
-                                            <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}','{{$one -> cultural_code}}')" >{{$one->cultural_name}}</a>
+                                            <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}','{{$one -> cultural_code}}','{{$one->cultural_name}}')" >{{$one->cultural_name}}</a>
                                             <button class="detail_button" data-code="{{$one->cultural_code}}" href="#modal-one-show" uk-toggle>보기</button>
                                             <button class="two-type-culture" data-code="{{$one->cultural_code}}" href="#modal-two-register" uk-toggle>문화재+</button>
                                             <div class="uk-accordion-content accordion_content_cultural ">
@@ -551,7 +570,7 @@
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"전라남도")!== false)
                                         <ll>
-                                            <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}','{{$one -> cultural_code}}')" >{{$one->cultural_name}}</a>
+                                            <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}','{{$one -> cultural_code}}','{{$one->cultural_name}}')" >{{$one->cultural_name}}</a>
                                             <button class="detail_button" data-code="{{$one->cultural_code}}" href="#modal-one-show" uk-toggle>보기</button>
                                             <button class="two-type-culture" data-code="{{$one->cultural_code}}" href="#modal-two-register" uk-toggle>문화재+</button>
                                             <div class="uk-accordion-content accordion_content_cultural ">
@@ -577,7 +596,7 @@
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"전라북도")!== false)
                                         <ll>
-                                            <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}','{{$one -> cultural_code}}')" >{{$one->cultural_name}}</a>
+                                            <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}','{{$one -> cultural_code}}','{{$one->cultural_name}}')" >{{$one->cultural_name}}</a>
                                             <button class="detail_button" data-code="{{$one->cultural_code}}" href="#modal-one-show" uk-toggle>보기</button>
                                             <button class="two-type-culture" data-code="{{$one->cultural_code}}" href="#modal-two-register" uk-toggle>문화재+</button>
                                             <div class="uk-accordion-content accordion_content_cultural ">
@@ -603,7 +622,7 @@
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"울산광역시")!== false)
                                         <ll>
-                                            <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}','{{$one -> cultural_code}}')" >{{$one->cultural_name}}</a>
+                                            <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}','{{$one -> cultural_code}}','{{$one->cultural_name}}')" >{{$one->cultural_name}}</a>
                                             <button class="detail_button" data-code="{{$one->cultural_code}}" href="#modal-one-show" uk-toggle>보기</button>
                                             <button class="two-type-culture" data-code="{{$one->cultural_code}}" href="#modal-two-register" uk-toggle>문화재+</button>
                                             <div class="uk-accordion-content accordion_content_cultural ">
@@ -629,7 +648,7 @@
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"서울특별시")!== false)
                                         <ll>
-                                            <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}','{{$one -> cultural_code}}')" >{{$one->cultural_name}}</a>
+                                            <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}','{{$one -> cultural_code}}','{{$one->cultural_name}}')" >{{$one->cultural_name}}</a>
                                             <button class="detail_button" data-code="{{$one->cultural_code}}" href="#modal-one-show" uk-toggle>보기</button>
                                             <button class="two-type-culture" data-code="{{$one->cultural_code}}" href="#modal-two-register" uk-toggle>문화재+</button>
                                             <div class="uk-accordion-content accordion_content_cultural ">
@@ -655,7 +674,7 @@
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"대전광역시")!== false)
                                         <ll>
-                                            <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}','{{$one -> cultural_code}}')" >{{$one->cultural_name}}</a>
+                                            <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}','{{$one -> cultural_code}}','{{$one->cultural_name}}')" >{{$one->cultural_name}}</a>
                                             <button class="detail_button" data-code="{{$one->cultural_code}}" href="#modal-one-show" uk-toggle>보기</button>
                                             <button class="two-type-culture" data-code="{{$one->cultural_code}}" href="#modal-two-register" uk-toggle>문화재+</button>
                                             <div class="uk-accordion-content accordion_content_cultural ">
@@ -681,7 +700,7 @@
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"제주도")!== false)
                                         <ll>
-                                            <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}','{{$one -> cultural_code}}')" >{{$one->cultural_name}}</a>
+                                            <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}','{{$one -> cultural_code}}','{{$one->cultural_name}}')" >{{$one->cultural_name}}</a>
                                             <button class="detail_button" data-code="{{$one->cultural_code}}" href="#modal-one-show" uk-toggle>보기</button>
                                             <button class="two-type-culture" data-code="{{$one->cultural_code}}" href="#modal-two-register" uk-toggle>문화재+</button>
                                             <div class="uk-accordion-content accordion_content_cultural ">
@@ -705,22 +724,25 @@
         </div>
         <form method="post" action="{{URL::to('add_element') }}">
         <div class="nav_content" id="tab2">
-            <div>
-                <span>일러스트</span>
-                <div class="input_upload">
-                    <a href="javascript:" onclick="fileUploadAction();" class="map_upload_button ">파일 업로드</a>
-                    <input type="file" id="input_img" multiple/>
-                    <input type="hidden" value="1" name="elementCode" />
-                </div>
-                <div class="uk-placeholder upload_img_wrap" ></div>
-            </div>
-            <div id="detail_icon" style="width: 100% ; height: 180px; background: red; font-size: 20px; font-weight: bold;">
+            {{--<div>--}}
+                {{--<span>일러스트</span>--}}
+                {{--<div class="input_upload">--}}
+                    {{--<a href="javascript:" onclick="fileUploadAction();" class="map_upload_button ">파일 업로드</a>--}}
+                    {{--<input type="file" id="input_img" multiple/>--}}
+                {{--</div>--}}
+                {{--<div class="uk-placeholder upload_img_wrap" ></div>--}}
+            {{--</div>--}}
+            <div id="detail_icon" style="width: 100% ; height: 180px; font-size: 20px; font-weight: bold;border:1px solid black">
                 <span>상세 아이콘</span>
-                <div id="detail_icon_box" style="padding:0 5px ;;width:96.6% ; height: 142px; background: gray">
-                    <img src="/image/information.png" data-code='1' class="drag_image" width="50px" height="50px"  alt="" style="cursor: pointer; z-index:9999">
-                    <img src="/image/qr.png" data-code='2' class="drag_image" width="50px" height="50px"  alt="" style="cursor: pointer; z-index:9999">
-                    <img src="" alt="">
-                    <img src="" alt="">
+                <div id="detail_icon_box" style="padding:10px 10px ;height: 142px; border-top: 1px solid black; ">
+                    <div>
+                        <img src="/image/information.png" data-code=4 class="drag_image" >
+                        <img src="/image/restroom.png" data-code=1 class="drag_image">
+                    </div>
+                    <div>
+                        <img src="/image/qricon.png" data-code=2 class="drag_image">
+                        <img src="/image/aricon.png" data-code=3 class="drag_image">
+                    </div>
                 </div>
             </div>
         </div>
@@ -729,26 +751,13 @@
         <div class="nav_content" id="tab3">
             <!-- 해설부분 codename:민석-->
             <div>
-                <span>해설</span>
+                <div style="font-size: 20px; font-weight: bold;" id="explan_cultural_name">해설포인트</div>
+                <img src="image/explantion.png" style="width: 50px; height: 50px; margin: 10px;" class="drag_image priority">
             </div>
-            <div>
-                <img id = "ms_img" src="/image/number_1.png" data-code='number' class="drag_image" width="50px" height="50px" alt="" style="cursor: pointer">
-            </div>
-            <div class="uk-placeholder upload_img_wrap" >
-                <!--ms포인트리스트-->
-                <ul id = "ms_point_list" ></ul>
-                <span id ="ms_php_code"></span>
-
-            </div>
-            <div>
-                <input type="submit" value = "수정" onclick="">
-            </div>
-
-
         </div>
-
     </div>
 </div>
+
 <div id="menu_content_map"></div>
 {{--지도 띄우는 스크립트문
     1. draggable :false : 지도 확대 막는 부분
@@ -896,6 +905,52 @@
                 <input type="submit" class="uk-button uk-button-primary" value="SAVE">
             </div>
         </form>
+    </div>
+</div>
+{{-- 해설포인트 클릭시 모달 창--}}
+<div id="modal-explanation"  uk-modal>
+    <div class="uk-modal-dialog explantion_size">
+        <button class="uk-modal-close-default" type="button" uk-close></button>
+        <div class="uk-modal-header">
+            <h2 class="uk-modal-title">음성 파일 등록</h2>
+        </div>
+            <div class="uk-modal-body audio_content">
+                <div class="audio_content_display">
+                    <div action="{{URL::to('audioRegister') }}" method="post" enctype="multipart/form-data">
+                        <input type="hidden" value="" class="detail-file-code" name="element_detail_code">
+                        <div>
+                            <div class='audio_file' style='height: 80px; position: relative; border-bottom: 1px solid black'>
+                                <span style='display: inline-block; position: absolute; top:30px'>한국어 음성 파일 : </span><input type='file' class='audio_register' name='korean' value='음성파일 등록'>
+                                <audio src='' controls  style='height: 30px; top:30px; right:100px; position: absolute; '></audio>
+                            </div>
+                            <div class='audio_file' style='height: 80px; position: relative; border-bottom: 1px solid black'>
+                                <span style='display: inline-block; position: absolute; top:30px'>영어 음성 파일 :</span> <input type='file' class='audio_register' name='english' value='음성파일 등록'>
+                                <audio src='' controls  style='height: 30px; top:30px; right:100px; position: absolute; '></audio>
+                            </div>
+                            <div class='audio_file' style='height: 80px; position: relative; border-bottom: 1px solid black'>
+                                <span style='display: inline-block; position: absolute; top:30px'>중국어 음성 파일 :</span> <input type='file' class='audio_register' name='chinese' value='음성파일 등록'>
+                                <audio src='' controls  style='height: 30px; top:30px; right:100px; position: absolute; '></audio>
+                            </div>
+                            <div class='audio_file' style='height: 80px; position: relative; border-bottom: 1px solid black'>
+                                <span style='display: inline-block; position: absolute; top:30px'>일본어 음성 파일 :</span> <input type='file' class='audio_register' name='japanaese' value='음성파일 등록'>
+                                <audio src='' controls  style='height: 30px; top:30px; right:100px; position: absolute; '></audio>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+                <div class="audio_reg_show"></div>
+            </div>
+            <div class="uk-modal-footer uk-text-right audio-show-footer">
+                <div class="audio_content_display">
+                    <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+                    <input type="hidden" value="{{ csrf_token() }}" name="_token">
+                    <input type="submit" class="uk-button uk-button-primary" value="SAVE">
+                </div>
+                <div class="audio_reg_show_footer" style="display:none">
+                    <button class='uk-button uk-button-default uk-modal-close' type='button'>Cancel</button>
+                    <button class='uk-button uk-button-primary'>UPDATE</button>
+                </div>
+            </div>
     </div>
 </div>
 </body>

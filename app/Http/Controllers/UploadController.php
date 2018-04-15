@@ -7,7 +7,7 @@ use App\CulturalDetail;
 use App\ElementDetail;
 use Illuminate\Http\Request;
 use \Input as Input;
-use Illuminate\Routing\Route;
+
 
 class UploadController extends Controller
 {
@@ -29,14 +29,12 @@ class UploadController extends Controller
 
         $code = ""; //code 변수
         $cultural_name ="" ; //문화재 사진 이름
-        $qr_name ="" ; //qr 사진 이름
-        $ar_name ="" ; //ar 사진 이름
-
         if($type == 1) {
             $code = "" ;
             if(Input::hasFile('culture')){
                 echo 'upload' ;
                 $file = Input::file("culture");
+
                 //받아온 파일의 확장자 떼오기
                 $extension = $file->getClientOriginalExtension();
                 //새로운 이름 설정
@@ -59,7 +57,6 @@ class UploadController extends Controller
         }
 
 
-        echo "ddddddd" ;
         $language = array("korean","english","chinese","japanese");
 
         for($i = 0 ; $i < count($language) ; $i++){
@@ -82,12 +79,11 @@ class UploadController extends Controller
     }
 
     //문화재 등록페이지 불러줌
-    public function CulturalManageGet(){
+    public function CulturalManageGet(Request $request){
         $type_one = $this->Cultural->cultural_list();
         $type_two = $this->CulturalDetail->cultural_list_two();
-
-        return view('cultural_manage',compact('type_one','type_one'),compact('type_two','type_two'));
-
+        $code = $request->get("cultural_code");
+        return view('cultural_manage')->with('code',$code)->with('type_one',$type_one)->with('type_two',$type_two);
     }
 
     public function oneTypeCulturalShow(Request $request){

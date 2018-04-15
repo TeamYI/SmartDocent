@@ -26,7 +26,7 @@ Route::post('/guide_point_add','CulturalController@guide_point_add');
 Route::get("/",function(){
     return view("main");
 });
-
+// 문화재 등록
 Route::post('upload','UploadController@upload') ;
 Route::get('culturalManage','UploadController@CulturalManageGet')->name('upload.cultureManager');
 Route::post('oneTypeCulturalShow', 'UploadController@oneTypeCulturalShow') ;
@@ -37,6 +37,18 @@ Route::post('twoTypeCulturalShow', 'UploadController@twoTypeCulturalShow') ;
 Route::post('add_element','ElementController@add_element');
 Route::post('update_element','ElementController@update_element');
 Route::post('del_element', 'ElementController@del_element');
+
+
+//element 등록
+Route::post("culturalExplanation","ElementDetailController@culturalExplanation");
+Route::post("explainDelete","ElementDetailController@explainDelete");
+Route::post("explaintionPriority","ElementDetailController@explaintionPriority");
+Route::post("culturalElementAllSelect","ElementDetailController@culturalElementAllSelect");
+
+//file
+Route::post("audioRegister","AudioDataFileController@audioRegister");
+Route::post("audioSelect","AudioDataFileController@audioSelect");
+Route::post("audioAjaxUpload","AudioDataFileController@audioAjaxUpload");
 
 //controller 추가부문
 Route::resource('culture_register','CultureRegisterController');
