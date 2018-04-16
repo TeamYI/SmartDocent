@@ -37,8 +37,7 @@ class ElementDetail extends Model
 
     public function del_element($element_detail_code)
     {
-        ElementDetail::$table
-            ->where('element_detail_code',$element_detail_code)
+        ElementDetail::where('element_detail_code',"=",$element_detail_code)
             ->delete();
     }
 

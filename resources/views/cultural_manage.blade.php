@@ -231,6 +231,10 @@
             width: 800px;
             height: 850px;
         }
+        .culture_register2{
+            width: 800px;
+            height: 550px;
+        }
 
         .culture_explanation{
             width: 100%;
@@ -241,9 +245,9 @@
         .culture_explanation_language {
             margin: 10px;
             position: relative;
-            border-bottom: 1px solid #6c757d;
+            border: 1px solid #6c757d;
             width: 98% ;
-            height: 190px;
+            height: 270px;
         }
         .culture_explanation_language select{
             position: absolute;
@@ -316,7 +320,7 @@
 <div id="menu_nav">
     <div id="menu_nav_check">
         <div class="nav_check active" rel="tab1">문화재</div>
-        <div class="nav_check" rel="tab2">지도</div>
+        <div class="nav_check" rel="tab2">편의시설</div>
         <div class="nav_check" rel="tab3">해설</div>
     </div>
     <div id="menu_nav_content">
@@ -332,7 +336,7 @@
                     <ll>
                         <a href="#" class="uk-accordion-title accordion_title_province">서울특별시</a>
                         <div class="uk-accordion-content accordion_content_province">
-                            <ul uk-accordion>
+                            <ul uk-accordion style="width: 300px">
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"서울특별시")!== false)
                                 <ll>
@@ -358,7 +362,7 @@
                     <ll>
                         <a href="#" class="uk-accordion-title accordion_title_province">경기도</a>
                         <div class="uk-accordion-content accordion_content_province">
-                            <ul uk-accordion>
+                            <ul uk-accordion style="width: 300px">
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"경기도")!== false)
                                         <ll>
@@ -384,7 +388,7 @@
                     <ll>
                         <a href="#" class="uk-accordion-title accordion_title_province">강원도</a>
                         <div class="uk-accordion-content accordion_content_province">
-                            <ul uk-accordion>
+                            <ul uk-accordion style="width: 300px">
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"강원도")!== false)
                                         <ll>
@@ -410,7 +414,7 @@
                     <ll>
                         <a href="#" class="uk-accordion-title accordion_title_province">충청북도</a>
                         <div class="uk-accordion-content accordion_content_province">
-                            <ul uk-accordion>
+                            <ul uk-accordion style="width: 300px">
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"충청북도")!== false)
                                         <ll>
@@ -436,7 +440,7 @@
                     <ll>
                         <a href="#" class="uk-accordion-title accordion_title_province">충청남도</a>
                         <div class="uk-accordion-content accordion_content_province">
-                            <ul uk-accordion>
+                            <ul uk-accordion style="width: 300px">
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"충청남도")!== false)
                                         <ll>
@@ -462,7 +466,7 @@
                     <ll>
                         <a href="#" class="uk-accordion-title accordion_title_province">인천광역시</a>
                         <div class="uk-accordion-content accordion_content_province">
-                            <ul uk-accordion>
+                            <ul uk-accordion style="width: 300px">
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"인천광역시")!== false)
                                         <ll>
@@ -488,7 +492,7 @@
                     <ll>
                         <a href="#" class="uk-accordion-title accordion_title_province">대구광역시</a>
                         <div class="uk-accordion-content accordion_content_province">
-                            <ul uk-accordion>
+                            <ul uk-accordion style="width: 300px">
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"대구광역시")!== false)
                                         <ll>
@@ -514,7 +518,7 @@
                     <ll>
                         <a href="#" class="uk-accordion-title accordion_title_province">경상북도</a>
                         <div class="uk-accordion-content accordion_content_province">
-                            <ul uk-accordion>
+                            <ul uk-accordion style="width: 300px">
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"경상북도")!== false)
                                         <ll>
@@ -540,7 +544,7 @@
                     <ll>
                         <a href="#" class="uk-accordion-title accordion_title_province">경상남도</a>
                         <div class="uk-accordion-content accordion_content_province">
-                            <ul uk-accordion>
+                            <ul uk-accordion style="width: 300px">
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"경상남도")!== false)
                                         <ll>
@@ -566,7 +570,7 @@
                     <ll>
                         <a href="#" class="uk-accordion-title accordion_title_province">전라남도</a>
                         <div class="uk-accordion-content accordion_content_province">
-                            <ul uk-accordion>
+                            <ul uk-accordion style="width: 300px">
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"전라남도")!== false)
                                         <ll>
@@ -592,7 +596,7 @@
                     <ll>
                         <a href="#" class="uk-accordion-title accordion_title_province">전라북도</a>
                         <div class="uk-accordion-content accordion_content_province">
-                            <ul uk-accordion>
+                            <ul uk-accordion style="width: 300px">
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"전라북도")!== false)
                                         <ll>
@@ -618,7 +622,7 @@
                     <ll>
                         <a href="#" class="uk-accordion-title accordion_title_province">울산광역시</a>
                         <div class="uk-accordion-content accordion_content_province">
-                            <ul uk-accordion>
+                            <ul uk-accordion style="width: 300px">
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"울산광역시")!== false)
                                         <ll>
@@ -644,7 +648,7 @@
                     <ll>
                         <a href="#" class="uk-accordion-title accordion_title_province">부산광역시</a>
                         <div class="uk-accordion-content accordion_content_province">
-                            <ul uk-accordion>
+                            <ul uk-accordion style="width: 300px">
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"서울특별시")!== false)
                                         <ll>
@@ -670,7 +674,7 @@
                     <ll>
                         <a href="#" class="uk-accordion-title accordion_title_province">대전광역시</a>
                         <div class="uk-accordion-content accordion_content_province">
-                            <ul uk-accordion>
+                            <ul uk-accordion style="width: 300px">
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"대전광역시")!== false)
                                         <ll>
@@ -696,7 +700,7 @@
                     <ll>
                         <a href="#" class="uk-accordion-title accordion_title_province">제주도</a>
                         <div class="uk-accordion-content accordion_content_province">
-                            <ul uk-accordion>
+                            <ul uk-accordion style="width: 300px">
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"제주도")!== false)
                                         <ll>
@@ -754,6 +758,25 @@
                 <div style="font-size: 20px; font-weight: bold;" id="explan_cultural_name">해설포인트</div>
                 <img src="image/explantion.png" style="width: 50px; height: 50px; margin: 10px;" class="drag_image priority">
             </div>
+            <div style="display: none" id="explanation_show">
+                <div style='margin-top: 20px'>
+                    <div style='font-size: 20px; font-weight: bold;' >안내시작멘트</div>
+                    <input type='hidden' value='start'>
+                    <input type='file' class='audio_register'>
+                    <audio src='' controls style='height: 30px;margin-top: 20px'></audio>
+                </div>
+                <div style='margin-top: 20px'>
+                    <input type='hidden' value='end'>
+                    <div style='font-size: 20px; font-weight: bold;'>안내종료멘트</div>
+                    <input type='file' class='audio_register'>
+                    <audio src='' controls style='height: 30px;margin-top: 20px'></audio>
+                    </div>
+                <div style='margin-top: 20px'>
+                    <div style='font-size: 20px; font-weight: bold;'>구간멘트</div>
+                    <input type='file' class='audio_register'>
+                    <audio src='' controls style='height: 30px;margin-top: 10px'></audio>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -786,7 +809,7 @@
                         </div>
                         <div class="culture_detail">
                             <div>문화재 설명</div>
-                            <textarea name="korean_text" id="" cols="90" rows="5"></textarea>
+                            <textarea name="korean_text" id="" cols="80" rows="5"></textarea>
                         </div>
                     </div>
                 </div>
@@ -804,7 +827,7 @@
                     </div>
                     <div class="culture_address">
                         <div>문화재 주소</div>
-                        <input type="type" size="100px" name="culture_address">
+                        <input type="type" size="85px" name="culture_address">
                     </div>
                 </div>
                 <div class="uk-modal-footer uk-text-right">
@@ -849,7 +872,7 @@
 </div>
 {{--type : 2 문화재 show 모달 창--}}
 <div id="modal-two-show"  uk-modal>
-    <div class="uk-modal-dialog culture_register">
+    <div class="uk-modal-dialog culture_register2">
         <button class="uk-modal-close-default" type="button" uk-close></button>
         <div class="uk-modal-header">
             <h2 class="uk-modal-title two_cultural_name">2차 문화재 등록</h2>
@@ -859,7 +882,7 @@
             </div>
         </div>
         <div class="uk-modal-footer uk-text-right">
-            <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+            <button class="uk-button uk-button-default uk-modal-close" type="button">DELETE</button>
             <input type="hidden" value="{{ csrf_token() }}" name="_token">
             <button class="uk-button uk-button-primary one-cultural-update">UPDATE</button>
         </div>
@@ -867,7 +890,7 @@
 </div>
 {{--type : 2 문화재 등록 모달 창--}}
 <div id="modal-two-register"  uk-modal>
-    <div class="uk-modal-dialog culture_register">
+    <div class="uk-modal-dialog culture_register2">
         <button class="uk-modal-close-default" type="button" uk-close></button>
         <div class="uk-modal-header">
             <h2 class="uk-modal-title">불국사 문화재 등록</h2>
@@ -890,7 +913,7 @@
                         </div>
                         <div class="culture_detail">
                             <div>문화재 설명</div>
-                            <textarea name="korean_text" id="" cols="90" rows="5"></textarea>
+                            <textarea name="korean_text" id="" cols="80" rows="5"></textarea>
                         </div>
                     </div>
                 </div>
@@ -916,23 +939,31 @@
         </div>
             <div class="uk-modal-body audio_content">
                 <div class="audio_content_display">
-                    <div action="{{URL::to('audioRegister') }}" method="post" enctype="multipart/form-data">
+                    <div>
                         <input type="hidden" value="" class="detail-file-code" name="element_detail_code">
                         <div>
                             <div class='audio_file' style='height: 80px; position: relative; border-bottom: 1px solid black'>
-                                <span style='display: inline-block; position: absolute; top:30px'>한국어 음성 파일 : </span><input type='file' class='audio_register' name='korean' value='음성파일 등록'>
+                                <span style='display: inline-block; position: absolute; top:30px'>한국어 음성 파일 : </span>
+                                <input type="hidden" value="korean">
+                                <input type='file' class='audio_register' name='korean' value='음성파일 등록'>
                                 <audio src='' controls  style='height: 30px; top:30px; right:100px; position: absolute; '></audio>
                             </div>
                             <div class='audio_file' style='height: 80px; position: relative; border-bottom: 1px solid black'>
-                                <span style='display: inline-block; position: absolute; top:30px'>영어 음성 파일 :</span> <input type='file' class='audio_register' name='english' value='음성파일 등록'>
+                                <span style='display: inline-block; position: absolute; top:30px'>영어 음성 파일 :</span>
+                                <input type="hidden" value="english">
+                                <input type='file' class='audio_register' name='english' value='음성파일 등록'>
                                 <audio src='' controls  style='height: 30px; top:30px; right:100px; position: absolute; '></audio>
                             </div>
                             <div class='audio_file' style='height: 80px; position: relative; border-bottom: 1px solid black'>
-                                <span style='display: inline-block; position: absolute; top:30px'>중국어 음성 파일 :</span> <input type='file' class='audio_register' name='chinese' value='음성파일 등록'>
+                                <span style='display: inline-block; position: absolute; top:30px'>중국어 음성 파일 :</span>
+                                <input type="hidden" value="chinese">
+                                <input type='file' class='audio_register' name='chinese' value='음성파일 등록'>
                                 <audio src='' controls  style='height: 30px; top:30px; right:100px; position: absolute; '></audio>
                             </div>
                             <div class='audio_file' style='height: 80px; position: relative; border-bottom: 1px solid black'>
-                                <span style='display: inline-block; position: absolute; top:30px'>일본어 음성 파일 :</span> <input type='file' class='audio_register' name='japanaese' value='음성파일 등록'>
+                                <span style='display: inline-block; position: absolute; top:30px'>일본어 음성 파일 :</span>
+                                <input type="hidden" value="japanaese">
+                                <input type='file' class='audio_register' name='japanaese' value='음성파일 등록'>
                                 <audio src='' controls  style='height: 30px; top:30px; right:100px; position: absolute; '></audio>
                             </div>
                         </div>
@@ -943,11 +974,9 @@
             <div class="uk-modal-footer uk-text-right audio-show-footer">
                 <div class="audio_content_display">
                     <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
-                    <input type="hidden" value="{{ csrf_token() }}" name="_token">
-                    <input type="submit" class="uk-button uk-button-primary" value="SAVE">
                 </div>
                 <div class="audio_reg_show_footer" style="display:none">
-                    <button class='uk-button uk-button-default uk-modal-close' type='button'>Cancel</button>
+                    <button class='uk-button uk-button-default uk-modal-close' type='button'>Delete</button>
                     <button class='uk-button uk-button-primary'>UPDATE</button>
                 </div>
             </div>

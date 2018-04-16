@@ -52,11 +52,13 @@ class ElementDetailController extends Controller
         return $array;
     }
 
-    public function culturalElementAllSelect(Request $request){
+    public function culturalElementAllSelect(Request $request)
+    {
         $cultural_code = $request->get("cultural_code");
 
-        $array = $this -> ElementDetail -> culturalElementAllSelect($cultural_code);
+        $array = $this->ElementDetail->culturalElementAllSelect($cultural_code);
 
         return $array;
     }
+
 }

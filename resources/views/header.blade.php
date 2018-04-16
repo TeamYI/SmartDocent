@@ -62,7 +62,7 @@
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav" style="height: 70px; z-index: 500;" >
     <div class="container" style="margin : 0 30px; width: 100%">
-        <a class="navbar-brand js-scroll-trigger" href="#page-top">SMART DOCENT</a>
+        <a class="navbar-brand js-scroll-trigger" href="/">SMART DOCENT</a>
         <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             Menu
             <i class="fa fa-bars"></i>
@@ -75,9 +75,9 @@
                 <li class="nav-item mx-0 mx-lg-1">
                     <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="'/member_manage'">회원 관리</a>
                 </li>
-                <li class="nav-item mx-0 mx-lg-1">
-                    <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">문화재 관리</a>
-                </li>
+                {{--<li class="nav-item mx-0 mx-lg-1">--}}
+                    {{--<a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">문화재 관리</a>--}}
+                {{--</li>--}}
             </ul>
         </div>
     </div>

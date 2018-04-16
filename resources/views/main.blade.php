@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
 
@@ -44,9 +44,9 @@
                 <li class="nav-item mx-0 mx-lg-1">
                     <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="'/member_manage'">회원 관리</a>
                 </li>
-                <li class="nav-item mx-0 mx-lg-1">
-                    <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">문화재 관리</a>
-                </li>
+                {{--<li class="nav-item mx-0 mx-lg-1">--}}
+                    {{--<a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">문화재 관리</a>--}}
+                {{--</li>--}}
             </ul>
         </div>
     </div>
@@ -56,12 +56,11 @@
 
 <!-- Header -->
 <section class="masthead bg-primary text-white text-center" style="width:100%; height: 750px;">
-    <div class="container" style="width:100%; height: 100%;">
-        <img class="img-fluid mb-5 d-block mx-auto" src="img/profile.png" alt="">
-        <h1 class="text-uppercase mb-0">Start Bootstrap</h1>
-        <hr class="star-light">
-        <h2 class="font-weight-light mb-0">Web Developer - Graphic Artist - User Experience Designer</h2>
-    </div>
+    <img class="img-fluid mb-5 d-block mx-auto" src="image/king.jpg" alt="" style="position: absolute; top:70px;height: 750px; width:100%">
+    <div style="position: absolute; top:70px; width: 100%;height: 750px; background: black; opacity: 0.5; ;z-index:50"></div>
+    <div style="position: absolute;top: 50%;left: 50%;width: 600px;height: 100px;margin-top: -200px;margin-left: -290px; font-size: 70px; font-weight: bold">WELCOME TO</div>
+    <div style="position: absolute; top: 50%;left: 50%;width: 900px;height: 100px;margin-top: -100px;margin-left: -440px;font-size: 70px; font-weight: bold; z-index: 500">SMART DOCENT</div>
+    <hr  style="position: absolute; top:65%;left: 55%;width: 650px;height: 10px;margin-top: -100px;margin-left: -370px;border:5px;z-index: 900; background: white">
 </section>
 
 <!-- Bootstrap core JavaScript -->

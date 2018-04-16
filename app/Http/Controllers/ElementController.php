@@ -39,16 +39,16 @@ class ElementController extends Controller
 
         gettype($element_detail_code);
 
-        $this->ElementDetail->update_element((int)$element_detail_code,$element_detail_file);
+        $this->ElementDetail->update_element($element_detail_code,$element_detail_file);
 
-        return $element_detail_file;
+        return $element_detail_code;
     }
 
     public function del_element(Request $request){
 
-        $element_detail_code = $request->get(id);
+        $element_detail_code = $request->get("element_detail_code");
 
-        // $this->ElementDetail->del_element($element_detail_code);
+        $this->ElementDetail->del_element($element_detail_code);
 
         return $element_detail_code;
     }

@@ -1,5 +1,4 @@
 var map;
-var markers = [] ; // 지도에 마커를 넣기 위한 배열
 var uniqueId = 1; //배열에 마커를 넣기위해 인덱스값
 var ms_markers = [] // 지도에 해설포인트.마커를 넣기 위한 배열
 var ms_uniqueId = 1; //배열에 해설포인트마커를 넣기위해 인덱스값
@@ -9,16 +8,16 @@ var map_latLng_event ; // 안내소 이미지를 드래그할때 일어나는 �
 var ms_point_count = 0; // ms_지도에 찍히는 번호 담는 변수 선언 (전역)
 var ms_number_list = []; // 번호담는 배열 선언(전역) [0]은 넣는 순서, [1] : 위도, [2] : 경도 , [3] : 이미지
 var cultural_code ;
-
+var element_detail_code; //음성 element_detail_code
 var element_code; // 특정 엘리멘트 코드 담는 변수
 var maxValue; // element 수정 위한 max값
-
+var element_facility_code ; // delete하기위한 element값받는 변수
 var cultural_name;
 var priority ;
 var explantion = [] ; //성현 해설포인트 담는 변수
 var explantionMarker = [] ; //성현 해설포인트 담는 변수
 var explanInfowinow = [];
-
+var facilityMarker = [] ;
 $(document).ready(function(){
 
     //지도 불러오기
@@ -157,7 +156,7 @@ $(document).ready(function(){
                         + "</div>"
                         + "<div class='culture_detail'>"
                             + "<div>문화재 설명</div>"
-                            + "<textarea name='' id='' cols='90' rows='5'></textarea>"
+                            + "<textarea name='' id='' cols='80' rows='5'></textarea>"
                         +"</div>"
                     +"</div>";
 
@@ -202,6 +201,7 @@ $(document).ready(function(){
             },
             url : 'oneTypeCulturalShow' ,
             type : 'POST',
+            async: false,
             data : {
                 cultural_code : cultural_code
             },
@@ -210,13 +210,6 @@ $(document).ready(function(){
                 if(data.length) {
                     var text = "";
                     for (var i = 0; i < data.length; i++) {
-                        console.log("dddd");
-                        language[i] = new Array(3);
-                        language[i][0] = data[0].language;
-                        language[i][1] = data[0].cultural_name;
-                        language[i][2] = data[0].cultural_detail_explain;
-                        language[i][3] = data[0].cultural_detail_code;
-
                         text += "<div class='culture_explanation_language'>"
                             + "<input type='hidden' name='data-detail-code-" + i + "' value=" + data[i].cultural_detail_code + ">"
                             + "<div class='culture_language'>"
@@ -298,6 +291,7 @@ $(document).ready(function(){
             },
             url : 'twoTypeCulturalShow',
             type : 'POST',
+            async: false,
             data : {
                 cultural_code : cultural_code,
                 cultural_include : cultural_include
@@ -402,12 +396,47 @@ $(document).ready(function(){
     $("#input_img").on("change",handleImgFileSelect);
 
     // 음성파일 - 파일 업로드 클릭시
-    $(".audio_content").on("change",".audio_register",audioFileSelect);
+    $(".audio_content").on("change",".audio_register",function(){
+        var sound = $(this).next();
+        sound.attr("src",URL.createObjectURL(this.files[0])) ;
+        sound.onend = function(e){
+            URL.revokeObjectURL(this.src);
+        }
+        console.log("element_detail_code : "+ element_detail_code);
+        var language = $(this).prev().val();
+        var file = this.files;
+        var form = new FormData();
+        form.append(language, file[0]);
+        form.append("element_detail_code",element_detail_code);
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: "audioAjaxUpload",
+            type: "POST",
+            processData: false,
+            contentType: false,
+            data: form,
+
+            success: function (data) {
+                console.log("음성 업로드 완료 ddd:" + data);
+            },
+            error: function () {
+                alert("fail");
+            }
+        });
+
+
+    });
+
+
     // 음성파일 - 구간 종료 처음
     $("#tab3").on("change",".audio_register",function() {
         var file = this.files;
+        var language ;
+        console.log($(this).prev().val());
         var form = new FormData();
-        form.append('file', file[0]);
+        form.append('language', file[0]);
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -418,57 +447,23 @@ $(document).ready(function(){
             contentType: false,
             data: form,
             success: function (data) {
-                alert(data);
+                console.log("음성 업로드 완료 :" +data);
             },
             error: function () {
                 alert("fail");
             }
         });
 
-        //     var file = this.files ;
-        //
-        //     if(file.length === 1){
-        //         var uploader = new XMLHttpRequest();
-        //         var form = new FormData();
-        //         form.append('file',file[0]);
-        //         uploader.onreadystatechange = function(){
-        //             if(uploader.readyState === 4 && uploader.status === 200){
-        //                  console.log('d');
-        //             }
-        //         }
-        //         uploader.open('POST',"audioAjaxUpload") ;
-        //         uploader.send(form);
-        //     }
-        // });
+        var sound = $(this).next();
+        sound.attr("src",URL.createObjectURL(this.files[0])) ;
+        sound.onend = function(e){
+            URL.revokeObjectURL(this.src);
+        }
     });
 
 
 })
 
-// qr 생성
-function QRCreate(a){
-    console.log("QR");
-    var code = encodeURIComponent(this.cultural_code);
-    googleQRUrl = "https://chart.googleapis.com/chart?chs=177x177&cht=qr&chl=";
-    a.parent().next().attr("src",googleQRUrl+"code:"+code);
-    $.ajax({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        url : "update_element",
-        type : "POST",
-        data : {
-            maxValue : maxValue,
-            element_detail_file : googleQRUrl
-        },
-        success : function (data) {
-            alert(data);
-        },
-        error : function (){
-            alert("fail");
-        }
-    })
-}
 
 //해설을 등록하고 보이는 부분
 function explantionVoice(code){
@@ -586,7 +581,6 @@ function explanation_point(position,priority){
             alert("fail");
         }
     })
-
     console.log("elem 3  : " + element_detail_code);
     explantion[i][0] = element_detail_code ;
     marker.code = explantion[i][0];
@@ -704,6 +698,7 @@ function ms_number(count){
 }
 //구글 위도, 경도 알아내는 이벤트 발생할 때 위도 경도값에 마커띄워줌
 function mapPositionImage(position,img_src){
+
     var result;
     result = position + "" ;
     console.log("position5 : " + result + "img_src : " + img_src);
@@ -848,6 +843,8 @@ function mapPositionImage(position,img_src){
             google.maps.event.removeListener(map_latLng_event);
         }
         else {
+
+            console.log(element_facility_code);
             var marker = new google.maps.Marker({
                 position: {lat: Number(result[0]), lng: Number(result[1])},
                 map: map,
@@ -860,6 +857,7 @@ function mapPositionImage(position,img_src){
                 },
                 url : "add_element",
                 type : "POST",
+                async: false,
                 data : {
                     cultural_code : cultural_code,
                     element_code : element_code,
@@ -867,110 +865,59 @@ function mapPositionImage(position,img_src){
                     longitude : Number(result[1])
                 },
                 success : function (data) {
-                    maxValue = data[0].element_detail_code;
-                    return maxValue;
+                    console.log(data[0].element_detail_code);
+                    element_facility_code = data[0].element_detail_code;
+                    console.log(element_facility_code);
+
                 },
                 error : function (){
                     alert("fail");
                 }
             })
-
+            console.log(element_facility_code);
             //Set unique id
-            marker.id = uniqueId;
+            marker.code = element_facility_code;
             uniqueId++;
 
             //마커 클릭했을 때, infowindow창 나타남
-
-            // var infowindow = new google.maps.InfoWindow({
-            //     content: 'Latitude: ' + Number(result[0]) + '<br />Longitude: ' + Number(result[1])
-            //     + "<br/><input type = 'button' value = 'Delete' onclick = 'DeleteMarker(" + marker.id + ");' value = 'Delete' />"
-            // });
-           /* console.log("위 : " + result[0] + " 경 : " + result[1]);*/
-
-
-
+            // marker.infowindow = new google.maps.InfoWindow({
+            //     content: "<div style='width:200px; height: 25px'><button onclick='QRCreate($(this),maxValue);' style='position:absolute; top: 0; left:0'>qr코드 생성</button>"
+            //     + "<button onclick = 'DeleteMarker(" + marker.id + ");'  style='position:absolute; top: 0; left:100px'>Delete</button>"
+            //     + "</div><img src=''>"
+            // })
+            console.log("marker+_code :"+ element_facility_code);
             if(img_src.substr(7,2) == "qr") { // qr이면 버튼 생성
-                var infowindow = new google.maps.InfoWindow({
-                    maxWidth : 1000,
-                    content: "<div style='width:200px; height: 25px'><button onclick='QRCreate($(this),maxValue);' style='position:absolute; top: 0; left:0'>qr코드 생성</button>"
-                    + "<button onclick = 'DeleteMarker(" + marker.id + ");'  style='position:absolute; top: 0; left:100px'>Delete</button>"
+                console.log("maxValue: " + maxValue);
+                marker.infowindow = new google.maps.InfoWindow({
+                    content: "<div style='width:200px; height: 25px'><button onclick='QRCreate($(this),element_facility_code);' style='position:absolute; top: 0; left:0'>qr코드 생성</button>"
+                    + "<button onclick = 'DeleteMarker(" + marker.code + ");'  style='position:absolute; top: 0; left:100px'>Delete</button>"
                     + "</div><img src=''>"
 
                 });
             }else{
-                var infowindow = new google.maps.InfoWindow({
-                    content:"<div style='width: 50px; height: 30px'><button onclick = 'DeleteMarker(" + marker.id + ");'  style='position:absolute; top: 0;'>Delete</button></div>",
+                marker.infowindow = new google.maps.InfoWindow({
+                    content:"<div style='width: 50px; height: 30px'><button onclick = 'DeleteMarker(" + marker.code + ");'  style='position:absolute; top: 0;'>Delete</button></div>",
                     maxWidth : 500
                 });
             }
 
-            marker.addListener('click', function() {
-                infowindow.open(map, marker);
+            google.maps.event.addListener(marker, 'click', function(){
+                this.infowindow.open(map,this);
             });
-            markers.push(marker);
+            facilityMarker.push(marker);
+            //img_src 초기화해서 또 지도에 추가되는 걸 막음
             this.img_src = "";
             console.log("img_srceeee3333 : " + this.img_src);
             google.maps.event.removeListener(map_latLng_event);
         }
-        {//바뀐 배열대로 그림 삭제하고 다시찍음
-            ms_DeleteMarker();
-            ms_MakeMarker(map);
-        }
     }
 }
 
-// 배열에 담긴 배열 포인트  그려줌
-function ms_MakeMarker(map){
-    var ms_i;
-    for(ms_i = 0; ms_i <ms_number_list.length;ms_i++){
-        var image = {
 
-            url: ms_number_list[ms_i ][3],
-            scaledSize: new google.maps.Size(20, 20)
-        };
-
-        var ms_marker = new google.maps.Marker({
-            position : {lat : Number(ms_number_list[ms_i ][1]), lng: Number(ms_number_list[ms_i ][2])},
-            map: map,
-            icon: image
-        });
-        //Set unique id
-        ms_marker.id = ms_i ;
-        console.log("민 : " + ms_number_list[ms_i ][1] + "석 : " + ms_number_list[ms_i ][2]);
-        //ms_마커 클릭했을 때, infowindow창 나타남
-        var infowindow = new google.maps.InfoWindow({
-            content: 'Latitude: ' + Number(result[0]) + '<br />Longitude: ' + Number(result[1])
-            + "<br/><input type = 'button' value = 'Delete' onclick = 'DeleteMarker(" + ms_marker.id + ");' value = 'Delete' />"
-        });
-        console.log("ms_number_list[ms_i][1] : " + ms_number_list[ms_i][1]);
-        ms_marker.addListener('click', function() {
-            infowindow.open(map, ms_marker);
-        });
-        ms_markers.push(ms_marker);
-        this.img_src = "";
-        google.maps.event.removeListener(map_latLng_event);
-    }
-}
-
-// 모든 마커 삭제 함수
-function ms_DeleteMarker(){
-    for(var i = 0; i < ms_markers.length; i++){
-        ms_markers[i].setMap(null);
-    }
-    ms_markers.splice(0,ms_markers.length);
-}
 
 // 마커 삭제 함수
-function DeleteMarker(id) {
-
-    for(var i = 0; i < ms_markers.length; i++){
-        if(ms_markers[i].id == id){
-            ms_markers[i].setMap(null);
-            ms_markers.splice(i,1);
-            ms_number_list.splice(i,1);
-        }
-    }
-
+function DeleteMarker(code) {
+    console.log("marker.code : "+ code);
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -978,10 +925,10 @@ function DeleteMarker(id) {
         url : "del_element",
         type : "POST",
         data : {
-             what : what,
+             element_detail_code : code
         },
         success : function (data) {
-            alert("delSuceess");
+            alert("delSuceess :"+ data);
         },
         error : function (){
             alert("deleteFail"+" "+ id);
@@ -990,13 +937,13 @@ function DeleteMarker(id) {
 
 
     //Find and remove the marker from the Array
-    for (var i = 0; i < markers.length; i++) {
-        if (markers[i].id == id) {
+    for (var i = 0; i < facilityMarker.length; i++) {
+        if (facilityMarker[i].code == code) {
             //Remove the marker from Map
-            markers[i].setMap(null);
+            facilityMarker[i].setMap(null);
 
             //Remove the marker from array.
-            markers.splice(i, 1);
+            facilityMarker.splice(i, 1);
             return;
         }
     }
@@ -1086,6 +1033,7 @@ var geocoder ;
 function geocoding(address, cultural_code,cultural_name){
     this.cultural_code  = cultural_code ;
     this.cultural_name = cultural_name;
+    console.log("ddd");
     culturalElementSelect();
     var geocoder = new google.maps.Geocoder();
     geocoder.geocode( { 'address': address}, function(results, status) {
@@ -1096,8 +1044,20 @@ function geocoding(address, cultural_code,cultural_name){
         }
     });
 }
+
+//문화재를 클릭하면 해당 문화재의 편의시설, 해설 포인트 모두 나옴
 function culturalElementSelect(){
     console.log("cultural_ : "+cultural_code );
+
+    if(explantion.length > 0 && facilityMarker.length > 0){
+        explantion = [] ;
+        for (var i = 0; i < explantionMarker.length; i++) {
+            explantionMarker[i].setMap(null);
+        }
+        for (var i = 0; i < facilityMarker.length; i++) {
+            facilityMarker[i].setMap(null);
+        }
+    }
 
     $.ajax({
         headers: {
@@ -1109,13 +1069,18 @@ function culturalElementSelect(){
             cultural_code : cultural_code
         },
         success : function (data) {
+            startGuide();
             if(data.length) {
-                startGuide();
+                console.log("cultural_name" + cultural_name);
                 var count =0 ; //해설 포인트
                 for (var i = 0; i < data.length; i++) {
+                    console.log("code :" + data[0].cultural_code);
                     console.log("dd : "+ data[i].element_detail_code);
+                    console.log("name : " + data[0].element_name);
+                    console.log("ee :"+maxValue);
                     var element_code = data[i].element_code ;
                     var element_image ;
+
                     if(element_code == 1 ){
                         element_image = "image/restroom.png";
                     }else if(element_code == 2){
@@ -1148,16 +1113,19 @@ function culturalElementSelect(){
                             },
                             icon : image
                         });
-                        marker.code = explantion[count][0];
+                        var code = explantion[count][0];
+                        marker.code = code;
                         google.maps.event.addListener(marker,"click",function(){
-                            console.log("click : " + this.code);
-                            $(".detail-file-code").attr("value",this.code);
+                            element_detail_code = this.code;
+                            console.log(element_detail_code);
                             var modal = UIkit.modal("#modal-explanation");
                             if(modal.show()){
+
                                 explantionVoice(this.code);
+
                             }
                         });
-
+                        explantionMarker.push(marker);
                         count++;
                 }else{
                         var marker = new google.maps.Marker({
@@ -1165,27 +1133,30 @@ function culturalElementSelect(){
                             map: map,
                             icon: element_image
                         });
+                        //element_detail_code = maxValue 값
+                        maxValue = data[i].element_detail_code;
+                        marker.code = data[i].element_detail_code;
+                        if(element_code == 2){
+                            console.log("dddddimage : "+ maxValue);
+                            if(data[i].element_detail_file == null){
+                                data[i].element_detail_file = "";
+                            }
 
-                        if(element_code == 2) { // qr이면 버튼 생성
-                            var infowindow = new google.maps.InfoWindow({
-                                maxWidth : 1000,
+                            marker.infowindow = new google.maps.InfoWindow({
                                 content: "<div style='width:200px; height: 25px'><button onclick='QRCreate($(this),maxValue);' style='position:absolute; top: 0; left:0'>qr코드 생성</button>"
-                                + "<button onclick = 'DeleteMarker(" + marker.id + ");'  style='position:absolute; top: 0; left:100px'>Delete</button>"
-                                + "</div><img src=''>"
-
-                            });
+                                        + "<button onclick = 'DeleteMarker(" + marker.code + ");'  style='position:absolute; top: 0; left:100px'>Delete</button>"
+                                        + "</div><img src='"+data[i].element_detail_file+"'>"
+                            })
                         }else{
-                            var infowindow = new google.maps.InfoWindow({
-                                content:"<div style='width: 50px; height: 30px'><button onclick = 'DeleteMarker(" + marker.id + ");'  style='position:absolute; top: 0;'>Delete</button></div>",
-                                maxWidth : 500
-                            });
+                            marker.infowindow = new google.maps.InfoWindow({
+                                content:"<div style='width: 50px; height: 30px'><button onclick = 'DeleteMarker(" + marker.code + ");'  style='position:absolute; top: 0;'>Delete</button></div>"
+                            })
                         }
-
-                        marker.addListener('click', function() {
-                            infowindow.open(map, marker);
+                        google.maps.event.addListener(marker, 'click', function(){
+                            this.infowindow.open(map,this);
                         });
-                        markers.push(marker);
 
+                        facilityMarker.push(marker);
                     }
 
                 }
@@ -1198,38 +1169,24 @@ function culturalElementSelect(){
     });
 }
 function startGuide() {
+    console.log("cultural_name" + cultural_code);
     if (cultural_code) {
+        $("#explan_cultural_name").text(cultural_name+" 해설포인트");
         console.log("cultural_name" + cultural_name);
-        $("#explan_cultural_name").text(cultural_name + " 해설포인트");
-        var tab3 = $("#tab3");
-        var text = "";
-        text = "<div style='margin-top: 20px'>"
-            + "<div style='font-size: 20px; font-weight: bold;' >안내시작멘트</div>"
-            + "<input type='file' class='audio_register' name='start'>"
-            + "<audio src='' controls style='height: 30px;margin-top: 20px'></audio>"
-            + "</div>"
-            + "<div style='margin-top: 20px'>"
-            + "<div style='font-size: 20px; font-weight: bold;'>안내종료멘트</div>"
-            + "<input type='file' class='audio_register'>"
-            + "<audio src='' controls style='height: 30px;margin-top: 20px'></audio>"
-            + "</div>"
-            + "<div style='margin-top: 20px'>"
-            + "<div style='font-size: 20px; font-weight: bold;'>구간멘트</div>"
-            + "<input type='file' class='audio_register'>"
-            + "<audio src='' controls style='height: 30px;margin-top: 10px'></audio>"
-            + "</div>"
-        tab3.append(text);
+        $("#explanation_show").css("display","block");
     } else {
         console.log("cultural_code code 없더여" + cultural_code);
     }
 }
 
 // qr 생성
-function QRCreate(a){
+function QRCreate(a,maxValue){
+    console.log("mavValue cultr : "+ maxValue);
     console.log("QR");
     var code = encodeURIComponent(this.cultural_code);
     googleQRUrl = "https://chart.googleapis.com/chart?chs=177x177&cht=qr&chl=";
     a.parent().next().attr("src",googleQRUrl+"code:"+code);
+    console.log("a : " + maxValue);
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
