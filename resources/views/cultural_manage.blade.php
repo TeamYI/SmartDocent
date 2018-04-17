@@ -313,7 +313,6 @@
         }
 
     </style>
-
 </head>
 <body>
 @include('header')
@@ -759,19 +758,19 @@
                 <img src="image/explantion.png" style="width: 50px; height: 50px; margin: 10px;" class="drag_image priority">
             </div>
             <div style="display: none" id="explanation_show">
-                <div style='margin-top: 20px'>
+                <div style='margin-top: 20px' id="startGuide">
                     <div style='font-size: 20px; font-weight: bold;' >안내시작멘트</div>
                     <input type='hidden' value='start'>
                     <input type='file' class='audio_register'>
                     <audio src='' controls style='height: 30px;margin-top: 20px'></audio>
                 </div>
-                <div style='margin-top: 20px'>
+                <div style='margin-top: 20px' id="endGuide">
                     <input type='hidden' value='end'>
                     <div style='font-size: 20px; font-weight: bold;'>안내종료멘트</div>
                     <input type='file' class='audio_register'>
                     <audio src='' controls style='height: 30px;margin-top: 20px'></audio>
                     </div>
-                <div style='margin-top: 20px'>
+                <div style='margin-top: 20px' id="sectionGuide">
                     <div style='font-size: 20px; font-weight: bold;'>구간멘트</div>
                     <input type='file' class='audio_register'>
                     <audio src='' controls style='height: 30px;margin-top: 10px'></audio>
@@ -805,11 +804,11 @@
                         </select>
                         <div class="culture_name">
                             <div>문화재명</div>
-                            <input type="text" name="korean_name">
+                            <input type="text" name="korean_name" placeholder="불국사">
                         </div>
                         <div class="culture_detail">
                             <div>문화재 설명</div>
-                            <textarea name="korean_text" id="" cols="80" rows="5"></textarea>
+                            <textarea name="korean_text" id="" cols="80" rows="5" placeholder="대한불교조계종 11교구본사(敎區本寺)의 하나로 그 경내(境內)는 2009년 12월 21일에 사적 제502호로 지정되었으며 1995년 세계문화유산목록에 등록되었다."></textarea>
                         </div>
                     </div>
                 </div>
@@ -827,7 +826,7 @@
                     </div>
                     <div class="culture_address">
                         <div>문화재 주소</div>
-                        <input type="type" size="85px" name="culture_address">
+                        <input type="type" size="85px" name="culture_address" placeholder="경북 경주시 진현동 산15">
                     </div>
                 </div>
                 <div class="uk-modal-footer uk-text-right">
@@ -973,7 +972,7 @@
             </div>
             <div class="uk-modal-footer uk-text-right audio-show-footer">
                 <div class="audio_content_display">
-                    <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+                    <button class="uk-button uk-button-default" type="button" onclick="explanationDeleteMarker()">Delete</button>
                 </div>
                 <div class="audio_reg_show_footer" style="display:none">
                     <button class='uk-button uk-button-default uk-modal-close' type='button'>Delete</button>

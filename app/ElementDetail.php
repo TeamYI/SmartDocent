@@ -84,7 +84,8 @@ class ElementDetail extends Model
     }
 
     public function culturalElementAllSelect($cultural_code){
-        return ElementDetail::where("element_detail.cultural_code","=",$cultural_code)
+        return ElementDetail::leftjoin("data_file as a","element_detail.element_detail_code","=","a.element_detail_code")
+            ->where("element_detail.cultural_code","=",$cultural_code)
             ->select("*")
             ->get();
     }

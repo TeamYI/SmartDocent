@@ -194,7 +194,7 @@ $(document).ready(function(){
     $(".detail_button").click(function(){
         var cultural_code = $(this).attr("data-code");
         $("#modal-one-show .culture_explanation").empty();
-        alert(cultural_code);
+        console.log(cultural_code);
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -469,7 +469,7 @@ $(document).ready(function(){
 function explantionVoice(code){
 
     console.log("modal : " + "open" + code);
-    var element_detail_code = code;
+    element_detail_code = code;
 
     $.ajax({
         headers: {
@@ -585,8 +585,10 @@ function explanation_point(position,priority){
     explantion[i][0] = element_detail_code ;
     marker.code = explantion[i][0];
     google.maps.event.addListener(marker,"click",function(){
-        console.log("click : " + this.code);
-        $(".detail-file-code").attr("value",this.code);
+        element_detail_code = this.code;
+        console.log("click : " + element_detail_code);
+        $(".audio_file input[type=file]").val("");
+        $(".audio_file audio").attr("src","");
         var modal = UIkit.modal("#modal-explanation");
         if(modal.show()){
             explantionVoice(this.code);
@@ -598,7 +600,7 @@ function explanation_point(position,priority){
     google.maps.event.removeListener(e_map_latLng_event);
 }
 
-function explanationDeleteMarker(size, code){
+function explanationDeleteMarker(){
     console.log("pri : "+ size + "  code : "+ code);
     if(explantionMarker != null){
         for(var i=0 ; i< explantionMarker.length ; i++){
@@ -928,7 +930,7 @@ function DeleteMarker(code) {
              element_detail_code : code
         },
         success : function (data) {
-            alert("delSuceess :"+ data);
+            console.log("delSuceess :"+ data);
         },
         error : function (){
             alert("deleteFail"+" "+ id);
@@ -976,7 +978,7 @@ function handleImgFileSelect(e){
     filesArr.forEach(function (f) {
         console.log( " e : " +  e);
         if(!f.type.match("image.*")){
-            alert("확장자는 이미지 확장자만 가능합니다.");
+            console.log("확장자는 이미지 확장자만 가능합니다.");
             return;
         }
 
@@ -1040,7 +1042,7 @@ function geocoding(address, cultural_code,cultural_name){
         if (status == 'OK') {
             map.setCenter(results[0].geometry.location);
         } else {
-            alert('Geocode was not successful for the following reason: ' + status);
+            console.log('Geocode was not successful for the following reason: ' + status);
         }
     });
 }
@@ -1073,14 +1075,17 @@ function culturalElementSelect(){
             if(data.length) {
                 console.log("cultural_name" + cultural_name);
                 var count =0 ; //해설 포인트
+
                 for (var i = 0; i < data.length; i++) {
                     console.log("code :" + data[0].cultural_code);
                     console.log("dd : "+ data[i].element_detail_code);
-                    console.log("name : " + data[0].element_name);
+                    console.log("element_priority : " + data[i].element_priority);
                     console.log("ee :"+maxValue);
                     var element_code = data[i].element_code ;
                     var element_image ;
-
+                    var priority = data[i].element_priority;
+                    console.log("ddddd : "+ priority);
+                    // 해당 엘리먼트 코드이면 image 파일을 넣으면
                     if(element_code == 1 ){
                         element_image = "image/restroom.png";
                     }else if(element_code == 2){
@@ -1090,44 +1095,19 @@ function culturalElementSelect(){
                     }else if(element_code == 4){
                         element_image = "image/information.png";
                     }else if(element_code == 5){
-                        element_image = "image/explantion.png";
-                        explantion[count] = new Array(3) ;
-                        explantion[count][0] = data[i].element_detail_code;
-                        explantion[count][1] = data[i].latitude;
-                        explantion[count][2] = data[i].longitude;
+                        explantion[priority] = new Array(3) ;
+                        explantion[priority][0] = data[i].element_detail_code;
+                        explantion[priority][1] = data[i].latitude;
+                        explantion[priority][2] = data[i].longitude;
+                    }else if(element_code == 6){
+                        $("#startGuide audio").attr("src","audio/"+data[i].data_file_name);
+                    }else if(element_code == 9){
+                        $("#endGuide audio").attr("src","audio/"+data[i].data_file_name);
+                    }else if(element_code == 8){
+                        console.log("dddd" + data[i].data_file_name);
+                        $("#sectionGuide audio").attr("src","audio/guide_section.m4a");
                     }
-                    if(explantion.length > 0 && element_code==5){
-                        var image = {
-                            url: element_image,
-                            scaledSize: new google.maps.Size(40, 40),
-                            labelOrigin: new google.maps.Point(20, 17)
-                        };
-                        var marker = new google.maps.Marker({
-                            position: {lat: data[i].latitude, lng: data[i].longitude},
-                            map: map,
-                            label:{
-                                color :'black',
-                                fontWeight : 'bold',
-                                fontSize : "18px",
-                                text : count+1+""
-                            },
-                            icon : image
-                        });
-                        var code = explantion[count][0];
-                        marker.code = code;
-                        google.maps.event.addListener(marker,"click",function(){
-                            element_detail_code = this.code;
-                            console.log(element_detail_code);
-                            var modal = UIkit.modal("#modal-explanation");
-                            if(modal.show()){
-
-                                explantionVoice(this.code);
-
-                            }
-                        });
-                        explantionMarker.push(marker);
-                        count++;
-                }else{
+                    if(element_code != 5){
                         var marker = new google.maps.Marker({
                             position: {lat: data[i].latitude, lng: data[i].longitude},
                             map: map,
@@ -1160,6 +1140,44 @@ function culturalElementSelect(){
                     }
 
                 }
+                // 배열의 공백 제거
+                explantion.splice(0,1);
+                for(var i=0 ; i<explantion.length ; i++){
+                    console.log(explantion);
+                        var image = {
+                            url: "image/explantion.png",
+                            scaledSize: new google.maps.Size(40, 40),
+                            labelOrigin: new google.maps.Point(20, 17)
+                        };
+                        var marker = new google.maps.Marker({
+                            position: {lat: explantion[i][1], lng: explantion[i][2]},
+                            map: map,
+                            label:{
+                                color :'black',
+                                fontWeight : 'bold',
+                                fontSize : "18px",
+                                text : i+1+""
+                            },
+                            icon : image
+                        });
+                        var code = explantion[i][0];
+                        marker.code = code;
+                        google.maps.event.addListener(marker,"click",function(){
+                            element_detail_code = this.code;
+                            console.log(element_detail_code);
+                            $(".audio_file input[type=file]").val("");
+                            $(".audio_file audio").attr("src","");
+                            var modal = UIkit.modal("#modal-explanation");
+                            if(modal.show()){
+
+                                explantionVoice(this.code);
+
+                            }
+                        });
+                        explantionMarker.push(marker);
+                        count++;
+
+                }
 
             }
         },
@@ -1171,6 +1189,10 @@ function culturalElementSelect(){
 function startGuide() {
     console.log("cultural_name" + cultural_code);
     if (cultural_code) {
+        $("#startGuide audio").val("");
+        $("#endGuide audio").val("");
+        $(".sectionGuide audio").val("");
+
         $("#explan_cultural_name").text(cultural_name+" 해설포인트");
         console.log("cultural_name" + cultural_name);
         $("#explanation_show").css("display","block");
@@ -1198,7 +1220,7 @@ function QRCreate(a,maxValue){
             element_detail_file : googleQRUrl
         },
         success : function (data) {
-            alert(data);
+            console.log(data);
         },
         error : function (){
             alert("fail");
