@@ -2,10 +2,20 @@
 namespace App\Http\Controllers;
 
 use App\pages;
+use App\Cultural;
+use App\CulturalDetail;
 use App\Http\Controllers\Controller;
 
 class PageController extends Controller
 {
+    private $Cultural;
+    private $CulturalDetail;
+    public function __construct()
+    {
+        $this->Cultural = new Cultural() ;
+        $this->CulturalDetail = new CulturalDetail() ;
+    }
+
     public function login()
     {
         return view('login');
@@ -33,5 +43,10 @@ class PageController extends Controller
     {
         echo "안녕하세요" ;
         return view('/main');
+    }
+
+    public function manage_list(){
+        $list = $this->CulturalDetail->first_cultural_list_show();
+        return view('manage_list') -> with("list",$list);
     }
 }

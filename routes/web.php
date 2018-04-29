@@ -52,3 +52,6 @@ Route::post("audioAjaxUpload","AudioDataFileController@audioAjaxUpload");
 
 //controller 추가부문
 Route::resource('culture_register','CultureRegisterController');
+
+//문화재 리스트
+Route::get('manage_list', 'PageController@manage_list');

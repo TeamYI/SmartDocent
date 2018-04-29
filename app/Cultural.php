@@ -50,4 +50,5 @@ class Cultural extends Model
             ->select('cultural.cultural_code', 'cultural.cultural_address', 'cultural.cultural_type','cultural.ar','cultural.qr','cultural.cultural_image','a.cultural_name','a.language_code','a.cultural_detail_explain','a.cultural_detail_code','b.language')
             ->get();
     }
+
 }
