@@ -44,4 +44,11 @@ class CulturalDetail extends Model
             ->select("*")
             ->get();
     }
+
+//1차문화재 목록
+    public function first_cultural_list_show(){
+        return CulturalDetail::select("cultural_name")
+            ->where("cultural_include","=",null)
+            ->get();
+    }
 }
