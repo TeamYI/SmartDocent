@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\pages;
 use App\Cultural;
 use App\CulturalDetail;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class PageController extends Controller
@@ -45,8 +46,20 @@ class PageController extends Controller
         return view('/main');
     }
 
-    public function manage_list(){
+    public function manage_list(Request $request){
+        $type_one = $this->Cultural->cultural_list();
+        $type_two = $this->CulturalDetail->cultural_list_two();
+        $code = $request->get("cultural_code");
+
         $list = $this->CulturalDetail->first_cultural_list_show();
-        return view('manage_list') -> with("list",$list);
+
+        return view('manage_list')->with('code',$code)->with('type_one',$type_one)->with('type_two',$type_two)
+            ->with("list",$list);
+        }
+
+    //민석 테스트용
+    public function mstest(){
+
+        return view('cultural_manage_page');
     }
 }
