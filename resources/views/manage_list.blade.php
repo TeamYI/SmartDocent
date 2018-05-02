@@ -36,103 +36,28 @@
 --}}
 
 
+
 <div {{--style ="width:340px; margin-top: 100px; margin-left: 600px;"--}}>
     <ll>
         <ul>
-            @foreach($type_one as $one)
-                @if(strpos($one->cultural_address ,"서울특별시")!== false)
-                    <a href="/mstest">
-                        <div style="color:black; border-bottom:1px solid; text-align:center; ">
-                            <div style="display: table-cell; vertical-align:middle; text-align:center; ">
-                                <br>{{$one->cultural_name}}
-                            </div>
-                        </div>
-                    </a>
-                @endif
+            @foreach($list as $list)
+                <a href="mstest?cultural_code={{$list->cultural_code}}">
+                <div style="color:black; border-bottom:1px solid; text-align:center; ">
+                    <div style="display: table-cell; vertical-align:middle; text-align:center; ">
+                        {{$list->cultural_name}}
+                    </div>
+                </div>
+                </a>
             @endforeach
         </ul>
     </ll>
-    <ll>
-        <ul>
-            @foreach($type_one as $one)
-                @if(strpos($one->cultural_address ,"경기도")!== false)
-                    <a href="/mstest">
-                        <div style="color:black; border-bottom:1px solid; text-align:center; ">
-                            <div style="display: table-cell; vertical-align:middle; text-align:center; ">
-                                <br>{{$one->cultural_name}}
-                            </div>
-                        </div>
-                    </a>
-                @endif
-            @endforeach
-        </ul>
-    </ll>
-    <ll>
-        <ul>
-            @foreach($type_one as $one)
-                @if(strpos($one->cultural_address ,"강원도")!== false)
-                    <a href="/mstest">
-                        <div style="color:black; border-bottom:1px solid; text-align:center; ">
-                            <div style="display: table-cell; vertical-align:middle; text-align:center; ">
-                                <br>{{$one->cultural_name}}
-                            </div>
-                        </div>
-                    </a>
-                @endif
-            @endforeach
-        </ul>
-    </ll>
-    <ll>
-        <ul>
-            @foreach($type_one as $one)
-                @if(strpos($one->cultural_address ,"충청북도")!== false)
-                    <a href="/mstest">
-                        <div style="color:black; border-bottom:1px solid; text-align:center; ">
-                            <div style="display: table-cell; vertical-align:middle; text-align:center; ">
-                                <br>{{$one->cultural_name}}
-                            </div>
-                        </div>
-                    </a>
-                @endif
-            @endforeach
-        </ul>
-    </ll>
-    <ll>
-        <ul>
-            @foreach($type_one as $one)
-                @if(strpos($one->cultural_address ,"충청남도")!== false)
-                    <a href="/mstest">
-                        <div style="color:black; border-bottom:1px solid; text-align:center; ">
-                            <div style="display: table-cell; vertical-align:middle; text-align:center; ">
-                                <br>{{$one->cultural_name}}
-                            </div>
-                        </div>
-                    </a>
-                @endif
-            @endforeach
-        </ul>
-    </ll>
-    <ll>
-        <ul>
-            @foreach($type_one as $one)
-                @if(strpos($one->cultural_address ,"인천광역시")!== false)
-                    <a href="/mstest">
-                        <div style="color:black; border-bottom:1px solid; text-align:center; ">
-                            <div style="display: table-cell; vertical-align:middle; text-align:center; ">
-                                <br>{{$one->cultural_name}}
-                            </div>
-                        </div>
-                    </a>
-                @endif
-            @endforeach
-        </ul>
-    </ll>
-    {{--ms대구--}}
+   {{--
     <ll>
         <ul>
             @foreach($type_one as $one)
                 @if(strpos($one->cultural_address ,"대구광역시")!== false)
-                    <a href="/mstest">
+
+                    <a href="mstest?cultural_name={{$one->cultural_name}}">
                         <div style="color:black; border-bottom:1px solid; text-align:center; ">
                             <div style="display: table-cell; vertical-align:middle; text-align:center; ">
                             <br>{{$one->cultural_name}}
@@ -143,126 +68,7 @@
             @endforeach
         </ul>
     </ll>
-    <ll>
-        <ul>
-            @foreach($type_one as $one)
-                @if(strpos($one->cultural_address ,"경상북도")!== false)
-                    <a href="/mstest">
-                        <div style="color:black; border-bottom:1px solid; text-align:center; ">
-                            <div style="display: table-cell; vertical-align:middle; text-align:center; ">
-                                <br>{{$one->cultural_name}}
-                            </div>
-                        </div>
-                    </a>
-                @endif
-            @endforeach
-        </ul>
-    </ll>
-    <ll>
-        <ul>
-            @foreach($type_one as $one)
-                @if(strpos($one->cultural_address ,"경상남도")!== false)
-                    <a href="/mstest">
-                        <div style="color:black; border-bottom:1px solid; text-align:center; ">
-                            <div style="display: table-cell; vertical-align:middle; text-align:center; ">
-                                <br>{{$one->cultural_name}}
-                            </div>
-                        </div>
-                    </a>
-                @endif
-            @endforeach
-        </ul>
-    </ll>
-    <ll>
-        <ul>
-            @foreach($type_one as $one)
-                @if(strpos($one->cultural_address ,"전라북도")!== false)
-                    <a href="/mstest">
-                        <div style="color:black; border-bottom:1px solid; text-align:center; ">
-                            <div style="display: table-cell; vertical-align:middle; text-align:center; ">
-                                <br>{{$one->cultural_name}}
-                            </div>
-                        </div>
-                    </a>
-                @endif
-            @endforeach
-        </ul>
-    </ll>
-    <ll>
-        <ul>
-            @foreach($type_one as $one)
-                @if(strpos($one->cultural_address ,"전라남도")!== false)
-                    <a href="/mstest">
-                        <div style="color:black; border-bottom:1px solid; text-align:center; ">
-                            <div style="display: table-cell; vertical-align:middle; text-align:center; ">
-                                <br>{{$one->cultural_name}}
-                            </div>
-                        </div>
-                    </a>
-                @endif
-            @endforeach
-        </ul>
-    </ll>
-    <ll>
-        <ul>
-            @foreach($type_one as $one)
-                @if(strpos($one->cultural_address ,"울산광역시")!== false)
-                    <a href="/mstest">
-                        <div style="color:black; border-bottom:1px solid; text-align:center; ">
-                            <div style="display: table-cell; vertical-align:middle; text-align:center; ">
-                                <br>{{$one->cultural_name}}
-                            </div>
-                        </div>
-                    </a>
-                @endif
-            @endforeach
-        </ul>
-    </ll>
-    <ll>
-        <ul>
-            @foreach($type_one as $one)
-                @if(strpos($one->cultural_address ,"부산광역시")!== false)
-                    <a href="/mstest">
-                        <div style="color:black; border-bottom:1px solid; text-align:center; ">
-                            <div style="display: table-cell; vertical-align:middle; text-align:center; ">
-                                <br>{{$one->cultural_name}}
-                            </div>
-                        </div>
-                    </a>
-                @endif
-            @endforeach
-        </ul>
-    </ll>
-    <ll>
-        <ul>
-            @foreach($type_one as $one)
-                @if(strpos($one->cultural_address ,"대전광역시")!== false)
-                    <a href="/mstest">
-                        <div style="color:black; border-bottom:1px solid; text-align:center; ">
-                            <div style="display: table-cell; vertical-align:middle; text-align:center; ">
-                                <br>{{$one->cultural_name}}
-                            </div>
-                        </div>
-                    </a>
-                @endif
-            @endforeach
-        </ul>
-    </ll>
-    <ll>
-        <ul>
-            @foreach($type_one as $one)
-                @if(strpos($one->cultural_address ,"제주도")!== false)
-                    <a href="/mstest">
-                        <div style="color:black; border-bottom:1px solid; text-align:center; ">
-                            <div style="display: table-cell; vertical-align:middle; text-align:center; ">
-                                <br>{{$one->cultural_name}}
-                            </div>
-                        </div>
-                    </a>
-                @endif
-            @endforeach
-        </ul>
-    </ll>
+    --}}
 </div>
 
 </body>

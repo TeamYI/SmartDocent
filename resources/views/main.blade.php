@@ -39,15 +39,14 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto" style="position: absolute; right: 100px;">
                 <li class="nav-item mx-0 mx-lg-1">
-                    <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/culturalManage">문화재 관리</a>
+                    <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/culturalManage">코스 등록</a>
+                </li>
+                <li class="nav-item mx-0 mx-lg-1">
+                    <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/manage_list">코스 관리</a>
                 </li>
                 <li class="nav-item mx-0 mx-lg-1">
                     <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="'/member_manage'">회원 관리</a>
                 </li>
-                <li class="nav-item mx-0 mx-lg-1">
-                    <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/manage_list">문화재 관리</a>
-                </li>
-
                 {{--<li class="nav-item mx-0 mx-lg-1">--}}
                     {{--<a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">문화재 관리</a>--}}
                 {{--</li>--}}

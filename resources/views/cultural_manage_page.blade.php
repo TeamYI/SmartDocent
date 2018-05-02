@@ -40,11 +40,45 @@
 
 <div class="image_list" id="image_list">
     <div class="images content_frame" style="display:block"><!-- content_frame 클래스를 반드시 포함해야 합니다.-->
-        한국어 version page
+        한국어 version page<br>
+        @if(!empty($cultural_info))
+            @foreach($cultural_info as $one)
+                    @if($one->language_code == 1)
+                        {{$one->cultural_name}}
+                    @endif
+            @endforeach
+        @endif
     </div>
-    <div class="images content_frame">English version page</div>
-    <div class="images content_frame">中文 version page</div>
-    <div class="images content_frame">日本語 version page</div>
+    <div class="images content_frame">
+        English version page<br>
+        @if(!empty($cultural_info))
+            @foreach($cultural_info as $one)
+                @if($one->language_code == 2)
+                    {{$one->cultural_name}}
+                @endif
+            @endforeach
+        @endif
+    </div>
+    <div class="images content_frame">
+        中文 version page<br>
+        @if(!empty($cultural_info))
+        @foreach($cultural_info as $one)
+            @if($one->language_code == 3)
+                {{$one->cultural_name}}
+            @endif
+        @endforeach
+        @endif
+    </div>
+    <div class="images content_frame">
+        日本語 version page<br>
+        @if(!empty($cultural_info))
+        @foreach($cultural_info as $one)
+            @if($one->language_code == 4)
+                {{$one->cultural_name}}
+            @endif
+        @endforeach
+        @endif
+    </div>
 </div>
 
 

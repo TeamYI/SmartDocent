@@ -47,8 +47,15 @@ class CulturalDetail extends Model
 
 //1차문화재 목록
     public function first_cultural_list_show(){
-        return CulturalDetail::select("cultural_name")
+        return CulturalDetail::select("cultural_name","cultural_code")
             ->where("cultural_include","=",null)
+            ->where("language_code","=",1)
             ->get();
+    }
+
+    public function cultural_info($cultural_code){
+        return CulturalDetail::where("cultural_include","=",$cultural_code)
+        ->select("cultural_name","language_code")
+        ->get();
     }
 }

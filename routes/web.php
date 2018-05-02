@@ -54,7 +54,7 @@ Route::post("audioAjaxUpload","AudioDataFileController@audioAjaxUpload");
 Route::resource('culture_register','CultureRegisterController');
 
 //ms문화재 리스트
-Route::get('manage_list', 'PageController@manage_list')->name('upload.cultureManager');
+Route::get('manage_list', 'PageController@manage_list');
 
 //민석이 테스트
-Route::get('/mstest','PageController@mstest');
+Route::get('mstest','PageController@mstest');

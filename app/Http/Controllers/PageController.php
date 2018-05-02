@@ -46,20 +46,17 @@ class PageController extends Controller
         return view('/main');
     }
 
-    public function manage_list(Request $request){
-        $type_one = $this->Cultural->cultural_list();
-        $type_two = $this->CulturalDetail->cultural_list_two();
-        $code = $request->get("cultural_code");
-
+    public function manage_list(){
         $list = $this->CulturalDetail->first_cultural_list_show();
 
-        return view('manage_list')->with('code',$code)->with('type_one',$type_one)->with('type_two',$type_two)
-            ->with("list",$list);
+        return view('manage_list')->with("list",$list);
         }
 
     //민석 테스트용
-    public function mstest(){
+    public function mstest(Request $request){
+        $cultural_code = $request->input('cultural_code', 0);
+        $cultural_info = $this->CulturalDetail->cultural_info($cultural_code);
 
-        return view('cultural_manage_page');
+        return view('cultural_manage_page')->with("cultural_info",$cultural_info);
     }
 }
