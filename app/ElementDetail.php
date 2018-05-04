@@ -11,7 +11,7 @@ class ElementDetail extends Model
     public $timestamps = false; // 얘를 안쓰면 update_at을 멋대로 씀;
 
 
-    public function add_element($element_code, $latitude, $longitude,$cultural_code)
+    public function add_element($cultural_code,$element_code, $latitude, $longitude)
     {
         ElementDetail::insert([
             'element_code' => $element_code,
@@ -90,4 +90,10 @@ class ElementDetail extends Model
             ->get();
     }
 
+    public function ARUpdate($element_detail_code,$element_detail_file){
+        ElementDetail::where("element_detail_code","=",$element_detail_code)
+            ->update([
+                "element_detail_file" => $element_detail_file
+            ]);
+    }
 }

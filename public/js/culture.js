@@ -18,6 +18,8 @@ var explantion = [] ; //성현 해설포인트 담는 변수
 var explantionMarker = [] ; //성현 해설포인트 담는 변수
 var explanInfowinow = [];
 var facilityMarker = [] ;
+var language_code = 1;
+var audio_file ;
 $(document).ready(function(){
 
     //지도 불러오기
@@ -390,80 +392,136 @@ $(document).ready(function(){
         }
     })
 
+    //안내시작, 안내종료, 구간해설
+    $(".start_content").hide();
+    $(".start_content:first").show();
+    $("ul.startNav li").click(function(){
+
+        $("ul.startNav li").removeClass("active").css("color", "#333");
+        $(this).addClass("active").css({"color": "darkred","font-weight": "bolder"});
+        $(this).addClass("active").css("color", "darkred");
+        $(".start_content").hide()
+        var activeTab = $(this).attr("rel");
+        $("#" + activeTab).fadeIn();
+
+        language_code = activeTab.substr(8, 8);
+
+    })
+
+    $(".end_content").hide();
+    $(".end_content:first").show();
+    $("ul.endNav li").click(function(){
+        $("ul.endNav li").removeClass("active").css("color", "#333");
+        $(this).addClass("active").css({"color": "darkred","font-weight": "bolder"});
+        $(this).addClass("active").css("color", "darkred");
+        $(".end_content").hide()
+        var activeTab = $(this).attr("rel");
+        $("#" + activeTab).fadeIn();
+
+        language_code = activeTab.substr(6, 6);
+        console.log(language_code);
+
+    })
+
+    $(".section_content").hide();
+    $(".section_content:first").show();
+    $("ul.sectionNav li").click(function(){
+        $("ul.sectionNav li").removeClass("active").css("color", "#333");
+        $(this).addClass("active").css({"color": "darkred","font-weight": "bolder"});
+        $(this).addClass("active").css("color", "darkred");
+        $(".section_content").hide()
+        var activeTab = $(this).attr("rel");
+        $("#" + activeTab).fadeIn();
+
+        language_code = activeTab.substr(6, 6);
+        console.log(language_code);
+
+    })
+
+    $(".audio_register").on("change",function(){
+        audio_file = [] ;
+        audio_file = this.files;
+        console.log("audio : " + audio_file);
+        var sound = $(this).next();
+        sound.attr("src", URL.createObjectURL(this.files[0]));
+        sound.onend = function (e) {
+            URL.revokeObjectURL(this.src);
+        }
+    });
 
 
     //일러스트 이미지 - 파일업로드 클릭했을때
     $("#input_img").on("change",handleImgFileSelect);
 
     // 음성파일 - 파일 업로드 클릭시
-    $(".audio_content").on("change",".audio_register",function(){
-        var sound = $(this).next();
-        sound.attr("src",URL.createObjectURL(this.files[0])) ;
-        sound.onend = function(e){
-            URL.revokeObjectURL(this.src);
-        }
-        console.log("element_detail_code : "+ element_detail_code);
-        var language = $(this).prev().val();
-        var file = this.files;
-        var form = new FormData();
-        form.append(language, file[0]);
-        form.append("element_detail_code",element_detail_code);
-        $.ajax({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            url: "audioAjaxUpload",
-            type: "POST",
-            processData: false,
-            contentType: false,
-            data: form,
-
-            success: function (data) {
-                console.log("음성 업로드 완료 ddd:" + data);
-            },
-            error: function () {
-                alert("fail");
-            }
-        });
-
-
-    });
+    // $(".audio_content").on("change",".audio_register",function(){
+    //     var sound = $(this).next();
+    //     sound.attr("src",URL.createObjectURL(this.files[0])) ;
+    //     sound.onend = function(e){
+    //         URL.revokeObjectURL(this.src);
+    //     }
+    //     console.log("element_detail_code : "+ element_detail_code);
+    //     var language = $(this).prev().val();
+    //     var file = this.files;
+    //     console.log("audio : "+ file);
+    //     var form = new FormData();
+    //     form.append(language, file[0]);
+    //     form.append("element_detail_code",element_detail_code);
+    //     $.ajax({
+    //         headers: {
+    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //         },
+    //         url: "audioAjaxUpload",
+    //         type: "POST",
+    //         processData: false,
+    //         contentType: false,
+    //         data: form,
+    //
+    //         success: function (data) {
+    //             console.log("음성 업로드 완료 ddd:" + data);
+    //         },
+    //         error: function () {
+    //             alert("fail");
+    //         }
+    //     });
+    //
+    //
+    // });
 
 
     // 음성파일 - 구간 종료 처음
-    $("#tab3").on("change",".audio_register",function() {
-        var file = this.files;
-        var language ;
-        console.log($(this).prev().val());
-        var form = new FormData();
-        form.append('language', file[0]);
-        $.ajax({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            url: "audioAjaxUpload",
-            type: "POST",
-            processData: false,
-            contentType: false,
-            data: form,
-            success: function (data) {
-                console.log("음성 업로드 완료 :" +data);
-            },
-            error: function () {
-                alert("fail");
-            }
-        });
-
-        var sound = $(this).next();
-        sound.attr("src",URL.createObjectURL(this.files[0])) ;
-        sound.onend = function(e){
-            URL.revokeObjectURL(this.src);
-        }
-    });
+    // $("#tab3").on("change",".audio_register",function() {
+    //     var file = this.files;
+    //     var language ;
+    //     console.log($(this).prev().val());
+    //     var form = new FormData();
+    //     form.append('language', file[0]);
+    //     $.ajax({
+    //         headers: {
+    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //         },
+    //         url: "audioAjaxUpload",
+    //         type: "POST",
+    //         processData: false,
+    //         contentType: false,
+    //         data: form,
+    //         success: function (data) {
+    //             console.log("음성 업로드 완료 :" +data);
+    //         },
+    //         error: function () {
+    //             alert("fail");
+    //         }
+    //     });
+    //
+    //     var sound = $(this).next();
+    //     sound.attr("src",URL.createObjectURL(this.files[0])) ;
+    //     sound.onend = function(e){
+    //         URL.revokeObjectURL(this.src);
+    //     }
+    // });
 
 
 })
-
 
 //해설을 등록하고 보이는 부분
 function explantionVoice(code){
@@ -889,11 +947,21 @@ function mapPositionImage(position,img_src){
             // })
             console.log("marker+_code :"+ element_facility_code);
             if(img_src.substr(7,2) == "qr") { // qr이면 버튼 생성
-                console.log("maxValue: " + maxValue);
                 marker.infowindow = new google.maps.InfoWindow({
                     content: "<div style='width:200px; height: 25px'><button onclick='QRCreate($(this),element_facility_code);' style='position:absolute; top: 0; left:0'>qr코드 생성</button>"
                     + "<button onclick = 'DeleteMarker(" + marker.code + ");'  style='position:absolute; top: 0; left:100px'>Delete</button>"
                     + "</div><img src=''>"
+
+                });
+            }else if(img_src.substr(7,2) == "ar"){
+                marker.infowindow = new google.maps.InfoWindow({
+                    content: "<div>"
+                                +"<input type='file' onchange='ARUpdate(this.files,"+marker.code+")'>"
+                                +"<button>파일 지우기</button>"
+                            +"</div>"
+                            + "<div>"
+                                + "<button onclick = 'DeleteMarker(" + marker.code + ");'>Delete</button>"
+                            + "</div>"
 
                 });
             }else{
@@ -915,7 +983,30 @@ function mapPositionImage(position,img_src){
     }
 }
 
+function ARUpdate(file,element_detail_code){
 
+    //console.log(file[0]);
+    var form = new FormData();
+    form.append("ar",file[0]);
+    form.append("element_detail_code",element_detail_code);
+
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        processData: false,
+        contentType: false,
+        url : "ARUpdate",
+        type : "POST",
+        data : form,
+        success : function (data) {
+            console.log("insert :"+ data);
+        },
+        error : function (){
+            alert("deleteFail"+" "+ id);
+        }
+    });
+}
 
 // 마커 삭제 함수
 function DeleteMarker(code) {
@@ -1100,12 +1191,22 @@ function culturalElementSelect(){
                         explantion[priority][1] = data[i].latitude;
                         explantion[priority][2] = data[i].longitude;
                     }else if(element_code == 6){
-                        $("#startGuide audio").attr("src","audio/"+data[i].data_file_name);
+                        var tab = $("#startTab"+data[i].language_code) ;
+                        tab.empty();
+                        var content = "<audio src='audio/"+data[i].data_file_name+"' controls style='height: 30px;margin-top: 20px'></audio>"
+                                    +"<button>수정</button><button>삭제</button>";
+                        tab.append(content);
+                        // $("#startTab"+data[i].language_code+" > audio").attr("src","audio/"+data[i].data_file_name);
                     }else if(element_code == 9){
-                        $("#endGuide audio").attr("src","audio/"+data[i].data_file_name);
+                        var tab = $("#endTab"+data[i].language_code) ;
+                        tab.empty();
+                        var content = "<audio src='audio/"+data[i].data_file_name+"' controls style='height: 30px;margin-top: 20px'></audio>"
+                            +"<button>수정</button><button>삭제</button>";
+                        tab.append(content);
+
                     }else if(element_code == 8){
                         console.log("dddd" + data[i].data_file_name);
-                        $("#sectionGuide audio").attr("src","audio/guide_section.m4a");
+                        $("#sectionTab"+data[i].language_code+" > audio").attr("src","audio/"+data[i].data_file_name);
                     }
                     if(element_code != 5){
                         var marker = new google.maps.Marker({
@@ -1186,8 +1287,7 @@ function culturalElementSelect(){
         }
     });
 }
-function startGuide() {
-    console.log("cultural_name" + cultural_code);
+function startGuide(){
     if (cultural_code) {
         $("#startGuide audio").val("");
         $("#endGuide audio").val("");
@@ -1199,6 +1299,39 @@ function startGuide() {
     } else {
         console.log("cultural_code code 없더여" + cultural_code);
     }
+}
+
+function startAudioRegister(element_code) {
+    console.log("cultural_name" + cultural_code);
+    console.log(language_code);
+    if(audio_file.length > 0) {
+        var form = new FormData();
+        form.append('audio', audio_file[0]);
+        form.append('language_code', language_code);
+        form.append('cultural_code', cultural_code);
+        form.append('element_code', element_code);
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: "audioAjaxUpload",
+            type: "POST",
+            processData: false,
+            contentType: false,
+            data: form,
+            success: function (data) {
+                console.log("음성 업로드 완료 :" + data);
+                language_code = 1 ;
+            },
+            error: function () {
+                alert("fail");
+            }
+        });
+
+    }else{
+
+    }
+
 }
 
 // qr 생성
@@ -1220,10 +1353,10 @@ function QRCreate(a,maxValue){
             element_detail_file : googleQRUrl
         },
         success : function (data) {
-            console.log(data);
+            alert("음성파일이 등록되었습니다.");
         },
         error : function (){
-            alert("fail");
+            alert("audio fail");
         }
     })
 }

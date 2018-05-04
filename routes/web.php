@@ -44,7 +44,7 @@ Route::post("culturalExplanation","ElementDetailController@culturalExplanation")
 Route::post("explainDelete","ElementDetailController@explainDelete");
 Route::post("explaintionPriority","ElementDetailController@explaintionPriority");
 Route::post("culturalElementAllSelect","ElementDetailController@culturalElementAllSelect");
-
+Route::post("ARUpdate","ElementDetailController@ARUpdate");
 //file
 Route::post("audioRegister","AudioDataFileController@audioRegister");
 Route::post("audioSelect","AudioDataFileController@audioSelect");
