@@ -24,51 +24,59 @@
 </head>
 <body>
 @include('header')
-<div style="margin-top: 70px"></div>
-    {{-- 임시삭제
-    20180429ms
-        <p>cultural manage list</p>
-@foreach ($list as $one)
-        <div>
-    {{$one ->cultural_name}}
-        </div>
-@endforeach
---}}
+<style>
+    #wrap {
+        margin-top: 70px;
+        width: 100%;
+    }
+    table {
+        text-align: center;
+        margin:130px auto;
+        border-top: 2px solid black;
+        border-bottom : 2px solid black;
+    }
+    th{
+        padding: 10px 0;
+        border-bottom : 1px solid black;
+        background:#E7E7E7 ;
+    }
+    td{
+        padding: 10px 0;
+        border-bottom : 1px solid black;
+    }
+    h3 {
+        margin: 0 auto;
+    }
 
+</style>
+<script>
+    function culturalManagePage(code){
 
+        var form = $("#form");
+        form.append('<input type="hidden" name="cultural_code" value="'+code+'" />');
+        console.log("form : " + form.html());
+        form.submit();
+    }
+</script>
+<div id="wrap">
+    <form id="form" action="mstest" method="get"></form>
 
-<div {{--style ="width:340px; margin-top: 100px; margin-left: 600px;"--}}>
-    <ll>
-        <ul>
-            @foreach($list as $list)
-                <a href="mstest?cultural_code={{$list->cultural_code}}">
-                <div style="color:black; border-bottom:1px solid; text-align:center; ">
-                    <div style="display: table-cell; vertical-align:middle; text-align:center; ">
-                        {{$list->cultural_name}}
-                    </div>
-                </div>
-                </a>
-            @endforeach
-        </ul>
-    </ll>
-   {{--
-    <ll>
-        <ul>
-            @foreach($type_one as $one)
-                @if(strpos($one->cultural_address ,"대구광역시")!== false)
-
-                    <a href="mstest?cultural_name={{$one->cultural_name}}">
-                        <div style="color:black; border-bottom:1px solid; text-align:center; ">
-                            <div style="display: table-cell; vertical-align:middle; text-align:center; ">
-                            <br>{{$one->cultural_name}}
-                            </div>
-                        </div>
-                    </a>
-                @endif
-            @endforeach
-        </ul>
-    </ll>
-    --}}
+    <table>
+        <colgroup>
+            <col width="100px" />
+            <col width="900px" />
+        </colgroup>
+        <tr>
+            <th>번호</th>
+            <th>문화재 이름</th>
+        </tr>
+        @for($i=0;$i<count($list);$i++)
+        <tr>
+            <td>{{$i+1}}</td>
+            <td><a href="javascript:culturalManagePage({{$list[$i]['cultural_code']}});">{{$list[$i]['cultural_name']}}</a></td>
+        </tr>
+        @endfor
+    </table>
 </div>
 
 </body>
