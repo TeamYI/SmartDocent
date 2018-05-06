@@ -90,4 +90,11 @@ class ElementDetail extends Model
             ->get();
     }
 
+    public function culturalElementMS($cultural_code){
+        return ElementDetail::where("cultural_code","=",$cultural_code)
+            ->where("element_code","=",8)
+            ->select("element_detail_code","element_detail.section_start","element_detail.section_end")
+            ->get();
+    }
+
 }

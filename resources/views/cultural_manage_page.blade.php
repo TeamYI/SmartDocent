@@ -1,15 +1,12 @@
 {{-- 문화재 관리창 --}}
-
-
-
 <html>
 <head>
 
     <style>
         ul, li {list-style:none; margin:0; padding:0; font-size:10pt; }
 
-        .image_list {clear:both;overflow: hidden;position: relative;height: 1300px;width: 6000px; border:1px solid #e1e1e1; }
-        .image_list .images {position:absolute; display:none; }
+        .image_list {clear:both;overflow: hidden;position: relative;height: 100%; width: 100%; border:1px solid #e1e1e1; }
+        .image_list .images {position:absolute; display:none;  height:100%; width:100%;}
 
         .tab {width:600px;cursor:pointer;}
         .tab li {width:70px;float:left;border-right:1px solid #e1e1e1;border-top:1px solid #e1e1e1;padding:7px;}
@@ -20,8 +17,19 @@
 
         .tab li.tabOutClass {font-weight:normal;color:#707070;background-color:#D0D0D0}
         .tab li.tabOverClass {font-weight:bold;color:#000;background-color:#fff;}
-    </style>
 
+        /*#secExplain {
+            width:100%;
+            min-height:500px;
+            margin-left : 10%;
+            margin-top : 10%;
+        }*/
+    </style>
+<script type="text/javascript">
+    function addSection(){
+        document.getElementById("msSection").innerHTML = "Paragraph changed!";
+    }
+</script>
 </head>
 <body>
 @include('header')
@@ -40,47 +48,125 @@
 
 <div class="image_list" id="image_list">
     <div class="images content_frame" style="display:block"><!-- content_frame 클래스를 반드시 포함해야 합니다.-->
-        한국어 version page<br>
-        @if(!empty($cultural_info))
-            @foreach($cultural_info as $one)
-                    @if($one->language_code == 1)
+        {{--  @if(!empty($cultural_info))
+              @foreach($cultural_info as $one)
+               @if($one->language_code == 1)
+
+                   {{$one->cultural_name}}
+               @endif
+              @endforeach
+          @endif--}}
+        <div {{--id="secExplain"--}} style="width:100%; height:100%; margin-top:3%">
+            {{--<div style="width:100%;">
+                <span style="width:10%; float:left"></span>
+                <span style="width:16%; float:left"><img src="image/start.png" style="width:50px; height:50px;"></span>
+                <span style="width:16%; float:left"><img src="image/explantion.png" style="width:50px; height:50px;"></span>
+                <span style="width:16%; float:left"><img src="image/explantion.png" style="width:50px; height:50px;"></span>
+                <span style="width:16%; float:left"><img src="image/explantion.png" style="width:50px; height:50px;"></span>
+                <span style="width:16%; float:left"><img src="image/explantion.png" style="width:50px; height:50px;"></span>
+                <span style="width:10%; float:left"><img src="image/end.png" style="width:50px; height:50px;"></span>
+                <hr align=left; style="border:none; border:2px solid; clear:both; width:90%; ">
+            </div>
+            <h6>
+                <div style="width:10%;  float:left"></div>
+                <div style="width:16%;  float:left">{{$data_file_name[4]['data_file_name']}}</div>
+                <div style="width:16%; float:left">{{$data_file_name[2]['data_file_name']}}</div>
+                <div style="width:16%; float:left">{{$data_file_name[0]['data_file_name']}}</div>
+                <div style="width:16%; float:left">{{$data_file_name[1]['data_file_name']}}</div>
+                <div style="width:16%; float:left">{{$data_file_name[3]['data_file_name']}}</div>
+                <div style="width:10%; float:left" >{{$data_file_name[5]['data_file_name']}}</div>
+            </h6>
+            <div style="width:100%; height:50%; margin-top:70px">--}}
+
+            <div style="width:100%; height:50px">
+                <div style="width:7%; height:100%; float:left"></div>
+                <div style="width:16%; height:100%; float:left"><img src="image/start.png" style="width:50px; height:50px;"></div>
+                <div style="width:16%; height:100%; float:left"><img src="image/explantion.png" style="width:50px; height:100%;"></div>
+                <div style="width:16%; height:100%; float:left"><img src="image/explantion.png" style="width:50px; height:50px;"></div>
+                <div style="width:16%; height:100%; float:left"><img src="image/explantion.png" style="width:50px; height:50px;"></div>
+                <div style="width:16%; height:100%; float:left"><img src="image/explantion.png" style="width:50px; height:50px;"></div>
+                <div style="width:13%; height:100%; float:left"><img src="image/end.png" style="width:50px; height:50px;"></div>
+            </div>
+            <div style="width:100%; height:1px">
+                <div style="width:7%;height:100%; float:left"></div>
+                <div style="border-top: 1px solid black; width:80%;height:100%; float:left"></div>
+            </div>
+            <div style="width:100%; height:4% ">
+                <div style="width:7%; height:100%; float:left"></div>
+                <div style="width:16%; height:100%; float:left">{{$data_file_name[4]['data_file_name']}}</div>
+                <div style="width:16%; height:100%; float:left">{{$data_file_name[2]['data_file_name']}}</div>
+                <div style="width:16%; height:100%; float:left">{{$data_file_name[0]['data_file_name']}}</div>
+                <div style="width:16%; height:100%; float:left">{{$data_file_name[1]['data_file_name']}}</div>
+                <div style="width:16%; height:100%; float:left">{{$data_file_name[3]['data_file_name']}}</div>
+                <div style="width:13%; height:100%; float:left">{{$data_file_name[5]['data_file_name']}}</div>
+            </div>
+            <div style="width:100%; height:5%">
+                {{--나니모나이--}}
+            </div>
+            {{--ms--}}
+            {{--<div id="msSection"style="width:100%; height:50%">
+                <div id="1th" style="width:100%; height:10%">
+                        <div style="width:23%; height:50%; float:left"></div>
+                        <div style="border : 1px solid black; width:48%; height:50%; float:left; text-align:center; font-size:12px">
+                            @foreach($element_info_1 as $one)
+                                @foreach($element_info_2 as $two)
+                                    @if($one->element_detail_code == $two->element_detail_code)
+                                        파일명 : {{$two->data_file_name}} , 시간 : {{$two->duration}}
+                                    @endif
+                                @endforeach
+                            @endforeach
+                        </div>
+                        <div style="width:100%; height:50%; float:left"></div>
+                </div>
+            </div>--}}
+            <div style="width:100%; height:50%">
+                @foreach($element_info_1 as $one)
+                    @foreach($element_info_2 as $two)
+                        @if($one->element_detail_code == $two->element_detail_code)
+                            <div id="1th" style="width:100%; height:10%">
+                                <div style="width:/*7+16*{{$one->section_start}}*/23%; height:50%; float:left"></div>
+                                <div style="border : 1px solid black; width:/*16*({{$one->section_end}}-{{$one->section_start}})*/48%; height:50%; float:left; text-align:center; font-size:12px">
+                                    파일명 : {{$two->data_file_name}} , 시간 : {{$two->duration}}
+                                </div>
+                                <div style="width:100%; height:50%; float:left"></div>
+                            </div>
+                        @endif
+                    @endforeach
+                @endforeach
+            </div>
+
+        <div class="images content_frame">
+            English version page<br>
+            @if(!empty($cultural_info))
+                @foreach($cultural_info as $one)
+                    @if($one->language_code == 2)
                         {{$one->cultural_name}}
                     @endif
-            @endforeach
-        @endif
-    </div>
-    <div class="images content_frame">
-        English version page<br>
-        @if(!empty($cultural_info))
-            @foreach($cultural_info as $one)
-                @if($one->language_code == 2)
-                    {{$one->cultural_name}}
-                @endif
-            @endforeach
-        @endif
-    </div>
-    <div class="images content_frame">
-        中文 version page<br>
-        @if(!empty($cultural_info))
-        @foreach($cultural_info as $one)
-            @if($one->language_code == 3)
-                {{$one->cultural_name}}
+                @endforeach
             @endif
-        @endforeach
-        @endif
-    </div>
-    <div class="images content_frame">
-        日本語 version page<br>
-        @if(!empty($cultural_info))
-        @foreach($cultural_info as $one)
-            @if($one->language_code == 4)
-                {{$one->cultural_name}}
+        </div>
+        <div class="images content_frame">
+            中文 version page<br>
+            @if(!empty($cultural_info))
+                @foreach($cultural_info as $one)
+                    @if($one->language_code == 3)
+                        {{$one->cultural_name}}
+                    @endif
+                @endforeach
             @endif
-        @endforeach
-        @endif
+        </div>
+        <div class="images content_frame">
+            日本語 version page<br>
+            @if(!empty($cultural_info))
+                @foreach($cultural_info as $one)
+                    @if($one->language_code == 4)
+                        {{$one->cultural_name}}
+                    @endif
+                @endforeach
+            @endif
+        </div>
     </div>
 </div>
-
 
 <script type="text/javascript">
     <!--
