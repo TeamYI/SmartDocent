@@ -61,7 +61,7 @@
         #menu_nav {
             border: 1px solid #D5D5D5;
             border-top: none ;
-            height : 650px;
+            height : 700px;
             width: 25%;
             float: left;
             margin-top:70px;
@@ -94,7 +94,7 @@
             border: 1px solid #D5D5D5;
             border-top: none ;
             width : 100%;
-            height: 600px;
+            height: 650px;
 
         }
         #menu_nav_content> div:first-child > span {
@@ -222,7 +222,7 @@
         #menu_content_map{
             float: left;
             background-color:black;
-            height: 650px;
+            height: 700px;
             width: 75%;
             margin-top: 70px;
         }
@@ -750,7 +750,63 @@
             </div>
         </div>
         </form>
+        <style>
+            ul.audioNav {
+                margin: 0;
+                padding: 0;
+                float: left;
+                list-style: none;
+                height: 32px;
+                border: 1px solid #5D5D5D;
+                width: 100%;
+                font-family:"dotum";
+                font-size:12px;
+            }
+            ul.audioNav li {
+                float: left;
+                text-align:center;
+                cursor: pointer;
+                width:82px;
+                height: 31px;
+                line-height: 31px;
+                border: 1px solid #5D5D5D;
+                border-left: none;
+                font-weight: bold;
+                background: #fafafa;
+                overflow: hidden;
+                position: relative;
+            }
+            ul.audioNav li.active {
+                background: #FFFFFF;
+                border-bottom: 1px solid #FFFFFF;
+            }
+            .audio_container {
+                border: 1px solid #5D5D5D;
+                border-top: none;
+                clear: both;
+                float: left;
+                width: 330px;
+                background: #FFFFFF;
+            }
+            .audio_content {
+                padding: 5px;
+                font-size: 12px;
+                display: none;
+            }
+            .audio_container .audio_content ul {
+                width:100%;
+                margin:0px;
+                padding:0px;
+            }
+            .audio_container .audio_content ul li {
+                padding:5px;
+                list-style:none
+            }
+            .audioGuide {
+                width : 330px;
+            }
 
+        </style>
         <div class="nav_content" id="tab3">
             <!-- 해설부분 codename:민석-->
             <div>
@@ -758,22 +814,104 @@
                 <img src="image/explantion.png" style="width: 50px; height: 50px; margin: 10px;" class="drag_image priority">
             </div>
             <div style="display: none" id="explanation_show">
-                <div style='margin-top: 20px' id="startGuide">
+                <div style='margin-top: 20px' id="startGuide" class="audioGuide">
                     <div style='font-size: 20px; font-weight: bold;' >안내시작멘트</div>
-                    <input type='hidden' value='start'>
-                    <input type='file' class='audio_register'>
-                    <audio src='' controls style='height: 30px;margin-top: 20px'></audio>
-                </div>
-                <div style='margin-top: 20px' id="endGuide">
-                    <input type='hidden' value='end'>
-                    <div style='font-size: 20px; font-weight: bold;'>안내종료멘트</div>
-                    <input type='file' class='audio_register'>
-                    <audio src='' controls style='height: 30px;margin-top: 20px'></audio>
+                    <ul class="audioNav startNav">
+                        <li class="active" rel="startTab1">한국어</li>
+                        <li rel="startTab2">영어</li>
+                        <li rel="startTab3">중국어</li>
+                        <li rel="startTab4">일본어</li>
+                    </ul>
+                    <div class="audio_container">
+                        <div id="startTab1" class="start_content audio_content">
+                            <input type='file' class='audio_register'>
+                            <audio src='' controls style='height: 30px;margin-top: 20px'></audio>
+                            <button onclick="startAudioRegister(6)">등록</button>
+                        </div>
+                        <div id="startTab2" class="start_content">
+                            <input type='file' class='audio_register'>
+                            <audio src='' controls style='height: 30px;margin-top: 20px'></audio>
+                            <button onclick="startAudioRegister(6)">등록</button>
+                        </div>
+                        <div id="startTab3" class="start_content">
+                            <input type='file' class='audio_register'>
+                            <audio src='' controls style='height: 30px;margin-top: 20px'></audio>
+                            <button onclick="startAudioRegister(6)">등록</button>
+                        </div>
+                        <div id="startTab4" class="start_content">
+                            <input type='file' class='audio_register'>
+                            <audio src='' controls style='height: 30px;margin-top: 20px'></audio>
+                            <button onclick="startAudioRegister(6)">등록</button>
+                        </div>
                     </div>
-                <div style='margin-top: 20px' id="sectionGuide">
-                    <div style='font-size: 20px; font-weight: bold;'>구간멘트</div>
-                    <input type='file' class='audio_register'>
-                    <audio src='' controls style='height: 30px;margin-top: 10px'></audio>
+                    {{--<div style='font-size: 20px; font-weight: bold;' >안내시작멘트</div>--}}
+                    {{--<input type='hidden' value='start'>--}}
+                    {{--<input type='file' class='audio_register'>--}}
+                    {{--<audio src='' controls style='height: 30px;margin-top: 20px'></audio>--}}
+                </div>
+                <div style='margin-top: 20px' id="endGuide" class="audioGuide">
+                    <div style='font-size: 20px; font-weight: bold;' >안내종료멘트</div>
+                    <ul class="endNav audioNav">
+                        <li class="active" rel="endTab1">한국어</li>
+                        <li rel="endTab2">영어</li>
+                        <li rel="endTab3">중국어</li>
+                        <li rel="endTab4">일본어</li>
+                    </ul>
+                    <div class="audio_container">
+                        <div id="endTab1" class="end_content audio_content">
+                            <input type='file' class='audio_register'>
+                            <audio src='' controls style='height: 30px;margin-top: 20px'></audio>
+                            <button onclick="startAudioRegister(9)">등록</button>
+                        </div>
+                        <div id="endTab2" class="end_content">
+                            <input type='file' class='audio_register'>
+                            <audio src='' controls style='height: 30px;margin-top: 20px'></audio>
+                            <button onclick="startAudioRegister(9)">등록</button>
+                        </div>
+                        <div id="endTab3" class="end_content">
+                            <input type='file' class='audio_register'>
+                            <audio src='' controls style='height: 30px;margin-top: 20px'></audio>
+                            <button onclick="startAudioRegister(9)">등록</button>
+                        </div>
+                        <div id="endTab4" class="end_content">
+                            <input type='file' class='audio_register'>
+                            <audio src='' controls style='height: 30px;margin-top: 20px'></audio>
+                            <button onclick="startAudioRegister(9)">등록</button>
+                        </div>
+                    </div>
+
+                </div>
+                <div style='margin-top: 20px' id="sectionGuide" class="audioGuide">
+                    <div style='font-size: 20px; font-weight: bold;' >구간멘트</div>
+                    <ul class="sectionNav audioNav">
+                        <li class="active" rel="sectionTab1">한국어</li>
+                        <li rel="sectionTab2">영어</li>
+                        <li rel="sectionTab3">중국어</li>
+                        <li rel="sectionTab4">일본어</li>
+                    </ul>
+                    <div class="audio_container" style="overflow-y:scroll;">
+                        <div id="sectionTab1" class="section_content audio_content">
+                            <input type='file' class='audio_register'>
+                            <audio src='' controls style='height: 30px;margin-top: 20px'></audio>
+                            <button onclick="startAudioRegister(9)">등록</button>
+                            <button onclick="startAudioRegister(9)">등록</button>
+                        </div>
+                        <div id="sectionTab2" class="section_content">
+                            <input type='file' class='audio_register'>
+                            <audio src='' controls style='height: 30px;margin-top: 20px'></audio>
+                            <button onclick="startAudioRegister(9)">등록</button>
+                        </div>
+                        <div id="sectionTab3" class="section_content">
+                            <input type='file' class='audio_register'>
+                            <audio src='' controls style='height: 30px;margin-top: 20px'></audio>
+                            <button onclick="startAudioRegister(9)">등록</button>
+                        </div>
+                        <div id="sectionTab4" class="section_content">
+                            <input type='file' class='audio_register'>
+                            <audio src='' controls style='height: 30px;margin-top: 20px'></audio>
+                            <button onclick="startAudioRegister(9)">등록</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

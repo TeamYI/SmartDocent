@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\ElementDetail;
+use \Input as Input;
 
 class ElementDetailController extends Controller
 {
@@ -59,6 +60,23 @@ class ElementDetailController extends Controller
         $array = $this->ElementDetail->culturalElementAllSelect($cultural_code);
 
         return $array;
+    }
+
+    public function ARUpdate(Request $request){
+        $element_detail_code = isset($_POST['element_detail_code']) ? $_POST['element_detail_code'] : null ;
+        if(Input::hasFile('ar')){
+            echo 'upload' ;
+            $file = Input::file("ar");
+
+            //받아온 파일의 확장자 떼오기
+            $extension = $file->getClientOriginalExtension();
+            //새로운 이름 설정
+            $element_detail_file = uniqid().'_'.time().".".$extension ;
+            //새롭게 폴더 생성해서 파일 저장
+            $file->move('uploads', $element_detail_file);
+            $this -> ElementDetail -> ARUpdate($element_detail_code,$element_detail_file);
+        }
+        return $element_detail_code;
     }
 
 }

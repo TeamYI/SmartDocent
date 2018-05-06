@@ -24,7 +24,7 @@ class ElementController extends Controller
         $longitude = $request->get("longitude");
         $cultural_code = $request->get("cultural_code");
 
-        $this->ElementDetail->add_element($element_code,$latitude,$longitude,$cultural_code);
+        $this->ElementDetail->add_element($cultural_code,$element_code,$latitude,$longitude);
 
         // max호출하는 걸 만들어야지
         $maxValue = $this->ElementDetail->element_max();
