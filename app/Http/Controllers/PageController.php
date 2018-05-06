@@ -61,7 +61,6 @@ class PageController extends Controller
     //민석 테스트용
     public function mstest(Request $request){
         $cultural_code = $request->input('cultural_code', 0);
-        echo "cultural_code 있나요?: ".$cultural_code;
         $cultural_info = $this->CulturalDetail->cultural_info($cultural_code);
         $element_info_1 = $this->ElementDetail->culturalElementMS($cultural_code);
         $element_info_2 = $this->AudioDataFile->dataFileMS();

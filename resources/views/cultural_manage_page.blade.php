@@ -123,13 +123,14 @@
                 @foreach($element_info_1 as $one)
                     @foreach($element_info_2 as $two)
                         @if($one->element_detail_code == $two->element_detail_code)
-                            <div id="1th" style="width:100%; height:10%">
-                                <div style="width:/*7+16*{{$one->section_start}}*/23%; height:50%; float:left"></div>
-                                <div style="border : 1px solid black; width:/*16*({{$one->section_end}}-{{$one->section_start}})*/48%; height:50%; float:left; text-align:center; font-size:12px">
-                                    파일명 : {{$two->data_file_name}} , 시간 : {{$two->duration}}
+                            <div id=1th style='width:100%; height:10%'>
+                                <div style="width:<?PHP print 7+16*($one->section_start)?>%; height:50%; float:left"></div>
+                                <div style="border : 1px solid black; width:<?PHP print 16*($one->section_end-$one->section_start) ?>%; height:50%; float:left; text-align:center; font-size:12px">
+                                    파일명 : <?PHP print $two->data_file_name ?> , 시간 : <?PHP print $two->duration ?>
                                 </div>
                                 <div style="width:100%; height:50%; float:left"></div>
-                            </div>
+                           </div>
+
                         @endif
                     @endforeach
                 @endforeach
