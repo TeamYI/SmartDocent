@@ -48,6 +48,13 @@
 
 <div class="image_list" id="image_list">
     <div class="images content_frame" style="display:block"><!-- content_frame 클래스를 반드시 포함해야 합니다.-->
+        <h3 style="margin-left: 7%;">
+            @foreach($cultural_info1 as $one)
+                @if($one->language_code==1)
+                    {{$one->cultural_name}}
+                @endif
+            @endforeach
+        </h3>
         {{--  @if(!empty($cultural_info))
               @foreach($cultural_info as $one)
                @if($one->language_code == 1)
@@ -251,7 +258,7 @@
                     @foreach($element_info_2 as $two)
                         @if($one->element_detail_code == $two->element_detail_code)
                             <div class="1th" style='width:100%; height:10%' data-code="{{$one->element_detail_code}}" data-time='{{$two->duration}}' data-start="{{$one->section_start}}" data-end="{{$one->section_end}}">
-                                <div style="width:<?PHP print 7+16*($one->section_start)?>%; height:50%; float:left"></div>
+                                <div style="width:<?PHP print 7+16*(($one->section_start)+1)?>%; height:50%; float:left"></div>
                                 <div class="section-update" style="border : 1px solid black; width:<?PHP print 16*($one->section_end-$one->section_start) ?>%; height:50%; float:left; text-align:center; font-size:12px">
                                     파일명 : <?PHP print $two->data_file_name ?> , 시간 : <?PHP print $two->duration ?>
                                 </div>

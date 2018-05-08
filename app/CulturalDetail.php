@@ -58,4 +58,9 @@ class CulturalDetail extends Model
         ->select("cultural_name","language_code")
         ->get();
     }
+    public function language_cultural_name($cultural_code){
+        return CulturalDetail::where("cultural_code","=",$cultural_code)
+            ->select("cultural_name","language_code")
+            ->get();
+    }
 }
