@@ -17,23 +17,14 @@
     <!-- UIkit JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.40/js/uikit.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.40/js/uikit-icons.min.js"></script>
+
     <script src="/js/jQuery3.3.1.js"></script>
     <script
             src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
             integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
             crossorigin="anonymous"></script>
-
     <script src="/js/culture.js"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCojf9IKqAfeYPYAuRGi-CbRDRxW9KhEtM"></script>
-
-    <!-- ms sortable 쓰기위해서 필요하데-->
-    <script>
-        $(function() {
-            $( "#ms_point_list" ).sortable();
-            $( "#ms_point_list" ).disableSelection();
-        });
-    </script>
-
     <style>
         div span{
             margin: 0;
@@ -1074,7 +1065,7 @@
         <div class="uk-modal-header">
             <h2 class="uk-modal-title">음성 파일 등록</h2>
         </div>
-            <div class="uk-modal-body audio_content">
+            <div class="uk-modal-body audio_contents">
                 <div class="audio_content_display">
                     <div>
                         <input type="hidden" value="" class="detail-file-code" name="element_detail_code">
