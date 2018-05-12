@@ -1337,10 +1337,10 @@ function startAudioRegister(element_code) {
 // qr 생성
 function QRCreate(a,maxValue){
     console.log("mavValue cultr : "+ maxValue);
-    console.log("QR");
+    console.log("QR :" + this.cultural_code);
     var code = encodeURIComponent(this.cultural_code);
-    googleQRUrl = "https://chart.googleapis.com/chart?chs=177x177&cht=qr&chl=";
-    a.parent().next().attr("src",googleQRUrl+"code:"+code);
+    googleQRUrl = "https://chart.googleapis.com/chart?chs=177x177&cht=qr&chl="+code;
+    a.parent().next().attr("src",googleQRUrl);
     console.log("a : " + maxValue);
     $.ajax({
         headers: {
@@ -1353,7 +1353,7 @@ function QRCreate(a,maxValue){
             element_detail_file : googleQRUrl
         },
         success : function (data) {
-            alert("음성파일이 등록되었습니다.");
+            alert("QR코드가 등록되었습니다.");
         },
         error : function (){
             alert("audio fail");
