@@ -141,7 +141,6 @@
 <body>
 @include('header')
 <div style="margin-top: 80px"></div>
-
     <div class="tabs tabs-style-linemove">
         <nav>
             <ul>
@@ -165,8 +164,23 @@
                     <div class="move-place" data-lat="35.8964154" data-long="128.6205646" data-code="4" style="width:16%; height:100%; float:left"><img src="image/explantion.png" style="width:50px; height:50px;"></div>
                     <div class="move-place" data-code='end' style="width:13%; height:100%; float:left"><img src="image/end.png" style="width:50px; height:50px;"></div>
                 </div>
+                <div style="width:100%; height:1px">
+                    <div style="width:7%;height:100%; float:left"></div>
+                    <div style="border-top: 1px solid black; width:80%;height:100%; float:left"></div>
+                </div>
+                <div style="width:100%; height:4% ">
+                     <div style="width:7%; height:100%; float:left"></div>
+                     <div style="width:16%; height:100%; float:left">{{$data_file_name[4]['data_file_name']}}</div>
+                     <div style="width:16%; height:100%; float:left">{{$data_file_name[2]['data_file_name']}}</div>
+                     <div style="width:16%; height:100%; float:left">{{$data_file_name[0]['data_file_name']}}</div>
+                     <div style="width:16%; height:100%; float:left">{{$data_file_name[1]['data_file_name']}}</div>
+                     <div style="width:16%; height:100%; float:left">{{$data_file_name[3]['data_file_name']}}</div>
+                     <div style="width:13%; height:100%; float:left">{{$data_file_name[5]['data_file_name']}}</div>
+                </div>
+                <div style="width:100%; height:5%">
+                    {{--나니모나이--}}
+                </div>
 
-            </div>
 
             <div style="width:100%; ">
                 <h3 style="margin-left: 7%;">구간이탈멘트</h3>
@@ -174,86 +188,33 @@
                     @foreach($element_info_2 as $two)
                         @if($one->element_detail_code == $two->element_detail_code)
                             <div class="1th" style='width:100%; height:10%' data-code="{{$one->element_detail_code}}" data-time='{{$two->duration}}' data-start="{{$one->section_start}}" data-end="{{$one->section_end}}">
-                                <div style="width:<?PHP print 7+16*(($one->section_start)+1)?>%; height:50%; float:left"></div>
+                                <div style="width:<?PHP print 7+16*($one->section_start)?>%; height:50%; float:left"></div>
                                 <div class="section-update" style="border : 1px solid black; width:<?PHP print 16*($one->section_end-$one->section_start) ?>%; height:50%; float:left; text-align:center; font-size:12px">
                                     파일명 : <?PHP print $two->data_file_name ?> , 시간 : <?PHP print $two->duration ?>
                                 </div>
                                 <div style="width:100%; height:50%; float:left"></div>
-                           </div>
+                            </div>
                         @endif
                     @endforeach
                 @endforeach
                 <div style="width:100%; height:1px">
                     <div style="width:7%;height:100%; float:left"></div>
-                    <div style="border-top: 1px solid black; width:80%;height:100%; float:left"></div>
+                    <div style="border-top: 2px solid black; width:80%;height:100%; float:left"></div>
                 </div>
-                <div style="width:100%; height:4% ">
-                    <div style="width:7%; height:100%; float:left"></div>
-                    <div style="width:16%; height:100%; float:left">{{$data_file_name[4]['data_file_name']}}</div>
-                    <div style="width:16%; height:100%; float:left">{{$data_file_name[2]['data_file_name']}}</div>
-                    <div style="width:16%; height:100%; float:left">{{$data_file_name[0]['data_file_name']}}</div>
-                    <div style="width:16%; height:100%; float:left">{{$data_file_name[1]['data_file_name']}}</div>
-                    <div style="width:16%; height:100%; float:left">{{$data_file_name[3]['data_file_name']}}</div>
-                    <div style="width:13%; height:100%; float:left">{{$data_file_name[5]['data_file_name']}}</div>
+            </div>
+            <div style="width:100%; height:20% ; margin-top: 20px">
+                <div style="width:7%;height:50%; float:left"></div>
+                <h3>경로이탈멘트</h3>
+                <div id="course_error" style="border:1px solid black; width:15%;height:25%; float:left;text-align:center; font-size:12px">
+                    파일명 : warning.m4a
                 </div>
-                <div style="width:100%; height:5%">
-                    {{--나니모나이--}}
-                </div>
-                {{--ms--}}
-                {{--<div id="msSection"style="width:100%; height:50%">
-                    <div id="1th" style="width:100%; height:10%">
-                            <div style="width:23%; height:50%; float:left"></div>
-                            <div style="border : 1px solid black; width:48%; height:50%; float:left; text-align:center; font-size:12px">
-                                @foreach($element_info_1 as $one)
-                                    @foreach($element_info_2 as $two)
-                                        @if($one->element_detail_code == $two->element_detail_code)
-                                            파일명 : {{$two->data_file_name}} , 시간 : {{$two->duration}}
-                                        @endif
-                                    @endforeach
-                                @endforeach
-                            </div>
-                            <div style="width:100%; height:50%; float:left"></div>
-                    </div>
-                </div>--}}
-
-                <div style="width:100%; ">
-                    <h3 style="margin-left: 7%;">구간이탈멘트</h3>
-                    @foreach($element_info_1 as $one)
-                        @foreach($element_info_2 as $two)
-                            @if($one->element_detail_code == $two->element_detail_code)
-                                <div class="1th" style='width:100%; height:10%' data-code="{{$one->element_detail_code}}" data-time='{{$two->duration}}' data-start="{{$one->section_start}}" data-end="{{$one->section_end}}">
-                                    <div style="width:<?PHP print 7+16*($one->section_start)?>%; height:50%; float:left"></div>
-                                    <div class="section-update" style="border : 1px solid black; width:<?PHP print 16*($one->section_end-$one->section_start) ?>%; height:50%; float:left; text-align:center; font-size:12px">
-                                        파일명 : <?PHP print $two->data_file_name ?> , 시간 : <?PHP print $two->duration ?>
-                                    </div>
-                                    <div style="width:100%; height:50%; float:left"></div>
-                                </div>
-                            @endif
-                        @endforeach
-                    @endforeach
-                    <div style="width:100%; height:1px">
-                        <div style="width:7%;height:100%; float:left"></div>
-                        <div style="border-top: 2px solid black; width:80%;height:100%; float:left"></div>
-                    </div>
-                </div>
-
-                <div style="width:100%; height:20% ; margin-top: 20px">
-
-                    <div style="width:7%;height:50%; float:left"></div>
-                    <h3>경로이탈멘트</h3>
-                    <div id="course_error" style="border:1px solid black; width:15%;height:25%; float:left;text-align:center; font-size:12px">
-                        파일명 : warning.m4a
-                    </div>
-                </div>
-
-            </section>
-            <section id="section-linemove-2"><div>English</div></section>
-            <section id="section-linemove-3"><p>中文</p></section>
-            <section id="section-linemove-4"><p>日本語</p></section>
-        </div><!-- /content -->
-    </div><!-- /tabs -->
-
-
+            </div>
+        </section>
+        <section id="section-linemove-2"><div>English</div></section>
+        <section id="section-linemove-3"><p>中文</p></section>
+        <section id="section-linemove-4"><p>日本語</p></section>
+    </div><!-- /content -->
+</div><!-- /tabs -->
 <script src="js/cbpFWTabs.js"></script>
 <script>
     (function() {
