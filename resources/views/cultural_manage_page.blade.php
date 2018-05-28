@@ -215,7 +215,7 @@
                 </div>
             </div>
         </section>
-        <section id="section-linemove-2">
+        <section id="section-linemove-2" style="padding:40px;">
             <h2 style="margin-left: 8%; margin-bottom:40px">영진전문대</h2>
             <div style="width:100%; height:50px">
                 <div style="width:8%; height:100%; float:left"></div>
@@ -279,7 +279,7 @@
                 </div>
             </div>
         </section>
-        <section id="section-linemove-3">
+        <section id="section-linemove-3" style="padding:40px;">
             <h2 style="margin-left: 8%; margin-bottom:40px">영진전문대</h2>
             <div style="width:100%; height:50px">
                 <div style="width:8%; height:100%; float:left"></div>
@@ -343,7 +343,7 @@
                 </div>
             </div>
         </section>
-        <section id="section-linemove-4">
+        <section id="section-linemove-4" style="padding:40px;">
             <h2 style="margin-left: 8%; margin-bottom:40px">영진전문대</h2>
             <div style="width:100%; height:50px">
                 <div style="width:8%; height:100%; float:left"></div>
