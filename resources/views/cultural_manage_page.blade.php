@@ -156,7 +156,7 @@
                     }
                 }
             }
-
+            console.log("temp : " + temp);
             if(temp != null && argA != 3) {
                 console.log("aaa");
                 temp.children(".section-update").css("background", "red");
@@ -414,10 +414,9 @@
                 <h3 style="margin-left: 8%;">구간멘트</h3>
                 @foreach($element_info_1 as $one)
                     @foreach($element_info_2 as $two)
-
                         @if($two->language_code == 1)
                             @if($one->element_detail_code == $two->element_detail_code)
-                                <div class="1th" style='width:100%; height:10%' data-code="{{$one->element_detail_code}}" data-time='{{$two->duration}}' data-start="{{$one->section_start}}" data-end="{{$one->section_end}}">
+                                <div class="section-audio" style='width:100%; height:10%' data-code="{{$one->element_detail_code}}" data-time='{{$two->duration}}' data-start="{{$one->section_start}}" data-end="{{$one->section_end}}">
                                     <div style="width:<?PHP print 8+14*($one->section_start)?>%; height:50%; float:left"></div>
                                     <div class="section-update" style="border : 1px solid black; width:<?PHP print 14*($one->section_end-$one->section_start) ?>%; height:50%; float:left; text-align:center; font-size:12px">
                                         파일명 : <?PHP print $two->data_file_name ?> , 시간 : <?PHP print $two->duration ?>
