@@ -13,7 +13,7 @@
 	'use strict';
 
 	function extend( a, b ) {
-		for( var key in b ) { 
+		for( var key in b ) {
 			if( b.hasOwnProperty( key ) ) {
 				a[key] = b[key];
 			}
@@ -63,6 +63,8 @@
 		this.current = idx != undefined ? idx : this.options.start >= 0 && this.options.start < this.items.length ? this.options.start : 0;
 		this.tabs[ this.current ].className = 'tab-current';
 		this.items[ this.current ].className = 'content-current';
+		console.log("change");
+        new a();
 	};
 
 	// add to global namespace

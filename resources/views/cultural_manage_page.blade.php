@@ -5,12 +5,224 @@
     <link rel="stylesheet" type="text/css" href="css/demo.css" />
     <link rel="stylesheet" type="text/css" href="css/tabs.css" />
     <link rel="stylesheet" type="text/css" href="css/tabstyles.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.40/css/uikit-rtl.min.css" />
+    <!-- UIkit JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.40/js/uikit.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.40/js/uikit-icons.min.js"></script>
     <script src="js/modernizr.custom.js"></script>
+    <script src="js/cbpFWTabs.js"></script>
     <script>
-        function button() {
-            alert("aa");
+        $(document).ready(function(){
+            (function() {
+
+                [].slice.call( document.querySelectorAll( '.tabs' ) ).forEach( function( el ) {
+                    new CBPFWTabs( el );
+                });
+
+            })();
+
+        });
+
+        var array = [];
+        var arrayImage = [];
+        var arrayPosition = [];
+        var arraySection = [];
+
+        $(".section-audio").each(function(){
+            var start = $(this).attr("data-start");
+            var end = $(this).attr("data-end");
+            var sectionTime = $(this).attr("data-time");
+            var sectionCode = $(this).attr("data-code");
+
+            console.log($(this).attr("data-code"));
+            // console.log($(this).attr("data-end"));
+            console.log("start : " + start<=position );
+            console.log("end : " +position <= end );
+            if(start<position && position <= end){
+                console.log("time : " + $(this).attr("data-time"));
+                console.log("time -s :" + parseInt(time));
+                if(temp == null){
+                    console.log("sectionCode : "+ sectionCode);
+                    temp = parseInt(time)-sectionTime ;
+                    code = sectionCode;
+                }
+                else if(parseInt(time)-sectionTime < temp){
+                    console.log("sectionCode : "+ sectionCode);
+                    temp = parseInt(time)-sectionTime ;
+                    code = sectionCode;
+                }
+            }
+        });
+
+        function a(){
+            var count = 0;
+            console.log("change.g");
+
+            $(".content-current .move-place").each(function(e){
+                arrayPosition[count] = new Array(2);
+                console.log($(this));
+                var offsetX = $(this).offset().left; //클릭한 곳의 x좌표
+                var imageSelect = $(this).children();
+                var latitude = $(this).attr("data-lat");
+                var longtitude = $(this).attr("data-long");
+                console.log("x :" + offsetX );
+                arrayPosition[count][0] = latitude;
+                arrayPosition[count][1] = longtitude;
+                arrayImage[count] = imageSelect;
+                array[count] = offsetX ;
+                count++ ;
+            })
+
+            count = 0 ;
+
+            $(".section-audio").each(function(){
+
+                arraySection[count] = new Array(4);
+                var sectionCode = $(this);
+                var start = $(this).attr("data-start");
+                var end = $(this).attr("data-end");
+                var sectionTime = $(this).attr("data-time");
+
+                arraySection[count][0] = sectionCode;
+                arraySection[count][1] = start;
+                arraySection[count][2] = end;
+                arraySection[count][3] = sectionTime;
+
+            });
+
+            console.log(array);
+            console.log(arrayImage);
+            console.log(arrayPosition);
+            console.log(arraySection);
         }
 
+        var ppCount = 0 ;
+        var previous ;
+        function ppButton(argA){
+                console.log("argA : " + argA);
+                console.log(argA.attr("data-name"));
+                var name = argA.attr("data-name");
+                var section ;
+
+                if(name == "play"){
+                    if(ppCount > 0) {
+                        previous = ppCount-1 ;
+                        arrayImage[ppCount-1].attr("src", "image/explantion.png");
+                    }
+                    if(ppCount > 0 && ppCount < 5) {
+                        console.log("ppCount : " + ppCount);
+                        var distance1 = distance(ppCount);
+                        var time = distance1*1000/0.33;
+                        if(ppCount != 3){
+                            argA.before("<div class='timeShow' style='position: absolute ; left:" + (array[ppCount] -150) + "px'>예상도착시간 : "+ parseInt(time) +"초</div>");
+                        }
+                        console.log("time : " + time);
+                        section = sectionPlay(ppCount, time);
+                    }
+                    if(ppCount==2){
+                        ppCount = 3 ;
+                    }
+
+                    argA.children("img").attr("src","image/pause-bars.png");
+                    argA.attr("data-name","pause");
+                    console.log("ppcount1 : " + ppCount);
+                    ppCount = musicPlay(ppCount, argA, section);
+                    console.log("ppcount2 : " + ppCount);
+                    ppCount++;
+                }else{
+                    argA.children("img").attr("src","image/black-play-symbol.png");
+                    argA.attr("data-name","play");
+                }
+
+        }
+        function sectionPlay(argA, timeA){
+            var start ;
+            var end ;
+            var time ;
+            var temp ;
+            var argB = argA ;
+            for(var i=0; i<arraySection.length;i++){
+                start = arraySection[i][1] ;
+                end = arraySection[i][2] ;
+                time = arraySection[i][3] ;
+                console.log("start :L " + start);
+                console.log("end : " + end);
+                console.log("argB : " + argB);
+                if(argB >= start && argB <= end){
+                    if(time <= timeA){
+                        console.log("도착");
+                        timeA = time ; //
+                        temp = arraySection[i][0] //
+                    }
+                }
+            }
+
+            if(temp != null && argA != 3) {
+                console.log("aaa");
+                temp.children(".section-update").css("background", "red");
+            }
+
+            return temp ;
+        }
+        var check = 0;
+        function musicPlay(argA,argB, section){
+            console.log("count : " + argA);
+
+
+            var image = $("#image");
+            console.log("check : "+ check);
+            if(argA != 3 || check == 1) {
+                image.animate({
+                    left: array[argA]
+                }, 5000, function () {
+
+                    if (argA != 5) {
+                        console.log("previous :" + previous);
+                        console.log("argA : " + argA);
+                        if ((argA != 0 && previous != argA - 1) || argA == 3) {
+                            $("#course_error").css("background", "red");
+                            setTimeout(function () {
+                                arrayImage[argA].attr("src", "image/explanation-select.png");
+                                $("#course_error").css("background", "white");
+                            }, 3000);
+                            $(".timeShow").remove();
+                        } else {
+                            arrayImage[argA].attr("src", "image/explanation-select.png");
+                            $(".timeShow").remove();
+                        }
+                    }
+                    if (section != null) {
+                        section.children(".section-update").css("background", "white");
+                    }
+                    argB.children("img").attr("src", "image/black-play-symbol.png");
+                    argB.attr("data-name", "play");
+                })
+            }else{
+                console.log("arraychectk : " + array[argA]);
+                image.animate({
+                    left: array[argA]-100
+                }, 5000, function () {
+                    section.children(".section-update").css("background", "white");
+                    $(".timeShow").remove();
+                    argB.before("<div class='timeShow' style='font-size: 20px;color:red;position: absolute ; left:" + (array[argA+1] -100) + "px'>AR</div>");
+                    argB.children("img").attr("src", "image/black-play-symbol.png");
+                    argB.attr("data-name", "play");
+
+                })
+                check++;
+                console.log("arg1 : " + argA);
+                argA = argA-1 ;
+                console.log("arg2 : " + argA);
+            }
+
+
+            return argA;
+        }
+
+        function replayButton(argA){
+            var image = $("#image");
+            image.css("left","155px")
+        }
         var lat1 ;
         var long1 ;
         var imgTag1 ;
@@ -122,9 +334,16 @@
             return this * Math.PI / 180;
         }
 
-        function distance(lat2,long2){
+        function distance(argA){
+            console.log(arrayPosition);
+            var lat1 = Number(arrayPosition[ppCount-1][0]);
+            var long1 = Number(arrayPosition[ppCount-1][1]);
+
+            var lat2 = Number(arrayPosition[ppCount][0]);
+            var long2 = Number(arrayPosition[ppCount][1]);
+
             var R = 6371 ;
-            console.log("dataType =" +typeof(lat2) )
+            console.log("dataType =" +typeof(argA) )
             var dLat = (lat2-lat1).toRad();
             var dLon = (long2-long1).toRad();
 
@@ -135,6 +354,8 @@
             var d = R * c;
             return d;
         }
+
+
 
     </script>
 </head>
@@ -152,18 +373,24 @@
     </nav>
     <div class="content-wrap">
         <section id="section-linemove-1" style="padding:40px;">
-            <h2 style="margin-left: 8%; margin-bottom:40px">영진전문대</h2>
-            <div style="width:100%; height:50px">
+            <h2 style="margin-left: 8%;margin-right: 20px ;margin-bottom:40px; display: inline-block">동화사</h2>
+                <div class="play-button" data-name="play" onclick="ppButton($(this))" style="display: inline-block; position: absolute; top:35px; cursor:pointer;">
+                    <img src="image/black-play-symbol.png" width="50px" height="50px" alt="">
+                </div>
+                <div class="replay-button" data-name="replay" onclick="replayButton($(this))" style="display: inline-block; position: absolute; top:35px; left: 380px ;cursor:pointer;">
+                    <img src="image/replay.png" width="50px" height="50px" alt="">
+                </div>
+            <div style="width:100%; height:50px" class="ex-group">
                 <div style="width:8%; height:100%; float:left"></div>
                 <img src="image/aa.png" id="image" width="35px" height="35px" alt="" style="position: absolute; top:140px">
-                <div style="width:14%; height:100%; float:left"><img src="image/start.png" style="width:50px; height:50px;"></div>
+                <div style="width:14%; height:100%; float:left" ><img src="image/start.png" style="width:50px; height:50px;"></div>
                 <div class="move-place" data-lat="35.8964312" data-long="128.6215455" data-code="1" style="width:14%; height:100%; float:left"><img src="image/explantion.png" style="width:50px; height:100%;"></div>
 
                 <div class="move-place" data-lat="35.8965864" data-long="128.621251" data-code="2" style="width:14%; height:100%; float:left"><img src="image/explantion.png" style="width:50px; height:50px;"></div>
                 <div class="move-place" data-lat="35.8964647" data-long="128.620998" data-code="3" style="width:14%; height:100%; float:left"><img src="image/explantion.png" style="width:50px; height:50px;" ></div>
                 <div class="move-place" data-lat="35.8964154" data-long="128.6205646" data-code="4" style="width:14%; height:100%; float:left"><img src="image/explantion.png" style="width:50px; height:50px;"></div>
                 {{--아래 소스 고쳐야함--}}
-                <div class="move-place" data-lat="35.8964154" data-long="128.6205646" data-code="4" style="width:14%; height:100%; float:left"><img src="image/explantion.png" style="width:50px; height:50px;"></div>
+                <div class="move-place" data-lat="35.8964154" data-long="128.6205646" data-code="5" style="width:14%; height:100%; float:left"><img src="image/explantion.png" style="width:50px; height:50px;"></div>
                 <div class="move-place" data-code='end' style="width:8%; height:100%; float:left"><img src="image/end.png" style="width:50px; height:50px;"></div>
             </div>
             <div style="width:100%; height:1px">
@@ -183,14 +410,12 @@
             <div style="width:100%; height:5%">
                 {{--나니모나이--}}
             </div>
-
-
             <div style="width:100%; ">
                 <h3 style="margin-left: 8%;">구간멘트</h3>
                 @foreach($element_info_1 as $one)
                     @foreach($element_info_2 as $two)
                         @if($one->element_detail_code == $two->element_detail_code)
-                            <div class="1th" style='width:100%; height:10%' data-code="{{$one->element_detail_code}}" data-time='{{$two->duration}}' data-start="{{$one->section_start}}" data-end="{{$one->section_end}}">
+                            <div class="section-audio" style='width:100%; height:10%' data-code="{{$one->element_detail_code}}" data-time='{{$two->duration}}' data-start="{{$one->section_start}}" data-end="{{$one->section_end}}">
                                 <div style="width:<?PHP print 8+14*($one->section_start)?>%; height:50%; float:left"></div>
                                 <div class="section-update" style="border : 1px solid black; width:<?PHP print 14*($one->section_end-$one->section_start) ?>%; height:50%; float:left; text-align:center; font-size:12px">
                                     파일명 : <?PHP print $two->data_file_name ?> , 시간 : <?PHP print $two->duration ?>
@@ -218,15 +443,5 @@
         <section id="section-linemove-4"><p>日本語</p></section>
     </div><!-- /content -->
 </div><!-- /tabs -->
-<script src="js/cbpFWTabs.js"></script>
-<script>
-    (function() {
-
-        [].slice.call( document.querySelectorAll( '.tabs' ) ).forEach( function( el ) {
-            new CBPFWTabs( el );
-        });
-
-    })();
-</script>
 </body>
 </html>

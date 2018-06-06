@@ -60,8 +60,8 @@
 </script>
 <div id="wrap">
     <form id="form" action="mstest" method="get"></form>
-
-    <table>
+    <h1 style="margin-top: 100px; margin-left:280px">코스관리</h1>
+    <table style="margin-top: 10px">
         <colgroup>
             <col width="100px" />
             <col width="900px" />
