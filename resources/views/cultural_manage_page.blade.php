@@ -362,7 +362,7 @@
 <body>
 @include('header')
 <div style="margin-top: 80px"></div>
-<div class="tabs tabs-style-linemove">
+<div class="tabs tabs-style-linemove" style="background:#231b19;">
     <nav>
         <ul>
             <li><a href="#section-linemove-1" class="icon icon-home"><span>한국어</span></a></li>
@@ -373,16 +373,23 @@
     </nav>
     <div class="content-wrap">
         <section id="section-linemove-1" style="padding:40px;">
-            <h2 style="margin-left: 8%;margin-right: 20px ;margin-bottom:40px; display: inline-block">동화사</h2>
-                <div class="play-button" data-name="play" onclick="ppButton($(this))" style="display: inline-block; position: absolute; top:35px; cursor:pointer;">
+            <h2 style="margin-left: 8%;margin-right: 20px ;margin-bottom:40px; display: inline-block">경상감영공원</h2>
+                <div class="play-button" data-name="play" onclick="ppButton($(this))" style="display: inline-block; position: absolute; left:40%; top:35px; cursor:pointer;">
                     <img src="image/black-play-symbol.png" width="50px" height="50px" alt="">
                 </div>
-                <div class="replay-button" data-name="replay" onclick="replayButton($(this))" style="display: inline-block; position: absolute; top:35px; left: 380px ;cursor:pointer;">
+                <div class="replay-button" data-name="replay" onclick="replayButton($(this))" style="display: inline-block; position: absolute; left:45%; top:35px;cursor:pointer;">
                     <img src="image/replay.png" width="50px" height="50px" alt="">
                 </div>
+            <div style="width:100%; height:55px">
+                <div style="width:8%;height:100%; float:left"></div>
+                <img src="image/aa.png" id="image" width="35px" height="35px" alt="" style="position: absolute; top:140px">
+            </div>
+            <div style="width:100%; height:1px">
+                <div style="width:8%;height:100%; float:left"></div>
+                <div style="border-top: 1px solid black; width:80%;height:100%; float:left"></div>
+            </div>
             <div style="width:100%; height:50px" class="ex-group">
                 <div style="width:8%; height:100%; float:left"></div>
-                <img src="image/aa.png" id="image" width="35px" height="35px" alt="" style="position: absolute; top:140px">
                 <div style="width:14%; height:100%; float:left" ><img src="image/start.png" style="width:50px; height:50px;"></div>
                 <div class="move-place" data-lat="35.8964312" data-long="128.6215455" data-code="1" style="width:14%; height:100%; float:left"><img src="image/explantion.png" style="width:50px; height:100%;"></div>
 
@@ -393,10 +400,7 @@
                 <div class="move-place" data-lat="35.8964154" data-long="128.6205646" data-code="5" style="width:14%; height:100%; float:left"><img src="image/explantion.png" style="width:50px; height:50px;"></div>
                 <div class="move-place" data-code='end' style="width:8%; height:100%; float:left"><img src="image/end.png" style="width:50px; height:50px;"></div>
             </div>
-            <div style="width:100%; height:1px">
-                <div style="width:8%;height:100%; float:left"></div>
-                <div style="border-top: 1px solid black; width:80%;height:100%; float:left"></div>
-            </div>
+
             <div style="width:100%; height:4% ">
                 <div style="width:8%; height:100%; float:left"></div>
                 <div style="width:14%; height:100%; float:left">{{$data_file_name[4]['data_file_name']}}</div>
@@ -571,7 +575,7 @@
         </section>
         <section id="section-linemove-4">
             <h2 style="margin-left: 8%; margin-bottom:40px">영진전문대</h2>
-            <div style="width:100%; height:50px">
+                <div style="width:100%; height:50px">
                 <div style="width:8%; height:100%; float:left"></div>
                 <img src="image/aa.png" id="image" width="35px" height="35px" alt="" style="position: absolute; top:140px">
                 <div style="width:14%; height:100%; float:left"><img src="image/start.png" style="width:50px; height:50px;"></div>
