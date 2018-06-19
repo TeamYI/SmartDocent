@@ -29,7 +29,7 @@
 <body id="page-top">
 
 <!-- Navigation -->
-<nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav" style="height: 70px;">
+<nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav" style="height: 70px; background: #6e5950 !important ;">
     <div class="container" style="margin : 0 30px; width: 100%">
         <a class="navbar-brand js-scroll-trigger" href="#page-top">SMART DOCENT</a>
         <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,12 +55,12 @@
 </nav>
 
 <!-- Header -->
-<section class="masthead bg-primary text-white text-center" style="width:100%; height: 750px;">
-    <img class="img-fluid mb-5 d-block mx-auto" src="image/king.jpg" alt="" style="position: absolute; top:70px;height: 750px; width:100%">
-    <div style="position: absolute; top:70px; width: 100%;height: 750px; background: black; opacity: 0.5; ;z-index:50"></div>
-    <div style="position: absolute;top: 50%;left: 50%;width: 600px;height: 100px;margin-top: -200px;margin-left: -290px; font-size: 70px; font-weight: bold">WELCOME TO</div>
-    <div style="position: absolute; top: 50%;left: 50%;width: 900px;height: 100px;margin-top: -100px;margin-left: -440px;font-size: 70px; font-weight: bold; z-index: 500">SMART DOCENT</div>
-    <hr  style="position: absolute; top:65%;left: 55%;width: 650px;height: 10px;margin-top: -100px;margin-left: -370px;border:5px;z-index: 900; background: white">
+<section class="masthead bg-primary text-white text-center" style="width:100%; height: 580px;">
+    <img class="img-fluid mb-5 d-block mx-auto" src="image/king.jpg" alt="" style="position: absolute; top:70px;height: 580px; width:100%">
+    <div style="position: absolute; top:70px;width:50%; left:25%; height: 580px; background: white; opacity: 0.7; ;z-index:1" ></div>
+    <div style="position: absolute;top: 50%;left: 50%;width: 600px;height: 100px;margin-top: -200px;margin-left: -290px; font-size: 85px; font-weight: bold ; letter-spacing: 20px; color:#6e5950 !important;z-index: 999">SMART</div>
+    <div style="position: absolute; top: 50%;left: 50%;width: 900px;height: 100px;margin-top: -100px;margin-left: -440px;font-size: 85px; font-weight: bold; letter-spacing: 20px; color:#6e5950 !important;z-index: 999">DOCENT</div>
+    <hr  style="position: absolute; top:65%;left: 57%;width: 550px;height: 10px;margin-top: -100px;margin-left: -370px;border:2px;z-index: 900; background: white">
 </section>
 
 <!-- Bootstrap core JavaScript -->

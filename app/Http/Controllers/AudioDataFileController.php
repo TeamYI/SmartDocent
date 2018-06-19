@@ -69,7 +69,8 @@ class AudioDataFileController extends Controller
         $element_code = isset($_POST['element_code']) ? $_POST['element_code'] : null ;
         $cultural_code = isset($_POST['cultural_code']) ? $_POST['cultural_code'] : null ;
         $language_code = isset($_POST['language_code']) ? $_POST['language_code'] : null ;
-
+        $element_detail_code = isset($_POST['element_detail_code']) ? $_POST['element_detail_code'] : null ;
+        $music_file = "" ;
         $extension = "";
         if(Input::hasFile('audio')){
             $music_file = Input::file("audio");
@@ -83,30 +84,38 @@ class AudioDataFileController extends Controller
             $this -> AudioDataFile -> dataFileInsert( $element_detail_code,$music_name,$language_code);
             return $element_detail_code;
         }
-//        else if(Input::hasFile('english')){
-//            $a ="c";
-//            $music_file = Input::file("english");
-//            $extension = $music_file->getClientOriginalExtension();
-//            $music_name = uniqid().'_'.time().".".$extension ;
-//            $music_file -> move('audio', $music_name);
-//            $this -> AudioDataFile -> dataFileInsert($element_detail_code,$music_name,2);
-//        }else if(Input::hasFile('chinese')){
-//            $a ="c";
-//            $music_file = Input::file("chinese");
-//            $extension = $music_file->getClientOriginalExtension();
-//            $music_name = uniqid().'_'.time().".".$extension ;
-//            $music_file -> move('audio', $music_name);
-//            $this -> AudioDataFile -> dataFileInsert($element_detail_code,$music_name,3);
-//        }else if(Input::hasFile('japanaese')){
-//            $a ="c";
-//            $music_file = Input::file("japanaese");
-//            $extension = $music_file->getClientOriginalExtension();
-//            $music_name = uniqid().'_'.time().".".$extension ;
-//            $music_file -> move('audio', $music_name);
-//            $this -> AudioDataFile -> dataFileInsert($element_detail_code,$music_name,4);
-//        }
+        else if(Input::hasFile('korean')){
+            $a ="a";
+            $music_file = Input::file("korean");
+            $extension = $music_file->getClientOriginalExtension();
+            $music_name = uniqid().'_'.time().".".$extension ;
+            $music_file -> move('audio', $music_name);
+            $this -> AudioDataFile -> dataFileInsert($element_detail_code,$music_name,2);
+        }
+        else if(Input::hasFile('english')){
+            $a ="a";
+            $music_file = Input::file("english");
+            $extension = $music_file->getClientOriginalExtension();
+            $music_name = uniqid().'_'.time().".".$extension ;
+            $music_file -> move('audio', $music_name);
+            $this -> AudioDataFile -> dataFileInsert($element_detail_code,$music_name,2);
+        }else if(Input::hasFile('chinese')){
+            $a ="b";
+            $music_file = Input::file("chinese");
+            $extension = $music_file->getClientOriginalExtension();
+            $music_name = uniqid().'_'.time().".".$extension ;
+            $music_file -> move('audio', $music_name);
+            $this -> AudioDataFile -> dataFileInsert($element_detail_code,$music_name,3);
+        }else if(Input::hasFile('japanaese')){
+            $a ="c";
+            $music_file = Input::file("japanaese");
+            $extension = $music_file->getClientOriginalExtension();
+            $music_name = uniqid().'_'.time().".".$extension ;
+            $music_file -> move('audio', $music_name);
+            $this -> AudioDataFile -> dataFileInsert($element_detail_code,$music_name,4);
+        }
 
 
-        return $music_name;
+        return $a;
     }
 }

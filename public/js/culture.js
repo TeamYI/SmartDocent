@@ -158,7 +158,7 @@ $(document).ready(function(){
                         + "</div>"
                         + "<div class='culture_detail'>"
                             + "<div>문화재 설명</div>"
-                            + "<textarea name='' id='' cols='80' rows='5'></textarea>"
+                            + "<textarea name='' id='' cols='83' rows='5'></textarea>"
                         +"</div>"
                     +"</div>";
 
@@ -234,9 +234,9 @@ $(document).ready(function(){
                     culture_ex[0] = data[0].cultural_name;
                     if (data[0].cultural_image) {
                         var upload = 'uploads/' + data[0].cultural_image;
-                        $("#modal-one-show .culture_image > img").attr("src", upload);
+                        $("#modal-one-show .culture_image").attr("src", upload);
                     } else {
-                        $("#modal-one-show .culture_image > img").attr("src", "image/no-image.png");
+                        $("#modal-one-show .culture_image").attr("src", "image/no-image.png");
                         culture_ex[1] = data[0].cultural_name;
                     }
                     $("#modal-one-show .culture_address > div:nth-child(2)").text(data[0].cultural_address);
@@ -405,6 +405,7 @@ $(document).ready(function(){
         $("#" + activeTab).fadeIn();
 
         language_code = activeTab.substr(8, 8);
+        console.log(language_code);
 
     })
 
@@ -439,10 +440,11 @@ $(document).ready(function(){
     })
 
     $(".audio_register").on("change",function(){
+        console.log("sect>? ") ;
         audio_file = [] ;
         audio_file = this.files;
         console.log("audio : " + audio_file);
-        var sound = $(this).next();
+        var sound = $(this).next().next();
         sound.attr("src", URL.createObjectURL(this.files[0]));
         sound.onend = function (e) {
             URL.revokeObjectURL(this.src);
@@ -453,40 +455,42 @@ $(document).ready(function(){
     //일러스트 이미지 - 파일업로드 클릭했을때
     $("#input_img").on("change",handleImgFileSelect);
 
-    // 음성파일 - 파일 업로드 클릭시
-    // $(".audio_content").on("change",".audio_register",function(){
-    //     var sound = $(this).next();
-    //     sound.attr("src",URL.createObjectURL(this.files[0])) ;
-    //     sound.onend = function(e){
-    //         URL.revokeObjectURL(this.src);
-    //     }
-    //     console.log("element_detail_code : "+ element_detail_code);
-    //     var language = $(this).prev().val();
-    //     var file = this.files;
-    //     console.log("audio : "+ file);
-    //     var form = new FormData();
-    //     form.append(language, file[0]);
-    //     form.append("element_detail_code",element_detail_code);
-    //     $.ajax({
-    //         headers: {
-    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //         },
-    //         url: "audioAjaxUpload",
-    //         type: "POST",
-    //         processData: false,
-    //         contentType: false,
-    //         data: form,
-    //
-    //         success: function (data) {
-    //             console.log("음성 업로드 완료 ddd:" + data);
-    //         },
-    //         error: function () {
-    //             alert("fail");
-    //         }
-    //     });
-    //
-    //
-    // });
+    //음성파일 - 파일 업로드 클릭시
+    $(".audio_contents").on("change",".audio_register",function(){
+        var sound = $(this).next();
+        sound.attr("src",URL.createObjectURL(this.files[0])) ;
+        sound.onend = function(e){
+            URL.revokeObjectURL(this.src);
+        }
+        console.log("element_detail_code : "+ element_detail_code);
+        var language = $(this).prev().prev().val();
+        var file = this.files;
+        console.log("audio : "+ file);
+        console.log("audio L : " + file[0]);
+        console.log("audio Laaa : " + language);
+        var form = new FormData();
+        form.append(language, file[0]);
+        form.append("element_detail_code",element_detail_code);
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: "audioAjaxUpload",
+            type: "POST",
+            processData: false,
+            contentType: false,
+            data: form,
+
+            success: function (data) {
+                alert("음성 업로드 완료");
+            },
+            error: function () {
+                alert("fail");
+            }
+        });
+
+
+    });
 
 
     // 음성파일 - 구간 종료 처음
@@ -547,7 +551,7 @@ function explantionVoice(code){
                 $(".audio_reg_show").empty();
                 $(".audio_reg_show").css("display","block");
                 $(".audio_reg_show_footer").css("display","block");
-                $('.explantion_size').css("height","500px");
+
                 console.log(data);
                 console.log("data :" + data[0].element_detail_code);
                 console.log("data :" + data[0].data_file_name);
@@ -555,9 +559,14 @@ function explantionVoice(code){
                 console.log("data :" + data[0].data_file_code);
                 var text ="";
                 for(var i=0; i<data.length;i++) {
-                    text  += "<div class='audio_file' style='height: 80px; position: relative; border-bottom: 1px solid black'>"
-                        + "<div style='display: inline-block; position: absolute; top:30px' >" + data[i].language + "음성파일</div>"
-                            + "<audio src='audio/" + data[i].data_file_name + "' controls style='height: 30px; top:30px; right:100px; position: absolute; '></audio>"
+                    text  += "<div class='audio_file'>"
+                            +"<span style='display: inline-block; position: absolute; top:30px' >" + data[i].language + "음성파일</span>"
+                            +"<audio src='audio/" + data[i].data_file_name + "' controls ></audio>"
+                            +"<div class='audio-end-point'>"
+                                +"<span>종료지점</span>"
+                                +"<span style='margin-left: 60px;'>10초</span>"
+                                +"<span>20초</span>"
+                            +"</div> "
                         + "</div>"
                 }
                 $(".audio_reg_show").append(text);
@@ -948,25 +957,27 @@ function mapPositionImage(position,img_src){
             console.log("marker+_code :"+ element_facility_code);
             if(img_src.substr(7,2) == "qr") { // qr이면 버튼 생성
                 marker.infowindow = new google.maps.InfoWindow({
-                    content: "<div style='width:200px; height: 25px'><button onclick='QRCreate($(this),element_facility_code);' style='position:absolute; top: 0; left:0'>qr코드 생성</button>"
-                    + "<button onclick = 'DeleteMarker(" + marker.code + ");'  style='position:absolute; top: 0; left:100px'>Delete</button>"
+                    content: "<div style='width:170px; height: 25px'><button onclick='QRCreate($(this),element_facility_code);' class='qr-create'  style='position:absolute; top: 0; left:0'>qr코드 생성</button>"
+                    + "<button onclick = 'DeleteMarker(" + marker.code + ");' class='infowindow-delete'  style='position:absolute; top: 0; left:100px'>Delete</button>"
                     + "</div><img src=''>"
 
                 });
             }else if(img_src.substr(7,2) == "ar"){
                 marker.infowindow = new google.maps.InfoWindow({
                     content: "<div>"
-                                +"<input type='file' onchange='ARUpdate(this.files,"+marker.code+")'>"
-                                +"<button>파일 지우기</button>"
+                                +"<label for='ar-image'>"
+                                    +"<img src='/image/fileSelect.png'>"
+                                +"</label>"
+                                +"<input type='file' id='ar-image' onchange='ARUpdate(this.files,"+marker.code+")'>"
                             +"</div>"
                             + "<div>"
-                                + "<button onclick = 'DeleteMarker(" + marker.code + ");'>Delete</button>"
+                                + "<button onclick = 'DeleteMarker(" + marker.code + ");' class='infowindow-delete'>Delete</button>"
                             + "</div>"
 
                 });
             }else{
                 marker.infowindow = new google.maps.InfoWindow({
-                    content:"<div style='width: 50px; height: 30px'><button onclick = 'DeleteMarker(" + marker.code + ");'  style='position:absolute; top: 0;'>Delete</button></div>",
+                    content:"<div style='width: 70px; height: 30px'><button onclick = 'DeleteMarker(" + marker.code + ");' class='infowindow-delete'  style='position:absolute; top: 0;'>Delete</button></div>",
                     maxWidth : 500
                 });
             }
@@ -984,9 +995,10 @@ function mapPositionImage(position,img_src){
 }
 
 function ARUpdate(file,element_detail_code){
-
-    //console.log(file[0]);
+    console.log(file[0].name);
+    console.log(file.name);
     var form = new FormData();
+    console.log("file[0] : " + file[0])
     form.append("ar",file[0]);
     form.append("element_detail_code",element_detail_code);
 
@@ -1000,7 +1012,9 @@ function ARUpdate(file,element_detail_code){
         type : "POST",
         data : form,
         success : function (data) {
+            alert("ar 파일 등록");
             console.log("insert :"+ data);
+            $("#ar-image").after("<div style='margin: 10px'>"+file[0].name+"</div>");
         },
         error : function (){
             alert("deleteFail"+" "+ id);
@@ -1193,20 +1207,33 @@ function culturalElementSelect(){
                     }else if(element_code == 6){
                         var tab = $("#startTab"+data[i].language_code) ;
                         tab.empty();
-                        var content = "<audio src='audio/"+data[i].data_file_name+"' controls style='height: 30px;margin-top: 20px'></audio>"
-                                    +"<button>수정</button><button>삭제</button>";
+
+                        var content = "<button class='audio-ment-update'>수정</button><button class='audio-ment-delete'>삭제</button>"
+                                     +"<audio src='audio/"+data[i].data_file_name+"' controls style='margin-top: 30px'></audio>"
+
                         tab.append(content);
                         // $("#startTab"+data[i].language_code+" > audio").attr("src","audio/"+data[i].data_file_name);
                     }else if(element_code == 9){
+
                         var tab = $("#endTab"+data[i].language_code) ;
                         tab.empty();
-                        var content = "<audio src='audio/"+data[i].data_file_name+"' controls style='height: 30px;margin-top: 20px'></audio>"
-                            +"<button>수정</button><button>삭제</button>";
+                        var content = "<button class='audio-ment-update'>수정</button><button class='audio-ment-delete'>삭제</button>"
+                                     +"<audio src='audio/"+data[i].data_file_name+"' controls style='margin-top: 30px'></audio>"
                         tab.append(content);
 
                     }else if(element_code == 8){
                         console.log("dddd" + data[i].data_file_name);
-                        $("#sectionTab"+data[i].language_code+" > audio").attr("src","audio/"+data[i].data_file_name);
+
+                        var tab = $("#secTab"+data[i].language_code) ;
+                        tab.empty();
+                        var content = "<button class='audio-ment-update'>수정</button><button class='audio-ment-delete'>삭제</button>"
+                                    +"<audio src='audio/"+data[i].data_file_name+"' controls style='margin-top: 30px'></audio>"
+                                    +"<div class='section-end-point'>"
+                                        +"<span>종료지점</span>"
+                                        +"<span style='margin-left: 30px'>15초</span>"
+                                        +"<span>25초</span>"
+                                    +"</div>"
+                        tab.append(content);
                     }
                     if(element_code != 5){
                         var marker = new google.maps.Marker({
@@ -1217,20 +1244,44 @@ function culturalElementSelect(){
                         //element_detail_code = maxValue 값
                         maxValue = data[i].element_detail_code;
                         marker.code = data[i].element_detail_code;
+
                         if(element_code == 2){
                             console.log("dddddimage : "+ maxValue);
                             if(data[i].element_detail_file == null){
                                 data[i].element_detail_file = "";
                             }
-
                             marker.infowindow = new google.maps.InfoWindow({
-                                content: "<div style='width:200px; height: 25px'><button onclick='QRCreate($(this),maxValue);' style='position:absolute; top: 0; left:0'>qr코드 생성</button>"
-                                        + "<button onclick = 'DeleteMarker(" + marker.code + ");'  style='position:absolute; top: 0; left:100px'>Delete</button>"
+                                content: "<div style='width:170px; height: 25px'><button onclick='QRCreate($(this),maxValue);' class='qr-create' style='position:absolute; top: 0; left:0'>qr코드 생성</button>"
+                                        + "<button onclick = 'DeleteMarker(" + marker.code + ");' class='infowindow-delete' style='position:absolute; top: 0; left:100px'>Delete</button>"
                                         + "</div><img src='"+data[i].element_detail_file+"'>"
                             })
-                        }else{
+                        }if(element_code == 3){
+
+                            if(data[i].element_detail_file == null){
+                                marker.infowindow = new google.maps.InfoWindow({
+                                    content: "<div>"
+                                    +"<label for='ar-image'>"
+                                    +"<img src='/image/fileSelect.png'>"
+                                    +"</label>"
+                                    +"<input type='file' id='ar-image' onchange='ARUpdate(this.files,"+marker.code+")'>"
+                                    +"</div>"
+                                    + "<div>"
+                                    + "<button onclick = 'DeleteMarker(" + marker.code + ");' class='infowindow-delete'>Delete</button>"
+                                    + "</div>"
+
+                                });
+                            }else {
+                                marker.infowindow = new google.maps.InfoWindow({
+                                    content: "<div style='margin: 10px'>" + data[i].element_detail_file + "</div>"
+                                    + "<div>"
+                                    + "<button onclick = 'DeleteMarker(" + marker.code + ");' class='infowindow-delete'>Delete</button>"
+                                    + "</div>"
+                                })
+                            }
+                        }
+                        else{
                             marker.infowindow = new google.maps.InfoWindow({
-                                content:"<div style='width: 50px; height: 30px'><button onclick = 'DeleteMarker(" + marker.code + ");'  style='position:absolute; top: 0;'>Delete</button></div>"
+                                content:"<div style='width: 70px; height: 30px'><button onclick = 'DeleteMarker(" + marker.code + ");' class='infowindow-delete'  style='position:absolute; top: 0;'>Delete</button></div>"
                             })
                         }
                         google.maps.event.addListener(marker, 'click', function(){
@@ -1303,7 +1354,7 @@ function startGuide(){
 
 function startAudioRegister(element_code) {
     console.log("cultural_name" + cultural_code);
-    console.log(language_code);
+    console.log("dadf + " + audio_file);
     if(audio_file.length > 0) {
         var form = new FormData();
         form.append('audio', audio_file[0]);
@@ -1320,7 +1371,7 @@ function startAudioRegister(element_code) {
             contentType: false,
             data: form,
             success: function (data) {
-                console.log("음성 업로드 완료 :" + data);
+                alert("음성 업로드 완료 :" + data);
                 language_code = 1 ;
             },
             error: function () {

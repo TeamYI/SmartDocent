@@ -60,7 +60,7 @@
 {{--</div>--}}
 <!-- Navigation -->
 <!-- Navigation -->
-<nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav" style="height: 70px; z-index: 500;" >
+<nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav"style="height: 70px; background: #6e5950 !important ; z-index: 1;" >
     <div class="container" style="margin : 0 30px; width: 100%">
         <a class="navbar-brand js-scroll-trigger" href="/">SMART DOCENT</a>
         <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
