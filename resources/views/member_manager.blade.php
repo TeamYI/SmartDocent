@@ -28,7 +28,6 @@
                 <input type = "submit" value="검색">
                 </form>
         </div>
-
 <div>
         <table border="1" width = "600">
                 <thead>
