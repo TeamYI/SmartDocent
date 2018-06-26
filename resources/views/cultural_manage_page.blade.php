@@ -27,6 +27,7 @@
         var arrayImage = [];
         var arrayPosition = [];
         var arraySection = [];
+        var time = [1000,4000,5000,1000,2000,5000,5000]
 
         $(".section-audio").each(function(){
             var start = $(this).attr("data-start");
@@ -174,8 +175,8 @@
             if(argA != 3 || check == 1) {
                 image.animate({
                     left: array[argA]
-                }, 5000, function () {
-
+                }, time[argA], function () {
+                    console.log("time : " + argA) ;
                     if (argA != 5) {
                         console.log("previous :" + previous);
                         console.log("argA : " + argA);
@@ -223,112 +224,112 @@
             var image = $("#image");
             image.css("left","155px")
         }
-        var lat1 ;
-        var long1 ;
-        var imgTag1 ;
-        var sibling1 ;
-        $(document).ready(function(){
-
-            $(".move-place").click(function(e){
-                var offsetX = e.pageX; //클릭한 곳의 x좌표
-                var offsetY = e.pageY;
-                var imgTag2 = $(this).children('img');
-                var lat2 = Number($(this).attr("data-lat"));
-                var long2 = Number($(this).attr("data-long"));
-                var position = $(this).attr("data-code");
-                var temp ;
-                var code ;
-                var sibling2 = $(this).next().attr("data-code");
-
-
-
-                // 안내시작에서 첫번째 해설 포인트 갈 때
-                if(lat1 == null && long1 == null) {
-                    lat1 = lat2;
-                    long1 = long2;
-                    imgTag1 = imgTag2;
-                    sibling1 = sibling2;
-                }else{
-
-                    var distance1 = distance(Number(lat2),Number(long2));
-                    var time = distance1*1000/0.33;
-
-                    console.log(distance1);
-                    console.log(parseInt(time/60));
-                    console.log(parseInt(time%60));
-                    console.log(typeof(offsetX-200));
-                    if(position != 'end') {
-                        $(this).before("<div class='timeShow' style='position: absolute ; left:" + (offsetX - 200) + "px'>예상도착시간 : "+ parseInt(time) +"초</div>");
-                    }
-                    $(".1th").each(function(){
-                        var start = $(this).attr("data-start");
-                        var end = $(this).attr("data-end");
-                        var sectionTime = $(this).attr("data-time");
-                        var sectionCode = $(this).attr("data-code");
-
-                        console.log($(this).attr("data-code"));
-                        // console.log($(this).attr("data-end"));
-                        console.log("start : " + start<=position );
-                        console.log("end : " +position <= end );
-                        if(start<position && position <= end){
-                            console.log("time : " + $(this).attr("data-time"));
-                            console.log("time -s :" + parseInt(time));
-                            if(temp == null){
-                                console.log("sectionCode : "+ sectionCode);
-                                temp = parseInt(time)-sectionTime ;
-                                code = sectionCode;
-                            }
-                            else if(parseInt(time)-sectionTime < temp){
-                                console.log("sectionCode : "+ sectionCode);
-                                temp = parseInt(time)-sectionTime ;
-                                code = sectionCode;
-                            }
-                        }
-                    });
-
-
-                }
-
-                $(".1th[data-code="+code+"] > .section-update ").css("background","red");
-
-
-
-                alert("y : "+offsetY + " X :" + offsetX);
-                var image = $("#image");
-                if(imgTag1 != null) {
-                    imgTag1.attr("src", "image/explantion.png");
-                }
-                image.animate({
-                    left : offsetX
-                },5000, function(){
-                    lat1 = lat2;
-                    long1 = long2;
-                    $(".timeShow").remove();
-                    $(".1th[data-code="+code+"] > .section-update ").css("background","white");
-                    if(position != 'end') {
-
-                        if(sibling1 != position && position != 1){
-                            console.log("달라");
-                            $("#course_error").css("background","red");
-                            setTimeout(function(){
-                                imgTag2.attr("src", "image/explanation-select.png");
-                                $("#course_error").css("background","white");
-                            },3000);
-                            sibling1 = sibling2;
-                        }else{
-                            imgTag2.attr("src", "image/explanation-select.png");
-                        }
-                        imgTag1 = imgTag2;
-                    }
-
-
-
-                })
-            });
-
-
-        })
-
+        // var lat1 ;
+        // var long1 ;
+        // var imgTag1 ;
+        // var sibling1 ;
+        // $(document).ready(function(){
+        //
+        //     $(".move-place").click(function(e){
+        //         var offsetX = e.pageX; //클릭한 곳의 x좌표
+        //         var offsetY = e.pageY;
+        //         var imgTag2 = $(this).children('img');
+        //         var lat2 = Number($(this).attr("data-lat"));
+        //         var long2 = Number($(this).attr("data-long"));
+        //         var position = $(this).attr("data-code");
+        //         var temp ;
+        //         var code ;
+        //         var sibling2 = $(this).next().attr("data-code");
+        //
+        //
+        //
+        //         // 안내시작에서 첫번째 해설 포인트 갈 때
+        //         if(lat1 == null && long1 == null) {
+        //             lat1 = lat2;
+        //             long1 = long2;
+        //             imgTag1 = imgTag2;
+        //             sibling1 = sibling2;
+        //         }else{
+        //
+        //             var distance1 = distance(Number(lat2),Number(long2));
+        //             var time = distance1*1000/0.33;
+        //
+        //             console.log(distance1);
+        //             console.log(parseInt(time/60));
+        //             console.log(parseInt(time%60));
+        //             console.log(typeof(offsetX-200));
+        //             if(position != 'end') {
+        //                 $(this).before("<div class='timeShow' style='position: absolute ; left:" + (offsetX - 200) + "px'>예상도착시간 : "+ parseInt(time) +"초</div>");
+        //             }
+        //             $(".1th").each(function(){
+        //                 var start = $(this).attr("data-start");
+        //                 var end = $(this).attr("data-end");
+        //                 var sectionTime = $(this).attr("data-time");
+        //                 var sectionCode = $(this).attr("data-code");
+        //
+        //                 console.log($(this).attr("data-code"));
+        //                 // console.log($(this).attr("data-end"));
+        //                 console.log("start : " + start<=position );
+        //                 console.log("end : " +position <= end );
+        //                 if(start<position && position <= end){
+        //                     console.log("time : " + $(this).attr("data-time"));
+        //                     console.log("time -s :" + parseInt(time));
+        //                     if(temp == null){
+        //                         console.log("sectionCode : "+ sectionCode);
+        //                         temp = parseInt(time)-sectionTime ;
+        //                         code = sectionCode;
+        //                     }
+        //                     else if(parseInt(time)-sectionTime < temp){
+        //                         console.log("sectionCode : "+ sectionCode);
+        //                         temp = parseInt(time)-sectionTime ;
+        //                         code = sectionCode;
+        //                     }
+        //                 }
+        //             });
+        //
+        //
+        //         }
+        //
+        //         $(".1th[data-code="+code+"] > .section-update ").css("background","red");
+        //
+        //
+        //
+        //         alert("y : "+offsetY + " X :" + offsetX);
+        //         var image = $("#image");
+        //         if(imgTag1 != null) {
+        //             imgTag1.attr("src", "image/explantion.png");
+        //         }
+        //         image.animate({
+        //             left : offsetX
+        //         },5000, function(){
+        //             lat1 = lat2;
+        //             long1 = long2;
+        //             $(".timeShow").remove();
+        //             $(".1th[data-code="+code+"] > .section-update ").css("background","white");
+        //             if(position != 'end') {
+        //
+        //                 if(sibling1 != position && position != 1){
+        //                     console.log("달라");
+        //                     $("#course_error").css("background","red");
+        //                     setTimeout(function(){
+        //                         imgTag2.attr("src", "image/explanation-select.png");
+        //                         $("#course_error").css("background","white");
+        //                     },3000);
+        //                     sibling1 = sibling2;
+        //                 }else{
+        //                     imgTag2.attr("src", "image/explanation-select.png");
+        //                 }
+        //                 imgTag1 = imgTag2;
+        //             }
+        //
+        //
+        //
+        //         })
+        //     });
+        //
+        //
+        // })
+        //
 
         Number.prototype.toRad = function() {
             return this * Math.PI / 180;
