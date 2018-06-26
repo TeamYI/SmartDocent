@@ -27,6 +27,7 @@
         var arrayImage = [];
         var arrayPosition = [];
         var arraySection = [];
+        var timeArray = [22000, 13000, 13000, 6000,6000,10000];
 
         $(".section-audio").each(function(){
             var start = $(this).attr("data-start");
@@ -107,7 +108,7 @@
                 if(name == "play"){
                     if(ppCount > 0) {
                         previous = ppCount-1 ;
-                        arrayImage[ppCount-1].attr("src", "image/"+ppCount+"off.png");
+                        /*arrayImage[ppCount-1].attr("src", "image/"+ppCount+"off.png");*/
                     }
                     if(ppCount > 0 && ppCount < 5) {
                         console.log("ppCount : " + ppCount);
@@ -129,6 +130,13 @@
                     ppCount = musicPlay(ppCount, argA, section);
                     console.log("ppcount2 : " + ppCount);
                     ppCount++;
+                    if(ppCount == 6) {
+                        setTimeout(function () {
+                            arrayImage[ppCount-1].attr("src", "image/g_end_off.png");
+
+                        }, 23000);
+                    }
+
                 }else{
                     argA.children("img").attr("src","image/black-play-symbol.png");
                     argA.attr("data-name","play");
@@ -171,12 +179,23 @@
 
             var image = $("#image");
             console.log("check : "+ check);
+            if(argA == 0){
+                $("#g_start").attr("src", "image/g_start_on.png");
+            }
             if(argA != 3 || check == 1) {
                 image.animate({
                     left: array[argA]
-                }, 5000, function () {
+                }, timeArray[argA], function () {
+                    if(argA == 0){
+                        $("#g_start").attr("src", "image/g_start_off.png");
+                    }
+                    if(argA == 5){
+                        arrayImage[previous].attr("src", "image/"+(previous+1)+"off.png");
+                        arrayImage[5].attr("src", "image/g_end_on.png");
+                    }
 
                     if (argA != 5) {
+
                         console.log("previous :" + previous);
                         console.log("argA : " + argA);
                         if ((argA != 0 && previous != argA - 1) || argA == 3) {
@@ -184,9 +203,12 @@
                             setTimeout(function () {
                                 arrayImage[argA].attr("src", "image/"+([argA+1])+"on.png");
                                 $("#course_error").css("background", "#f2eeee");
-                            }, 3000);
+                            }, 10000);
                             $(".timeShow").remove();
                         } else {
+                            if(previous != null){
+                                arrayImage[previous].attr("src", "image/"+(previous+1)+"off.png");
+                            }
                             arrayImage[argA].attr("src", "image/"+([argA+1])+"on.png");
                             $(".timeShow").remove();
                         }
@@ -198,10 +220,11 @@
                     argB.attr("data-name", "play");
                 })
             }else{
+                arrayImage[previous].attr("src", "image/"+(previous+1)+"off.png");
                 console.log("arraychectk : " + array[argA]);
                 image.animate({
                     left: array[argA]-100
-                }, 5000, function () {
+                },17000, function () {
                     section.children(".section-update").css("background", "#f2eeee");
                     $(".timeShow").remove();
                     argB.before("<div class='timeShow' style='top: 100px ; font-size: 20px;color:red;position: absolute ; left:" + (array[argA+1] -100) + "px'>AR</div>");
@@ -392,7 +415,7 @@
             </div>
             <div style="width:100%; height:50px" class="ex-group">
                 <div style="width:8%; height:100%; float:left"></div>
-                <div style="width:14%; height:100%; float:left" ><img src="image/g_start_off.png" style="width:50px; height:50px;"></div>
+                <div style="width:14%; height:100%; float:left" ><img src="image/g_start_off.png" id = "g_start" style="width:50px; height:50px;"></div>
                 <div class="move-place" data-lat="35.8964312" data-long="128.6215455" data-code="1" style="width:14%; height:100%; float:left"><img src="image/1off.png" style="width:50px; height:100%;"></div>
                 <div class="move-place" data-lat="35.8965864" data-long="128.621251" data-code="2" style="width:14%; height:100%; float:left"><img src="image/2off.png" style="width:50px; height:50px;"></div>
                 <div class="move-place" data-lat="35.8964647" data-long="128.620998" data-code="3" style="width:14%; height:100%; float:left"><img src="image/3off.png" style="width:50px; height:50px;" ></div>
