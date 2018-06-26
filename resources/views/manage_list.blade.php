@@ -23,6 +23,7 @@
 
 </head>
 <body>
+
 @include('header')
 <style>
     #wrap {
@@ -47,7 +48,9 @@
     h3 {
         margin: 0 auto;
     }
-
+    body{
+        background:#f2eeee;
+    }
 </style>
 <script>
     function culturalManagePage(code){
@@ -59,9 +62,10 @@
     }
 </script>
 <div id="wrap">
-    <form id="form" action="mstest" method="get"></form>
-    <h1 style="margin-top: 100px; margin-left:280px">코스관리</h1>
-    <table style="margin-top: 10px">
+    <form id="form" action = "mstest" method="get"></form>
+    <h1 style="margin-top: 70px; margin-left:280px"></h1>
+
+    {{--<table style="margin-top: 10px">
         <colgroup>
             <col width="100px" />
             <col width="900px" />
@@ -76,7 +80,20 @@
             <td><a href="javascript:culturalManagePage({{$list[$i]['cultural_code']}});">{{$list[$i]['cultural_name']}}</a></td>
         </tr>
         @endfor
-    </table>
+    </table>--}}
+    <div>　</div><div>　</div><div>　</div>
+    <div  width="100%" height="100%">
+        <div style= "width:100px; height:50px ;float:left;"></div>
+        @for($i=0;$i<count($list);$i++)
+            <div style="width:15%; height:100px; float:left;" >
+            <a href="javascript:culturalManagePage({{$list[$i]['cultural_code']}})"><img src="image/{{$i+1}}_cul.png" border="0" ></a>
+            </div>
+        @endfor
+    </div>
+    <div>
+        　<BR>　<BR>　<BR>　<BR>　<BR>　<BR>　<BR>　<BR>　<BR>　<BR>　<BR>　<BR>　<BR>
+        　<BR>　<BR>　<BR>　<BR>　<BR>　<BR>　<BR>　<BR>　<BR>　<BR>　<BR>　<BR>
+    </div>
 </div>
 
 </body>
