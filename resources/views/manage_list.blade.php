@@ -84,7 +84,7 @@
     <div>　</div><div>　</div><div>　</div>
     <div  width="100%" height="100%">
         <div style= "width:100px; height:50px ;float:left;"></div>
-        @for($i=0;$i<count($list);$i++)
+        @for($i=0;$i</*count($list)*/4;$i++)
             <div style="width:15%; height:100px; float:left;" >
             <a href="javascript:culturalManagePage({{$list[$i]['cultural_code']}})"><img src="image/{{$i+1}}_cul.png" border="0" ></a>
             </div>
