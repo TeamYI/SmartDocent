@@ -88,6 +88,7 @@
                 arraySection[count][1] = start;
                 arraySection[count][2] = end;
                 arraySection[count][3] = sectionTime;
+                count++;
 
             });
 
@@ -147,9 +148,11 @@
             var start ;
             var end ;
             var time ;
+            var preTime = 0;
             var temp ;
             var argB = argA ;
             for(var i=0; i<arraySection.length;i++){
+                console.log("arrasse " + arraySection);
                 start = arraySection[i][1] ;
                 end = arraySection[i][2] ;
                 time = arraySection[i][3] ;
@@ -158,9 +161,11 @@
                 console.log("argB : " + argB);
                 if(argB >= start && argB <= end){
                     if(time <= timeA){
-                        console.log("도착");
-                        timeA = time ; //
-                        temp = arraySection[i][0] //
+                        if(preTime <= time ) {
+                            console.log("도착");
+                            preTime = time; //
+                            temp = arraySection[i][0] //
+                        }
                     }
                 }
             }
@@ -227,7 +232,7 @@
                 },17000, function () {
                     section.children(".section-update").css("background", "#f2eeee");
                     $(".timeShow").remove();
-                    argB.before("<div class='timeShow' style='top: 100px ; font-size: 20px;color:red;position: absolute ; left:" + (array[argA+1] -100) + "px'>AR</div>");
+                    argB.before("<div class='timeShow' style='top: 100px ; font-size: 20px; color:#ff9a55; position: absolute ; left:" + (array[argA+1] -100) + "px'>AR</div>");
                     argB.children("img").attr("src", "image/black-play-symbol.png");
                     argB.attr("data-name", "play");
 
