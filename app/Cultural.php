@@ -38,7 +38,7 @@ class Cultural extends Model
     public function cultural_list()
     {
         return \App\CulturalDetail::join('cultural as a', "a.cultural_code", "=", 'cultural_detail.cultural_code')
-            ->where("cultural_detail.language_code", "=", "1")
+            ->where("cultural_detail.language_code", "=", "4")
             ->select('a.cultural_code', 'a.cultural_address', 'a.cultural_type','cultural_detail.cultural_name')
             ->get();
     }

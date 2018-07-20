@@ -396,7 +396,7 @@
             background: #907b72;
             color: white;
             cursor: pointer;
-            width: 90px;
+            width: 100px;
             height: 30px;
         }
         #ar-image {
@@ -409,9 +409,9 @@
 @include('header')
 <div id="menu_nav">
     <div id="menu_nav_check">
-        <div class="nav_check active" rel="tab1">문화재</div>
-        <div class="nav_check" rel="tab2">편의시설</div>
-        <div class="nav_check" rel="tab3">해설</div>
+        <div class="nav_check active" rel="tab1">文化財</div>
+        <div class="nav_check" rel="tab2">便益施設</div>
+        <div class="nav_check" rel="tab3">解説</div>
     </div>
     <div id="menu_nav_content">
         <div class="nav_content" id="tab1">
@@ -419,53 +419,58 @@
                 @else
                 <input type="hidden" value="{{$code}}" id="ex_cultural_code">
             @endif
-            <span>문화재 리스트</span>
-            <button id="cultural_register" class="map_upload_button" onmouseover="nav_content_button(this)" href="#modal-sections" uk-toggle>문화재 등록</button>
+            <span>文化財リスト</span>
+            <button id="cultural_register" class="map_upload_button" onmouseover="nav_content_button(this)" href="#modal-sections" uk-toggle>文化財登録</button>
             <div>
                 <ul uk-accordion>
                     <ll>
-                        <a href="#" class="uk-accordion-title accordion_title_province">서울특별시</a>
+                        <a href="#" class="uk-accordion-title accordion_title_province">ソウル特別市</a>
                         <div class="uk-accordion-content accordion_content_province">
                             <ul uk-accordion style="width: 300px">
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"서울특별시")!== false)
-                                <ll>
-                                    <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}','{{$one -> cultural_code}}','{{$one->cultural_name}}')" >{{$one->cultural_name}}</a>
-                                    {{--<button class="detail_button" data-code="{{$one->cultural_code}}" href="#modal-one-show" uk-toggle>보기</button>--}}
-                                    <img src="/image/+문화재.png">
-                                    <button class="two-type-culture" data-code="{{$one->cultural_code}}" href="#modal-two-register" uk-toggle>문화재+</button>
-                                    <div class="uk-accordion-content accordion_content_cultural ">
-                                        @foreach($type_two as $two)
-                                            @if($one -> cultural_code == $two->cultural_include)
-                                                <div class="culture_two_name">
-                                                    <li>{{$two->cultural_name}}</li>
-                                                    <button class="two-detail-button" data-code="{{$two->cultural_code}}" data-include="{{$two->cultural_include}}" href="#modal-two-show" uk-toggle>보기</button>
-                                                </div>
-                                            @endif
-                                        @endforeach
-                                    </div>
-                                </ll>
+                                        <ll>
+                                            <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}','{{$one -> cultural_code}}','{{$one->cultural_name}}')" >{{$one->cultural_name}}</a>
+                                            {{--<button class="detail_button" data-code="{{$one->cultural_code}}" href="#modal-one-show" uk-toggle>보기</button>--}}
+                                            <img src="/image/showIcon.png" class="detail_button" data-code="{{$one->cultural_code}}" href="#modal-one-show" uk-toggle >
+                                            {{--<button class="two-type-culture" data-code="{{$one->cultural_code}}" href="#modal-two-register" uk-toggle>문화재+</button>--}}
+                                            <img src="/image/culturalPlus.png" class="two-type-culture"  data-code="{{$one->cultural_code}}" href="#modal-two-register" uk-toggle>
+                                            <div class="uk-accordion-content accordion_content_cultural ">
+                                                @foreach($type_two as $two)
+                                                    @if($one -> cultural_code == $two->cultural_include)
+                                                        <div class="culture_two_name">
+                                                            <li>{{$two->cultural_name}}</li>
+                                                            {{--<button class="two-detail-button" data-code="{{$two->cultural_code}}" data-include="{{$two->cultural_include}}" href="#modal-two-show" uk-toggle>보기</button>--}}
+                                                            <img src="/image/showIcon.png" class="two-detail-button" data-code="{{$two->cultural_code}}" data-include="{{$two->cultural_include}}" href="#modal-two-show" uk-toggle >
+                                                        </div>
+                                                    @endif
+                                                @endforeach
+                                            </div>
+                                        </ll>
                                     @endif
                                 @endforeach
                             </ul>
                         </div>
                     </ll>
                     <ll>
-                        <a href="#" class="uk-accordion-title accordion_title_province">경기도</a>
+                        <a href="#" class="uk-accordion-title accordion_title_province">京畿道</a>
                         <div class="uk-accordion-content accordion_content_province">
                             <ul uk-accordion style="width: 300px">
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"경기도")!== false)
                                         <ll>
                                             <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}','{{$one -> cultural_code}}','{{$one->cultural_name}}')" >{{$one->cultural_name}}</a>
-                                            <button class="detail_button" data-code="{{$one->cultural_code}}" href="#modal-one-show" uk-toggle>보기</button>
-                                            <button class="two-type-culture" data-code="{{$one->cultural_code}}" href="#modal-two-register" uk-toggle>문화재+</button>
+                                            {{--<button class="detail_button" data-code="{{$one->cultural_code}}" href="#modal-one-show" uk-toggle>보기</button>--}}
+                                            <img src="/image/showIcon.png" class="detail_button" data-code="{{$one->cultural_code}}" href="#modal-one-show" uk-toggle >
+                                            {{--<button class="two-type-culture" data-code="{{$one->cultural_code}}" href="#modal-two-register" uk-toggle>문화재+</button>--}}
+                                            <img src="/image/culturalPlus.png" class="two-type-culture"  data-code="{{$one->cultural_code}}" href="#modal-two-register" uk-toggle>
                                             <div class="uk-accordion-content accordion_content_cultural ">
                                                 @foreach($type_two as $two)
                                                     @if($one -> cultural_code == $two->cultural_include)
                                                         <div class="culture_two_name">
                                                             <li>{{$two->cultural_name}}</li>
-                                                            <button class="two-detail-button" data-code="{{$two->cultural_code}}" data-include="{{$two->cultural_include}}" href="#modal-two-show" uk-toggle>보기</button>
+                                                            {{--<button class="two-detail-button" data-code="{{$two->cultural_code}}" data-include="{{$two->cultural_include}}" href="#modal-two-show" uk-toggle>보기</button>--}}
+                                                            <img src="/image/showIcon.png" class="two-detail-button" data-code="{{$two->cultural_code}}" data-include="{{$two->cultural_include}}" href="#modal-two-show" uk-toggle >
                                                         </div>
                                                     @endif
                                                 @endforeach
@@ -477,21 +482,24 @@
                         </div>
                     </ll>
                     <ll>
-                        <a href="#" class="uk-accordion-title accordion_title_province">강원도</a>
+                        <a href="#" class="uk-accordion-title accordion_title_province">江原道</a>
                         <div class="uk-accordion-content accordion_content_province">
                             <ul uk-accordion style="width: 300px">
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"강원도")!== false)
                                         <ll>
                                             <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}','{{$one -> cultural_code}}','{{$one->cultural_name}}')" >{{$one->cultural_name}}</a>
-                                            <button class="detail_button" data-code="{{$one->cultural_code}}" href="#modal-one-show" uk-toggle>보기</button>
-                                            <button class="two-type-culture" data-code="{{$one->cultural_code}}" href="#modal-two-register" uk-toggle>문화재+</button>
+                                            {{--<button class="detail_button" data-code="{{$one->cultural_code}}" href="#modal-one-show" uk-toggle>보기</button>--}}
+                                            <img src="/image/showIcon.png" class="detail_button" data-code="{{$one->cultural_code}}" href="#modal-one-show" uk-toggle >
+                                            {{--<button class="two-type-culture" data-code="{{$one->cultural_code}}" href="#modal-two-register" uk-toggle>문화재+</button>--}}
+                                            <img src="/image/culturalPlus.png" class="two-type-culture"  data-code="{{$one->cultural_code}}" href="#modal-two-register" uk-toggle>
                                             <div class="uk-accordion-content accordion_content_cultural ">
                                                 @foreach($type_two as $two)
                                                     @if($one -> cultural_code == $two->cultural_include)
                                                         <div class="culture_two_name">
                                                             <li>{{$two->cultural_name}}</li>
-                                                            <button class="two-detail-button" data-code="{{$two->cultural_code}}" data-include="{{$two->cultural_include}}" href="#modal-two-show" uk-toggle>보기</button>
+                                                            {{--<button class="two-detail-button" data-code="{{$two->cultural_code}}" data-include="{{$two->cultural_include}}" href="#modal-two-show" uk-toggle>보기</button>--}}
+                                                            <img src="/image/showIcon.png" class="two-detail-button" data-code="{{$two->cultural_code}}" data-include="{{$two->cultural_include}}" href="#modal-two-show" uk-toggle >
                                                         </div>
                                                     @endif
                                                 @endforeach
@@ -503,21 +511,24 @@
                         </div>
                     </ll>
                     <ll>
-                        <a href="#" class="uk-accordion-title accordion_title_province">충청북도</a>
+                        <a href="#" class="uk-accordion-title accordion_title_province">忠清北道</a>
                         <div class="uk-accordion-content accordion_content_province">
                             <ul uk-accordion style="width: 300px">
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"충청북도")!== false)
                                         <ll>
                                             <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}','{{$one -> cultural_code}}','{{$one->cultural_name}}')" >{{$one->cultural_name}}</a>
-                                            <button class="detail_button" data-code="{{$one->cultural_code}}" href="#modal-one-show" uk-toggle>보기</button>
-                                            <button class="two-type-culture" data-code="{{$one->cultural_code}}" href="#modal-two-register" uk-toggle>문화재+</button>
+                                            {{--<button class="detail_button" data-code="{{$one->cultural_code}}" href="#modal-one-show" uk-toggle>보기</button>--}}
+                                            <img src="/image/showIcon.png" class="detail_button" data-code="{{$one->cultural_code}}" href="#modal-one-show" uk-toggle >
+                                            {{--<button class="two-type-culture" data-code="{{$one->cultural_code}}" href="#modal-two-register" uk-toggle>문화재+</button>--}}
+                                            <img src="/image/culturalPlus.png" class="two-type-culture"  data-code="{{$one->cultural_code}}" href="#modal-two-register" uk-toggle>
                                             <div class="uk-accordion-content accordion_content_cultural ">
                                                 @foreach($type_two as $two)
                                                     @if($one -> cultural_code == $two->cultural_include)
                                                         <div class="culture_two_name">
                                                             <li>{{$two->cultural_name}}</li>
-                                                            <button class="two-detail-button" data-code="{{$two->cultural_code}}" data-include="{{$two->cultural_include}}" href="#modal-two-show" uk-toggle>보기</button>
+                                                            {{--<button class="two-detail-button" data-code="{{$two->cultural_code}}" data-include="{{$two->cultural_include}}" href="#modal-two-show" uk-toggle>보기</button>--}}
+                                                            <img src="/image/showIcon.png" class="two-detail-button" data-code="{{$two->cultural_code}}" data-include="{{$two->cultural_include}}" href="#modal-two-show" uk-toggle >
                                                         </div>
                                                     @endif
                                                 @endforeach
@@ -529,21 +540,24 @@
                         </div>
                     </ll>
                     <ll>
-                        <a href="#" class="uk-accordion-title accordion_title_province">충청남도</a>
+                        <a href="#" class="uk-accordion-title accordion_title_province">忠清南道</a>
                         <div class="uk-accordion-content accordion_content_province">
                             <ul uk-accordion style="width: 300px">
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"충청남도")!== false)
                                         <ll>
                                             <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}','{{$one -> cultural_code}}','{{$one->cultural_name}}')" >{{$one->cultural_name}}</a>
-                                            <button class="detail_button" data-code="{{$one->cultural_code}}" href="#modal-one-show" uk-toggle>보기</button>
-                                            <button class="two-type-culture" data-code="{{$one->cultural_code}}" href="#modal-two-register" uk-toggle>문화재+</button>
+                                            {{--<button class="detail_button" data-code="{{$one->cultural_code}}" href="#modal-one-show" uk-toggle>보기</button>--}}
+                                            <img src="/image/showIcon.png" class="detail_button" data-code="{{$one->cultural_code}}" href="#modal-one-show" uk-toggle >
+                                            {{--<button class="two-type-culture" data-code="{{$one->cultural_code}}" href="#modal-two-register" uk-toggle>문화재+</button>--}}
+                                            <img src="/image/culturalPlus.png" class="two-type-culture"  data-code="{{$one->cultural_code}}" href="#modal-two-register" uk-toggle>
                                             <div class="uk-accordion-content accordion_content_cultural ">
                                                 @foreach($type_two as $two)
                                                     @if($one -> cultural_code == $two->cultural_include)
                                                         <div class="culture_two_name">
                                                             <li>{{$two->cultural_name}}</li>
-                                                            <button class="two-detail-button" data-code="{{$two->cultural_code}}" data-include="{{$two->cultural_include}}" href="#modal-two-show" uk-toggle>보기</button>
+                                                            {{--<button class="two-detail-button" data-code="{{$two->cultural_code}}" data-include="{{$two->cultural_include}}" href="#modal-two-show" uk-toggle>보기</button>--}}
+                                                            <img src="/image/showIcon.png" class="two-detail-button" data-code="{{$two->cultural_code}}" data-include="{{$two->cultural_include}}" href="#modal-two-show" uk-toggle >
                                                         </div>
                                                     @endif
                                                 @endforeach
@@ -555,21 +569,24 @@
                         </div>
                     </ll>
                     <ll>
-                        <a href="#" class="uk-accordion-title accordion_title_province">인천광역시</a>
+                        <a href="#" class="uk-accordion-title accordion_title_province">仁川広域市</a>
                         <div class="uk-accordion-content accordion_content_province">
                             <ul uk-accordion style="width: 300px">
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"인천광역시")!== false)
                                         <ll>
                                             <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}','{{$one -> cultural_code}}','{{$one->cultural_name}}')" >{{$one->cultural_name}}</a>
-                                            <button class="detail_button" data-code="{{$one->cultural_code}}" href="#modal-one-show" uk-toggle>보기</button>
-                                            <button class="two-type-culture" data-code="{{$one->cultural_code}}" href="#modal-two-register" uk-toggle>문화재+</button>
+                                            {{--<button class="detail_button" data-code="{{$one->cultural_code}}" href="#modal-one-show" uk-toggle>보기</button>--}}
+                                            <img src="/image/showIcon.png" class="detail_button" data-code="{{$one->cultural_code}}" href="#modal-one-show" uk-toggle >
+                                            {{--<button class="two-type-culture" data-code="{{$one->cultural_code}}" href="#modal-two-register" uk-toggle>문화재+</button>--}}
+                                            <img src="/image/culturalPlus.png" class="two-type-culture"  data-code="{{$one->cultural_code}}" href="#modal-two-register" uk-toggle>
                                             <div class="uk-accordion-content accordion_content_cultural ">
                                                 @foreach($type_two as $two)
                                                     @if($one -> cultural_code == $two->cultural_include)
                                                         <div class="culture_two_name">
                                                             <li>{{$two->cultural_name}}</li>
-                                                            <button class="two-detail-button" data-code="{{$two->cultural_code}}" data-include="{{$two->cultural_include}}" href="#modal-two-show" uk-toggle>보기</button>
+                                                            {{--<button class="two-detail-button" data-code="{{$two->cultural_code}}" data-include="{{$two->cultural_include}}" href="#modal-two-show" uk-toggle>보기</button>--}}
+                                                            <img src="/image/showIcon.png" class="two-detail-button" data-code="{{$two->cultural_code}}" data-include="{{$two->cultural_include}}" href="#modal-two-show" uk-toggle >
                                                         </div>
                                                     @endif
                                                 @endforeach
@@ -581,7 +598,7 @@
                         </div>
                     </ll>
                     <ll>
-                        <a href="#" class="uk-accordion-title accordion_title_province">대구광역시</a>
+                        <a href="#" class="uk-accordion-title accordion_title_province">大邱広域市</a>
                         <div class="uk-accordion-content accordion_content_province">
                             <ul uk-accordion style="width: 300px">
                                 @foreach($type_one as $one)
@@ -610,21 +627,24 @@
                         </div>
                     </ll>
                     <ll>
-                        <a href="#" class="uk-accordion-title accordion_title_province">경상북도</a>
+                        <a href="#" class="uk-accordion-title accordion_title_province">慶尚北道</a>
                         <div class="uk-accordion-content accordion_content_province">
                             <ul uk-accordion style="width: 300px">
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"경상북도")!== false)
                                         <ll>
                                             <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}','{{$one -> cultural_code}}','{{$one->cultural_name}}')" >{{$one->cultural_name}}</a>
-                                            <button class="detail_button" data-code="{{$one->cultural_code}}" href="#modal-one-show" uk-toggle>보기</button>
-                                            <button class="two-type-culture" data-code="{{$one->cultural_code}}" href="#modal-two-register" uk-toggle>문화재+</button>
+                                            {{--<button class="detail_button" data-code="{{$one->cultural_code}}" href="#modal-one-show" uk-toggle>보기</button>--}}
+                                            <img src="/image/showIcon.png" class="detail_button" data-code="{{$one->cultural_code}}" href="#modal-one-show" uk-toggle >
+                                            {{--<button class="two-type-culture" data-code="{{$one->cultural_code}}" href="#modal-two-register" uk-toggle>문화재+</button>--}}
+                                            <img src="/image/culturalPlus.png" class="two-type-culture"  data-code="{{$one->cultural_code}}" href="#modal-two-register" uk-toggle>
                                             <div class="uk-accordion-content accordion_content_cultural ">
                                                 @foreach($type_two as $two)
                                                     @if($one -> cultural_code == $two->cultural_include)
                                                         <div class="culture_two_name">
                                                             <li>{{$two->cultural_name}}</li>
-                                                            <button class="two-detail-button" data-code="{{$two->cultural_code}}" data-include="{{$two->cultural_include}}" href="#modal-two-show" uk-toggle>보기</button>
+                                                            {{--<button class="two-detail-button" data-code="{{$two->cultural_code}}" data-include="{{$two->cultural_include}}" href="#modal-two-show" uk-toggle>보기</button>--}}
+                                                            <img src="/image/showIcon.png" class="two-detail-button" data-code="{{$two->cultural_code}}" data-include="{{$two->cultural_include}}" href="#modal-two-show" uk-toggle >
                                                         </div>
                                                     @endif
                                                 @endforeach
@@ -636,21 +656,24 @@
                         </div>
                     </ll>
                     <ll>
-                        <a href="#" class="uk-accordion-title accordion_title_province">경상남도</a>
+                        <a href="#" class="uk-accordion-title accordion_title_province">慶尚南道</a>
                         <div class="uk-accordion-content accordion_content_province">
                             <ul uk-accordion style="width: 300px">
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"경상남도")!== false)
                                         <ll>
                                             <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}','{{$one -> cultural_code}}','{{$one->cultural_name}}')" >{{$one->cultural_name}}</a>
-                                            <button class="detail_button" data-code="{{$one->cultural_code}}" href="#modal-one-show" uk-toggle>보기</button>
-                                            <button class="two-type-culture" data-code="{{$one->cultural_code}}" href="#modal-two-register" uk-toggle>문화재+</button>
+                                            {{--<button class="detail_button" data-code="{{$one->cultural_code}}" href="#modal-one-show" uk-toggle>보기</button>--}}
+                                            <img src="/image/showIcon.png" class="detail_button" data-code="{{$one->cultural_code}}" href="#modal-one-show" uk-toggle >
+                                            {{--<button class="two-type-culture" data-code="{{$one->cultural_code}}" href="#modal-two-register" uk-toggle>문화재+</button>--}}
+                                            <img src="/image/culturalPlus.png" class="two-type-culture"  data-code="{{$one->cultural_code}}" href="#modal-two-register" uk-toggle>
                                             <div class="uk-accordion-content accordion_content_cultural ">
                                                 @foreach($type_two as $two)
                                                     @if($one -> cultural_code == $two->cultural_include)
                                                         <div class="culture_two_name">
                                                             <li>{{$two->cultural_name}}</li>
-                                                            <button class="two-detail-button" data-code="{{$two->cultural_code}}" data-include="{{$two->cultural_include}}" href="#modal-two-show" uk-toggle>보기</button>
+                                                            {{--<button class="two-detail-button" data-code="{{$two->cultural_code}}" data-include="{{$two->cultural_include}}" href="#modal-two-show" uk-toggle>보기</button>--}}
+                                                            <img src="/image/showIcon.png" class="two-detail-button" data-code="{{$two->cultural_code}}" data-include="{{$two->cultural_include}}" href="#modal-two-show" uk-toggle >
                                                         </div>
                                                     @endif
                                                 @endforeach
@@ -662,21 +685,25 @@
                         </div>
                     </ll>
                     <ll>
-                        <a href="#" class="uk-accordion-title accordion_title_province">전라남도</a>
+                        <a href="#" class="uk-accordion-title accordion_title_province">全羅南道
+                        </a>
                         <div class="uk-accordion-content accordion_content_province">
                             <ul uk-accordion style="width: 300px">
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"전라남도")!== false)
                                         <ll>
                                             <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}','{{$one -> cultural_code}}','{{$one->cultural_name}}')" >{{$one->cultural_name}}</a>
-                                            <button class="detail_button" data-code="{{$one->cultural_code}}" href="#modal-one-show" uk-toggle>보기</button>
-                                            <button class="two-type-culture" data-code="{{$one->cultural_code}}" href="#modal-two-register" uk-toggle>문화재+</button>
+                                            {{--<button class="detail_button" data-code="{{$one->cultural_code}}" href="#modal-one-show" uk-toggle>보기</button>--}}
+                                            <img src="/image/showIcon.png" class="detail_button" data-code="{{$one->cultural_code}}" href="#modal-one-show" uk-toggle >
+                                            {{--<button class="two-type-culture" data-code="{{$one->cultural_code}}" href="#modal-two-register" uk-toggle>문화재+</button>--}}
+                                            <img src="/image/culturalPlus.png" class="two-type-culture"  data-code="{{$one->cultural_code}}" href="#modal-two-register" uk-toggle>
                                             <div class="uk-accordion-content accordion_content_cultural ">
                                                 @foreach($type_two as $two)
                                                     @if($one -> cultural_code == $two->cultural_include)
                                                         <div class="culture_two_name">
                                                             <li>{{$two->cultural_name}}</li>
-                                                            <button class="two-detail-button" data-code="{{$two->cultural_code}}" data-include="{{$two->cultural_include}}" href="#modal-two-show" uk-toggle>보기</button>
+                                                            {{--<button class="two-detail-button" data-code="{{$two->cultural_code}}" data-include="{{$two->cultural_include}}" href="#modal-two-show" uk-toggle>보기</button>--}}
+                                                            <img src="/image/showIcon.png" class="two-detail-button" data-code="{{$two->cultural_code}}" data-include="{{$two->cultural_include}}" href="#modal-two-show" uk-toggle >
                                                         </div>
                                                     @endif
                                                 @endforeach
@@ -688,21 +715,25 @@
                         </div>
                     </ll>
                     <ll>
-                        <a href="#" class="uk-accordion-title accordion_title_province">전라북도</a>
+                        <a href="#" class="uk-accordion-title accordion_title_province">全羅北道
+                        </a>
                         <div class="uk-accordion-content accordion_content_province">
                             <ul uk-accordion style="width: 300px">
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"전라북도")!== false)
                                         <ll>
                                             <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}','{{$one -> cultural_code}}','{{$one->cultural_name}}')" >{{$one->cultural_name}}</a>
-                                            <button class="detail_button" data-code="{{$one->cultural_code}}" href="#modal-one-show" uk-toggle>보기</button>
-                                            <button class="two-type-culture" data-code="{{$one->cultural_code}}" href="#modal-two-register" uk-toggle>문화재+</button>
+                                            {{--<button class="detail_button" data-code="{{$one->cultural_code}}" href="#modal-one-show" uk-toggle>보기</button>--}}
+                                            <img src="/image/showIcon.png" class="detail_button" data-code="{{$one->cultural_code}}" href="#modal-one-show" uk-toggle >
+                                            {{--<button class="two-type-culture" data-code="{{$one->cultural_code}}" href="#modal-two-register" uk-toggle>문화재+</button>--}}
+                                            <img src="/image/culturalPlus.png" class="two-type-culture"  data-code="{{$one->cultural_code}}" href="#modal-two-register" uk-toggle>
                                             <div class="uk-accordion-content accordion_content_cultural ">
                                                 @foreach($type_two as $two)
                                                     @if($one -> cultural_code == $two->cultural_include)
                                                         <div class="culture_two_name">
                                                             <li>{{$two->cultural_name}}</li>
-                                                            <button class="two-detail-button" data-code="{{$two->cultural_code}}" data-include="{{$two->cultural_include}}" href="#modal-two-show" uk-toggle>보기</button>
+                                                            {{--<button class="two-detail-button" data-code="{{$two->cultural_code}}" data-include="{{$two->cultural_include}}" href="#modal-two-show" uk-toggle>보기</button>--}}
+                                                            <img src="/image/showIcon.png" class="two-detail-button" data-code="{{$two->cultural_code}}" data-include="{{$two->cultural_include}}" href="#modal-two-show" uk-toggle >
                                                         </div>
                                                     @endif
                                                 @endforeach
@@ -714,7 +745,7 @@
                         </div>
                     </ll>
                     <ll>
-                        <a href="#" class="uk-accordion-title accordion_title_province">울산광역시</a>
+                        <a href="#" class="uk-accordion-title accordion_title_province">蔚山広域市</a>
                         <div class="uk-accordion-content accordion_content_province">
                             <ul uk-accordion style="width: 300px">
                                 @foreach($type_one as $one)
@@ -740,11 +771,11 @@
                         </div>
                     </ll>
                     <ll>
-                        <a href="#" class="uk-accordion-title accordion_title_province">부산광역시</a>
+                        <a href="#" class="uk-accordion-title accordion_title_province">釜山広域市</a>
                         <div class="uk-accordion-content accordion_content_province">
                             <ul uk-accordion style="width: 300px">
                                 @foreach($type_one as $one)
-                                    @if(strpos($one->cultural_address ,"서울특별시")!== false)
+                                    @if(strpos($one->cultural_address ,"부산광역시")!== false)
                                         <ll>
                                             <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}','{{$one -> cultural_code}}','{{$one->cultural_name}}')" >{{$one->cultural_name}}</a>
                                             <button class="detail_button" data-code="{{$one->cultural_code}}" href="#modal-one-show" uk-toggle>보기</button>
@@ -766,7 +797,7 @@
                         </div>
                     </ll>
                     <ll>
-                        <a href="#" class="uk-accordion-title accordion_title_province">대전광역시</a>
+                        <a href="#" class="uk-accordion-title accordion_title_province">大田広域市</a>
                         <div class="uk-accordion-content accordion_content_province">
                             <ul uk-accordion style="width: 300px">
                                 @foreach($type_one as $one)
@@ -792,11 +823,11 @@
                         </div>
                     </ll>
                     <ll>
-                        <a href="#" class="uk-accordion-title accordion_title_province">제주도</a>
+                        <a href="#" class="uk-accordion-title accordion_title_province">済州特別自治道</a>
                         <div class="uk-accordion-content accordion_content_province">
                             <ul uk-accordion style="width: 300px">
                                 @foreach($type_one as $one)
-                                    @if(strpos($one->cultural_address ,"제주도")!== false)
+                                    @if(strpos($one->cultural_address ,"제주특별자치도")!== false)
                                         <ll>
                                             <a href="javascript" class="uk-accordion-title accordion_title_cultural" onclick="geocoding('{{$one->cultural_address}}','{{$one -> cultural_code}}','{{$one->cultural_name}}')" >{{$one->cultural_name}}</a>
                                             <button class="detail_button" data-code="{{$one->cultural_code}}" href="#modal-one-show" uk-toggle>보기</button>
@@ -822,14 +853,14 @@
         </div>
         <form method="post" action="{{URL::to('add_element') }}">
         <div class="nav_content" id="tab2">
-            <span>일러스트</span>
+            <span>イラスト</span>
             <div class="input_upload">
-                <a href="javascript:" onclick="fileUploadAction();" class="map_upload_button">파일 업로드</a>
+                <a href="javascript:" onclick="fileUploadAction();" class="map_upload_button">ファイルのアップロード</a>
                 <input type="file" id="input_img" multiple/>
             </div>
             <div class="uk-placeholder upload_img_wrap" ></div>
             <div id="detail_icon" style="width: 100% ; height: 180px; font-size: 20px; font-weight: bold;border:1px solid black">
-                <span>상세 아이콘</span>
+                <span>便益施設アイコン</span>
                 <div id="detail_icon_box" style="padding:10px 10px ;height: 142px; border-top: 1px solid black; ">
                     <div>
                         <img src="/image/information.png" data-code=4 class="drag_image" >
@@ -965,7 +996,7 @@
                 margin-bottom: 10px;
             }
             .section-end-point input{
-                width: 45px;
+                width: 40px;
                 height: 24px;
             }
             .section-end-point span{
@@ -977,17 +1008,17 @@
         <div class="nav_content" id="tab3">
             <!-- 해설부분 codename:민석-->
             <div>
-                <div style="font-size: 20px; font-weight: bold;" id="explan_cultural_name">해설포인트</div>
+                <div style="font-size: 20px; font-weight: bold;" id="explan_cultural_name">解説ポイント</div>
                 <img src="image/explantion.png" style="width: 50px; height: 50px; margin: 10px;" class="drag_image priority">
             </div>
             <div style="display: none" id="explanation_show">
                 <div id="startGuide" class="audioGuide">
-                    <div style='font-size: 20px; font-weight: bold;' >안내시작멘트</div>
+                    <div style='font-size: 20px; font-weight: bold;' >案内スタートのコメント</div>
                     <ul class="audioNav startNav">
-                        <li class="active" rel="startTab1">한국어</li>
-                        <li rel="startTab2">영어</li>
-                        <li rel="startTab3">중국어</li>
-                        <li rel="startTab4">일본어</li>
+                        <li class="active" rel="startTab1">韓国語</li>
+                        <li rel="startTab2">英語</li>
+                        <li rel="startTab3">中国語</li>
+                        <li rel="startTab4">日本語</li>
                     </ul>
                     <div class="audio_container">
                         <div id="startTab1" class="start_content audio_content">
@@ -995,7 +1026,7 @@
                                 <img src="/image/fileSelect.png">
                             </label>
                             <input type='file' id="startAudio_1" class='audio_register'>
-                            <button onclick="startAudioRegister(6)" class="audio-ment-register">등록</button>
+                            <button onclick="startAudioRegister(6)" class="audio-ment-register">登録</button>
                             <audio src='' controls ></audio>
 
                         </div>
@@ -1004,7 +1035,7 @@
                                 <img src="/image/fileSelect.png">
                             </label>
                             <input type='file' id="startAudio_2" class='audio_register'>
-                            <button onclick="startAudioRegister(6)" class="audio-ment-register">등록</button>
+                            <button onclick="startAudioRegister(6)" class="audio-ment-register">登録</button>
                             <audio src='' controls></audio>
                         </div>
                         <div id="startTab3" class="start_content audio_content">
@@ -1012,7 +1043,7 @@
                                 <img src="/image/fileSelect.png">
                             </label>
                             <input type='file' id="startAudio_3" class='audio_register'>
-                            <button onclick="startAudioRegister(6)" class="audio-ment-register">등록</button>
+                            <button onclick="startAudioRegister(6)" class="audio-ment-register">登録</button>
                             <audio src='' controls ></audio>
                         </div>
                         <div id="startTab4" class="start_content audio_content">
@@ -1020,7 +1051,7 @@
                                 <img src="/image/fileSelect.png">
                             </label>
                             <input type='file' id="startAudio_4" class='audio_register'>
-                            <button onclick="startAudioRegister(6)" class="audio-ment-register">등록</button>
+                            <button onclick="startAudioRegister(6)" class="audio-ment-register">登録</button>
                             <audio src='' controls ></audio>
                         </div>
                     </div>
@@ -1030,12 +1061,12 @@
                     {{--<audio src='' controls style='height: 30px;margin-top: 20px'></audio>--}}
                 </div>
                 <div style='margin-top: 20px' id="endGuide" class="audioGuide">
-                    <div style='font-size: 20px; font-weight: bold;' >안내종료멘트</div>
+                    <div style='font-size: 20px; font-weight: bold;' >案内終了のコメント</div>
                     <ul class="endNav audioNav">
-                        <li class="active" rel="endTab1">한국어</li>
-                        <li rel="endTab2">영어</li>
-                        <li rel="endTab3">중국어</li>
-                        <li rel="endTab4">일본어</li>
+                        <li class="active" rel="endTab1">韓国語</li>
+                        <li rel="endTab2">英語</li>
+                        <li rel="endTab3">中国語</li>
+                        <li rel="endTab4">日本語</li>
                     </ul>
                     <div class="audio_container">
                         <div id="endTab1" class="end_content audio_content">
@@ -1043,7 +1074,7 @@
                                 <img src="/image/fileSelect.png">
                             </label>
                             <input type='file' id="endAudio_1" class='audio_register'>
-                            <button onclick="startAudioRegister(9)" class="audio-ment-register">등록</button>
+                            <button onclick="startAudioRegister(9)" class="audio-ment-register">登録</button>
                             <audio src='' controls ></audio>
                         </div>
                         <div id="endTab2" class="end_content audio_content" >
@@ -1051,7 +1082,7 @@
                                 <img src="/image/fileSelect.png">
                             </label>
                             <input type='file' id="endAudio_2" class='audio_register'>
-                            <button onclick="startAudioRegister(9)" class="audio-ment-register">등록</button>
+                            <button onclick="startAudioRegister(9)" class="audio-ment-register">登録</button>
                             <audio src='' controls ></audio>
                         </div>
                         <div id="endTab3" class="end_content audio_content">
@@ -1059,7 +1090,7 @@
                                 <img src="/image/fileSelect.png">
                             </label>
                             <input type='file' id="endAudio_3" class='audio_register'>
-                            <button onclick="startAudioRegister(9)" class="audio-ment-register">등록</button>
+                            <button onclick="startAudioRegister(9)" class="audio-ment-register">登録</button>
                             <audio src='' controls ></audio>
                         </div>
                         <div id="endTab4" class="end_content audio_content">
@@ -1067,19 +1098,19 @@
                                 <img src="/image/fileSelect.png">
                             </label>
                             <input type='file' id="endAudio_4" class='audio_register'>
-                            <button onclick="startAudioRegister(9)" class="audio-ment-register">등록</button>
+                            <button onclick="startAudioRegister(9)" class="audio-ment-register">登録</button>
                             <audio src='' controls ></audio>
                         </div>
                     </div>
 
                 </div>
                 <div style='margin-top: 20px' id="sectionGuide" class="audioGuide">
-                    <div style='font-size: 20px; font-weight: bold;' >구간멘트</div>
+                    <div style='font-size: 20px; font-weight: bold;' >区間のコメント</div>
                     <ul class="sectionNav audioNav">
-                        <li class="active" rel="secTab1">한국어</li>
-                        <li rel="secTab2">영어</li>
-                        <li rel="secTab3">중국어</li>
-                        <li rel="secTab4">일본어</li>
+                        <li class="active" rel="secTab1">韓国語</li>
+                        <li rel="secTab2">英語</li>
+                        <li rel="secTab3">中国語</li>
+                        <li rel="secTab4">日本語</li>
                     </ul>
                     <div class="audio_container" style="overflow-y:scroll;">
                         <div id="secTab1" class="section_content audio_content">
@@ -1087,10 +1118,10 @@
                                 <img src="/image/fileSelect.png">
                             </label>
                             <input type='file' id="sectionAudio_1" class='audio_register'>
-                            <button onclick="startAudioRegister(8)" class="audio-ment-register">등록</button>
+                            <button onclick="startAudioRegister(8)" class="audio-ment-register">登録</button>
                             <audio src='' controls ></audio>
                             <div class="section-end-point">
-                                <span>종료지점</span>
+                                <span>修了ポイント</span>
                                 <input type="text" width="20">
                                 <input type="text">
                                 <input type="text">
@@ -1103,10 +1134,10 @@
                                 <img src="/image/fileSelect.png">
                             </label>
                             <input type='file' id="sectionAudio_2" class='audio_register'>
-                            <button onclick="startAudioRegister(8)" class="audio-ment-register">등록</button>
+                            <button onclick="startAudioRegister(8)" class="audio-ment-register">登録</button>
                             <audio src='' controls ></audio>
                             <div class="section-end-point">
-                                <span>종료지점</span>
+                                <span>修了ポイント</span>
                                 <input type="text" width="20">
                                 <input type="text">
                                 <input type="text">
@@ -1119,10 +1150,10 @@
                                 <img src="/image/fileSelect.png">
                             </label>
                             <input type='file' id="sectionAudio_3" class='audio_register'>
-                            <button onclick="startAudioRegister(8)" class="audio-ment-register">등록</button>
+                            <button onclick="startAudioRegister(8)" class="audio-ment-register">登録</button>
                             <audio src='' controls ></audio>
                             <div class="section-end-point">
-                                <span>종료지점</span>
+                                <span>修了ポイント</span>
                                 <input type="text" width="20">
                                 <input type="text">
                                 <input type="text">
@@ -1135,10 +1166,10 @@
                                 <img src="/image/fileSelect.png">
                             </label>
                             <input type='file' id="sectionAudio_4" class='audio_register'>
-                            <button onclick="startAudioRegister(8)" class="audio-ment-register">등록</button>
+                            <button onclick="startAudioRegister(8)" class="audio-ment-register">登録</button>
                             <audio src='' controls ></audio>
                             <div class="section-end-point">
-                                <span>종료지점</span>
+                                <span>修了ポイント</span>
                                 <input type="text" width="20">
                                 <input type="text">
                                 <input type="text">
@@ -1166,22 +1197,22 @@
         {{--</div>--}}
         <form action="{{URL::to('upload') }}" method="post" enctype="multipart/form-data">
             <div class="uk-modal-body">
-                <h2 class="uk-modal-title">문화재 등록</h2>
+                <h2 class="uk-modal-title">文化財登録</h2>
                 <input type="hidden" value="1" name="culture_type">
                 <div class="culture_explanation">
                     <div class="culture_explanation_language" >
                         <select class="language_select">
-                            <option value="korean" selected>한국어</option>
-                            <option value="english">영어</option>
-                            <option value="chinese">중국어</option>
-                            <option value="japanese">일본어</option>
+                            <option value="korean" selected>韓国語</option>
+                            <option value="english">英語</option>
+                            <option value="chinese">中国語</option>
+                            <option value="japanese">日本語</option>
                         </select>
                         <div class="culture_name">
-                            <div>문화재명</div>
-                            <input type="text" name="korean_name" placeholder="불국사">
+                            <div>文化財の名前</div>
+                            <input type="text" name="korean_name" placeholder="仏国寺">
                         </div>
                         <div class="culture_detail">
-                            <div>문화재 설명</div>
+                            <div>文化財の</div>
                             <textarea name="korean_text" id="" cols="83" rows="5" placeholder="대한불교조계종 11교구본사(敎區本寺)의 하나로 그 경내(境內)는 2009년 12월 21일에 사적 제502호로 지정되었으며 1995년 세계문화유산목록에 등록되었다."></textarea>
                         </div>
                     </div>
@@ -1194,7 +1225,7 @@
                 </div>
                 <div id="culture_common">
                     <div class="culture_common_image">
-                        <div>문화재 사진</div>
+                        <div>文化財の写真</div>
                         <label for="culture-image">
                             <img src="/image/fileSelect.png" alt="">
                         </label>
@@ -1202,7 +1233,7 @@
                         <img src="http://placehold.it/200x200" class="culture_images" style="width: 180px; height: 180px" >
                     </div>
                     <div class="culture_address">
-                        <div>문화재 주소</div>
+                        <div>文化財のアドレス</div>
                         <input type="type" size="85px" name="culture_address" placeholder="경북 경주시 진현동 산15">
                     </div>
                 </div>
@@ -1226,11 +1257,11 @@
                 </div>
                 <div id="culture_common">
                     <div class="culture_common_image">
-                        <div>문화재 사진</div>
+                        <div>文化財の写真</div>
                         <img src="" class="culture_image" style="width: 200px; height: 200px" >
                     </div>
                     <div class="culture_address">
-                        <div>문화재 주소</div>
+                        <div>文化財のアドレス</div>
                         <div></div>
                     </div>
                 </div>
@@ -1247,7 +1278,7 @@
     <div class="uk-modal-dialog culture_register2 modals-color">
         <button class="uk-modal-close-default" type="button" uk-close></button>
         <div class="uk-modal-body">
-            <h2 class="uk-modal-title two_cultural_name">2차 문화재 등록</h2>
+            <h2 class="uk-modal-title two_cultural_name">文化財登録</h2>
             <div class="culture_explanation">
             </div>
             <div class="culture-footer">
@@ -1267,23 +1298,23 @@
         {{--</div>--}}
         <form action="{{URL::to('upload') }}" method="post" enctype="multipart/form-data">
             <div class="uk-modal-body">
-                <h2 class="uk-modal-title">불국사 문화재 등록</h2>
+                <h2 class="uk-modal-title">文化財登録</h2>
                 <input type="hidden" value="2" name="culture_type">
                 <input type="hidden" value="" name="culture_code" class="culture_code">
                 <div class="culture_explanation">
                     <div class="culture_explanation_language" >
                         <select class="language_select">
-                            <option value="korean" selected>한국어</option>
-                            <option value="english">영어</option>
-                            <option value="chinese">중국어</option>
-                            <option value="japanese">일본어</option>
+                            <option value="korean" selected>韓国語</option>
+                            <option value="english">英語</option>
+                            <option value="chinese">中国語</option>
+                            <option value="japanese">日本語</option>
                         </select>
                         <div class="culture_name">
-                            <div>문화재명</div>
+                            <div>文化財の名前</div>
                             <input type="text" name="korean_name">
                         </div>
                         <div class="culture_detail">
-                            <div>문화재 설명</div>
+                            <div>文化財の説明</div>
                             <textarea name="korean_text" id="" cols="80" rows="5"></textarea>
                         </div>
                     </div>
@@ -1323,8 +1354,8 @@
     }
     .file-select-audio{
         position : absolute;
-        top: 30px;
-        left : 150px;
+        top: 35px;
+        left : 185px;
     }
     .audio-end-point{
         position: absolute;
@@ -1338,7 +1369,7 @@
         margin-left: 20px;
     }
     .audio-end-point input:nth-child(2){
-        margin-left: 60px;
+        margin-left: 35px;
     }
     .audio-end-point input{
         width: 50px;
@@ -1356,14 +1387,14 @@
         {{--<div class="uk-modal-header">--}}
             {{--<h2 class="uk-modal-title">음성 파일 등록</h2>--}}
         {{--</div>--}}
-            <div class="uk-modal-body audio_contents" style="padding: 10px 30px !important;">
-                <h2 class="uk-modal-title">음성 파일 등록</h2>
+            <div class="uk-modal-body audio_contents" style="padding: 10px 15px !important;">
+                <h2 class="uk-modal-title">音声ファイルの登録</h2>
                 <div class="audio_content_display">
                     <div>
                         <input type="hidden" value="" class="detail-file-code" name="element_detail_code">
                         <div>
                             <div class='audio_file'>
-                                <span style='display: inline-block; position: absolute; top:30px'>한국어 음성 파일 : </span>
+                                <span style='display: inline-block; position: absolute; top:30px'>韓国語の音声ファイル: </span>
                                 <input type="hidden" value="korean">
                                 <label for="audio_korea">
                                     <img src="/image/fileSelect.png" class="file-select-audio">
@@ -1371,7 +1402,7 @@
                                 <input type='file' id="audio_korea" class='audio_register' name='korean' value='음성파일 등록'>
                                 <audio src='' controls></audio>
                                 <div class="audio-end-point">
-                                    <span>종료지점</span>
+                                    <span>修了ポイント</span>
                                     <input type="text" width="20">
                                     <input type="text">
                                     <input type="text">
@@ -1382,7 +1413,7 @@
                                 </div>
                             </div>
                             <div class='audio_file'>
-                                <span style='display: inline-block; position: absolute; top:30px'>영어 음성 파일 :</span>
+                                <span style='display: inline-block; position: absolute; top:30px'>英語の音声ファイル :</span>
                                 <input type="hidden" value="english">
                                 <label for="audio_english">
                                     <img src="/image/fileSelect.png" class="file-select-audio">
@@ -1390,7 +1421,7 @@
                                 <input type='file' id="audio_english" class='audio_register' name='english' value='음성파일 등록'>
                                 <audio src='' controls></audio>
                                 <div class="audio-end-point">
-                                    <span>종료지점</span>
+                                    <span>修了ポイント</span>
                                     <input type="text" width="20">
                                     <input type="text">
                                     <input type="text">
@@ -1401,7 +1432,7 @@
                                 </div>
                             </div>
                             <div class='audio_file'>
-                                <span style='display: inline-block; position: absolute; top:30px'>중국어 음성 파일 :</span>
+                                <span style='display: inline-block; position: absolute; top:30px'>中国語の音声ファイル :</span>
                                 <input type="hidden" value="chinese">
                                 <label for="audio_chinese">
                                     <img src="/image/fileSelect.png" class="file-select-audio">
@@ -1409,7 +1440,7 @@
                                 <input type='file' id="audio_chinese" class='audio_register' name='chinese' value='음성파일 등록'>
                                 <audio src='' controls></audio>
                                 <div class="audio-end-point">
-                                    <span>종료지점</span>
+                                    <span>修了ポイント</span>
                                     <input type="text" width="20">
                                     <input type="text">
                                     <input type="text">
@@ -1420,7 +1451,7 @@
                                 </div>
                             </div>
                             <div class='audio_file'>
-                                <span style='display: inline-block; position: absolute; top:30px'>일본어 음성 파일 :</span>
+                                <span style='display: inline-block; position: absolute; top:30px'>日本語の音声ファイル:</span>
                                 <input type="hidden" value="japanaese">
                                 <label for="audio_japanaese">
                                     <img src="/image/fileSelect.png" class="file-select-audio">
@@ -1428,7 +1459,7 @@
                                 <input type='file' id="audio_japanaese" class='audio_register' name='japanaese' value='음성파일 등록'>
                                 <audio src='' controls></audio>
                                 <div class="audio-end-point">
-                                    <span>종료지점</span>
+                                    <span>修了ポイント</span>
                                     <input type="text" width="20">
                                     <input type="text">
                                     <input type="text">

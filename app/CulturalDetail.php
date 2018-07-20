@@ -32,7 +32,7 @@ class CulturalDetail extends Model
 
     public function cultural_list_two(){
          return CulturalDetail::whereNotNull("cultural_include")
-             ->where("language_code","=","1")
+             ->where("language_code","=","4")
             ->select("cultural_detail_code","cultural_code","cultural_detail_explain","cultural_name","cultural_include")
             ->get();
     }

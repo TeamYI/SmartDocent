@@ -42,11 +42,11 @@
     <img src="image/line.png" style="position: absolute; top:80px;left:370px; width: 750px; height: 600px;">
     <img src="image/mainLogo.png" style="position: absolute; top:150px;left:410px; width: 500px;">
     <img src="image/whiteLine.png" style="position: absolute; top:320px;left:410px; width: 670px;">
-    <span style="color: white; font-size: 25px; font-weight: bold; z-index: 999; position: absolute; top: 350px; left: 410px;">" 사용자 행동 맞춤 지능형 문화재 해설 서비스 "</span>
+    <span style="color: white; font-size: 25px; font-weight: bold; z-index: 999; position: absolute; top: 350px; left: 410px;">「ユーザーの行動に合わせた知能型文化財開設サービス」</span>
     <div class="menu-list" style="top: 80px;">
         <div style="border: 5px solid #cebeba; padding-top: 5px; position: absolute; width: 180px; height: 140px;">
             <img src="image/regcourse.png" style="width: 170px; height: 80px;" alt="">
-            <span style="color: #231b19; font-weight: bold ; font-size: 18px; position: absolute; left: 50px; bottom: 10px;">코스 등록</span>
+            <span style="color: #231b19; font-weight: bold ; font-size: 18px; position: absolute; left: 50px; bottom: 10px;">コース登録</span>
         </div>
         <a href="/culturalManage">
             <div style="width: 60px; height: 180px ;background: #cebeba ; position: absolute;top: 0;right: 0;">
@@ -57,7 +57,7 @@
     <div class="menu-list" style="top: 290px ;">
         <div style="border: 5px solid #cebeba; padding-top: 5px; position: absolute; width: 180px; height: 140px;">
             <img src="image/manageCourse.png" style="width: 170px; height: 80px;" alt="">
-            <span style="color: #231b19; font-weight: bold ; font-size: 18px; position: absolute; left: 50px; bottom: 10px;">코스 관리</span>
+            <span style="color: #231b19; font-weight: bold ; font-size: 18px; position: absolute; left: 50px; bottom: 10px;">コース管理</span>
         </div>
         <a href="/manage_list">
             <div style="width: 60px; height: 180px ;background: #cebeba ; position: absolute;top: 0;right: 0;">
@@ -68,7 +68,7 @@
     <div class="menu-list" style="top: 500px ;">
         <div style="border: 5px solid #cebeba; padding-top: 5px; position: absolute; width: 180px; height: 140px;">
             <img src="image/userManage.png" style="width: 170px; height: 80px;" alt="">
-            <span style="color: #231b19; font-weight: bold ; font-size: 18px; position: absolute; left: 50px; bottom: 10px;">회원 관리</span>
+            <span style="color: #231b19; font-weight: bold ; font-size: 18px; position: absolute; left: 50px; bottom: 10px;">会員管理</span>
         </div>
         <a href="/member_manage">
             <div style="width: 60px; height: 180px ;background: #cebeba ; position: absolute;top: 0;right: 0;">
