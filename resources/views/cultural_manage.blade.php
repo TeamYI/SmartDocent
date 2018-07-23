@@ -1002,7 +1002,27 @@
             .section-end-point span{
                 margin-left: 10px;
             }
-
+            .section-start-end{
+                position : absolute;
+                top: 135px;
+                height: 30px;
+                background: #f2eeee;
+                width: 97%;
+                padding: 5px;
+            }
+            .section-start-end span{
+                margin-left: 10px;
+            }
+            .section-start-end span:nth-child(2n-1){
+                font-weight: bold;
+            }
+            .section-plusicon{
+                position : absolute;
+                top: 170px;
+                right: 0px;
+                height: 30px;
+                padding: 5px;
+            }
 
         </style>
         <div class="nav_content" id="tab3">
@@ -1114,19 +1134,27 @@
                     </ul>
                     <div class="audio_container" style="overflow-y:scroll;">
                         <div id="secTab1" class="section_content audio_content">
-                            <label for="sectionAudio_1">
-                                <img src="/image/fileSelect.png">
-                            </label>
-                            <input type='file' id="sectionAudio_1" class='audio_register'>
-                            <button onclick="startAudioRegister(8)" class="audio-ment-register">登録</button>
-                            <audio src='' controls ></audio>
-                            <div class="section-end-point">
-                                <span>修了ポイント</span>
-                                <input type="text" width="20">
-                                <input type="text">
-                                <input type="text">
-                                <input type="text">
-                                <img src="/image/plusIcon.png">
+                            <div>
+                                <label for="sectionAudio_1">
+                                    <img src="/image/fileSelect.png">
+                                </label>
+                                <input type='file' id="sectionAudio_1" class='audio_register'>
+                                <button onclick="startAudioRegister(8)" class="audio-ment-register">登録</button>
+                                <audio src='' controls ></audio>
+                                <div class="section-end-point">
+                                    <span>修了ポイント</span>
+                                    <input type="text" width="20">
+                                    <input type="text">
+                                    <input type="text">
+                                    <input type="text">
+                                    <img src="/image/plusIcon.png">
+                                </div>
+                                <div style="background: #907b72; position: absolute; top: 140px;" >
+                                    <span>start : </span>
+                                    <input type="text" width="20">
+                                    <span>end : </span>
+                                    <input type="text" width="20">
+                                </div>
                             </div>
                         </div>
                         <div id="secTab2" class="section_content audio_content">
@@ -1176,9 +1204,6 @@
                                 <input type="text">
                                 <img src="/image/plusIcon.png">
                             </div>
-                        </div>
-                        <div>
-                            
                         </div>
                     </div>
                 </div>
