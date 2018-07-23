@@ -10,7 +10,7 @@ var ms_number_list = []; // 번호담는 배열 선언(전역) [0]은 넣는 순
 var cultural_code ;
 var element_detail_code; //음성 element_detail_code
 var element_code; // 특정 엘리멘트 코드 담는 변수
-var maxValue; // element 수정 위한 max값
+var maxValue; // element 修整 위한 max값
 var element_facility_code ; // delete하기위한 element값받는 변수
 var cultural_name;
 var priority ;
@@ -27,6 +27,38 @@ $(document).ready(function(){
         center : {lat: 35.790126, lng: 129.331936},
         zoom: 19,
     })
+    var image = {
+        url: "image/yd.png",
+        scaledSize : new google.maps.Size(655, 550),
+    };
+    var marker = new google.maps.Marker({
+        position: {lat: 35.871664,  lng: 128.592114},
+        icon : image,
+        map: map,
+        zIndex : 0
+    });
+    var image = {
+        url: "image/mr.png",
+        scaledSize : new google.maps.Size(655, 550),
+    };
+    var marker = new google.maps.Marker({
+        position: {lat: 35.871664,  lng: 128.592114},
+        icon : image,
+        map: map,
+        zIndex : 1
+    });
+    var image = {
+        url: "image/mc.png",
+        scaledSize : new google.maps.Size(600, 550),
+    };
+    var marker = new google.maps.Marker({
+        position: {lat: 35.871664,  lng: 128.592114},
+        icon : image,
+        map: map,
+        zIndex : 1
+    });
+
+
 
     // 음성파일이 등록되었을 때 실행.
     if($("#ex_cultural_code").val()){
@@ -81,6 +113,7 @@ $(document).ready(function(){
                                 text : i+1+""
                             },
                             icon : image
+
                         });
                         marker.code = explantion[i][0];
                         google.maps.event.addListener(marker,"click",function(){
@@ -147,17 +180,17 @@ $(document).ready(function(){
         var text = "<div class='culture_explanation_language'>"
 
                         + "<select class='language_select'>"
-                        + "<option value='korean' selected>한국어</option>"
-                        + "<option value='english'>영어</option>"
-                        + "<option value='chinese'>중국어</option>"
-                        + "<option value='japanese'>일본어</option>"
+                        + "<option value='korean' selected>韓国語</option>"
+                        + "<option value='english'>英語</option>"
+                        + "<option value='chinese'>中国語</option>"
+                        + "<option value='japanese'>日本語</option>"
                         + "</select>"
                         + "<div class='culture_name'>"
-                            + "<div>문화재명</div>"
+                            + "<div>文化財の名前</div>"
                             + "<input type='text'>"
                         + "</div>"
                         + "<div class='culture_detail'>"
-                            + "<div>문화재 설명</div>"
+                            + "<div>文化財の説明</div>"
                             + "<textarea name='' id='' cols='83' rows='5'></textarea>"
                         +"</div>"
                     +"</div>";
@@ -210,27 +243,30 @@ $(document).ready(function(){
             dataType: 'json',
             success : function(data){
                 if(data.length) {
+
                     var text = "";
                     for (var i = 0; i < data.length; i++) {
+                        if( data[i].language == "japanese") {
+                            $("#modal-one-show .one_cultural_name").text(data[i].cultural_name);
+                        }
                         text += "<div class='culture_explanation_language'>"
                             + "<input type='hidden' name='data-detail-code-" + i + "' value=" + data[i].cultural_detail_code + ">"
                             + "<div class='culture_language'>"
-                            + "<div>언어명 : </div>"
+                            + "<div>言語 : </div>"
                             + "<div data-code=''>" + data[i].language + "</div>"
                             + "</div>"
                             + "<div class='culture_name'>"
-                            + "<div>문화재명</div>"
+                            + "<div>文化財の名前</div>"
                             + "<div>" + data[i].cultural_name + "</div>"
                             + "</div>"
                             + "<div class='culture_detail'>"
-                            + "<div>문화재 설명</div>"
+                            + "<div>文化財の説明</div>"
                             + "<div>" + data[i].cultural_detail_explain + "</div>"
                             + "</div>"
                             + "</div>";
                     }
                     $("#modal-one-show .culture_explanation").append(text);
 
-                    $("#modal-one-show .one_cultural_name").text(data[0].cultural_name);
                     culture_ex[0] = data[0].cultural_name;
                     if (data[0].cultural_image) {
                         var upload = 'uploads/' + data[0].cultural_image;
@@ -245,12 +281,12 @@ $(document).ready(function(){
 
             },
             error : function(){
-                alert("실패");
+                console.log("실패");
             }
         })
     });
 
-    //수정 버튼 눌렀을 때
+    //修整 버튼 눌렀을 때
     // $(".one-cultural-update").click(function(){
     //     var text = "<div class='culture_explanation_language'>"
     //                 +"<input type='hidden' name='data-detail-code-"+i+"' value="+data[0].cultural_detail_code+">"
@@ -274,7 +310,7 @@ $(document).ready(function(){
     //2차 타입 문화재 등록
     $(".two-type-culture").on("click",function(){
        var name = $(this).prev().prev().text();
-       name = name + " 문화재 등록";
+       name = name + " 文化財登録";
        $("#modal-two-register h2").text(name);
        var culture_code = ($(this).attr("data-code")) ;
        $(".culture_code").attr("value",culture_code );
@@ -302,30 +338,32 @@ $(document).ready(function(){
                 if(data.length){
                     var text = "";
                     for (var i = 0; i < data.length; i++) {
+                        if(data[i].language == "japanese"){
+                            $(".two_cultural_name").text(data[i].cultural_name);
+                        }
                         console.log("dddd");
 
                         text += "<div class='culture_explanation_language'>"
                             + "<input type='hidden' name='data-detail-code-" + i + "' value=" + data[i].cultural_detail_code + ">"
                             + "<div class='culture_language'>"
-                            + "<div>언어명 : </div>"
+                            + "<div>言語 : </div>"
                             + "<div data-code=''>" + data[i].language + "</div>"
                             + "</div>"
                             + "<div class='culture_name'>"
-                            + "<div>문화재명</div>"
+                            + "<div>文化財の名前</div>"
                             + "<div>" + data[i].cultural_name + "</div>"
                             + "</div>"
                             + "<div class='culture_detail'>"
-                            + "<div>문화재 설명</div>"
+                            + "<div>文化財の説明</div>"
                             + "<div>" + data[i].cultural_detail_explain + "</div>"
                             + "</div>"
                             + "</div>";
                     }
                     $("#modal-two-show .culture_explanation").append(text);
-                    $(".two_cultural_name").text(data[0].cultural_name);
                 }
             },
             error : function(){
-                alert("실패");
+                console.log("실패");
             }
         })
     });
@@ -482,7 +520,7 @@ $(document).ready(function(){
             data: form,
 
             success: function (data) {
-                alert("음성 업로드 완료");
+                alert("音声のアップロードの完了");
             },
             error: function () {
                 alert("fail");
@@ -560,12 +598,12 @@ function explantionVoice(code){
                 var text ="";
                 for(var i=0; i<data.length;i++) {
                     text  += "<div class='audio_file'>"
-                            +"<span style='display: inline-block; position: absolute; top:30px' >" + data[i].language + "음성파일</span>"
+                            +"<span style='display: inline-block; position: absolute; top:30px' >" + data[i].language + "音声ファイル</span>"
                             +"<audio src='audio/" + data[i].data_file_name + "' controls ></audio>"
                             +"<div class='audio-end-point'>"
-                                +"<span>종료지점</span>"
-                                +"<span style='margin-left: 60px;'>10초</span>"
-                                +"<span>20초</span>"
+                                +"<span>修了ポイント</span>"
+                                +"<span style='margin-left: 60px;'>10秒</span>"
+                                +"<span>20秒</span>"
                             +"</div> "
                         + "</div>"
                 }
@@ -674,7 +712,7 @@ function explanationDeleteMarker(){
             explantionMarker[i].setMap(null);
         }
     }
-    explantion.splice(size,1) // explantion 삭제
+    explantion.splice(size,1) // explantion 削除
 
     console.log(explantion.length);
 
@@ -837,7 +875,7 @@ function mapPositionImage(position,img_src){
                 $temp.push(($(this).text()).substr(0, 1));
             });
 
-            /*지도 위 해설포인트 삭제하는 소스*/
+            /*지도 위 해설포인트 削除하는 소스*/
         }
 
         { // list 순서와 배열순서 같게해줌
@@ -883,7 +921,7 @@ function mapPositionImage(position,img_src){
                 //size: new google.maps.Size(500, 500),
                 //origin: new google.maps.Point(0,0),
                 //anchor: new google.maps.Point(200, 210),
-                scaledSize: new google.maps.Size(25, 25)
+                scaledSize: new google.maps.Size(40, 40)
             };
         }
 
@@ -957,8 +995,8 @@ function mapPositionImage(position,img_src){
             console.log("marker+_code :"+ element_facility_code);
             if(img_src.substr(7,2) == "qr") { // qr이면 버튼 생성
                 marker.infowindow = new google.maps.InfoWindow({
-                    content: "<div style='width:170px; height: 25px'><button onclick='QRCreate($(this),element_facility_code);' class='qr-create'  style='position:absolute; top: 0; left:0'>qr코드 생성</button>"
-                    + "<button onclick = 'DeleteMarker(" + marker.code + ");' class='infowindow-delete'  style='position:absolute; top: 0; left:100px'>Delete</button>"
+                    content: "<div style='width:200px; height: 25px'><button onclick='QRCreate($(this),element_facility_code);' class='qr-create'  style='position:absolute; top: 0; left:0'>QRコード生成</button>"
+                    + "<button onclick = 'DeleteMarker(" + marker.code + ");' class='infowindow-delete'  style='position:absolute; top: 0; left:110px'>Delete</button>"
                     + "</div><img src=''>"
 
                 });
@@ -986,7 +1024,7 @@ function mapPositionImage(position,img_src){
                 this.infowindow.open(map,this);
             });
             facilityMarker.push(marker);
-            //img_src 초기화해서 또 지도에 추가되는 걸 막음
+            //img_src 秒기화해서 또 지도에 추가되는 걸 막음
             this.img_src = "";
             console.log("img_srceeee3333 : " + this.img_src);
             google.maps.event.removeListener(map_latLng_event);
@@ -1022,7 +1060,7 @@ function ARUpdate(file,element_detail_code){
     });
 }
 
-// 마커 삭제 함수
+// 마커 削除 함수
 function DeleteMarker(code) {
     console.log("marker.code : "+ code);
     $.ajax({
@@ -1065,7 +1103,7 @@ function fileUploadAction(){
 
 // 이미지 웹상에서 띄우기
 function handleImgFileSelect(e){
-    //이미지 정보 초기화
+    //이미지 정보 秒기화
     var upload_img_wrap_length =  $(".selProductFile").length ;
     console.log("index : " + upload_img_wrap_length) ;
     var files = e.target.files;
@@ -1103,7 +1141,7 @@ function handleImgFileSelect(e){
     })
 }
 
-// 일러스트 이미지 삭제
+// 일러스트 이미지 削除
 function deleteImageAction(index) {
     console.log("index : " + index);
     map_illustrations.splice(index, 1);
@@ -1190,15 +1228,44 @@ function culturalElementSelect(){
                     var element_image ;
                     var priority = data[i].element_priority;
                     console.log("ddddd : "+ priority);
+
                     // 해당 엘리먼트 코드이면 image 파일을 넣으면
                     if(element_code == 1 ){
                         element_image = "image/restroom.png";
+                        var image = {
+                            url: element_image,
+                            //size: new google.maps.Size(500, 500),
+                            //origin: new google.maps.Point(0,0),
+                            //anchor: new google.maps.Point(200, 210),
+                            scaledSize: new google.maps.Size(40, 40)
+                        };
                     }else if(element_code == 2){
                         element_image = "image/qricon.png";
+                        var image = {
+                            url: element_image,
+                            //size: new google.maps.Size(500, 500),
+                            //origin: new google.maps.Point(0,0),
+                            //anchor: new google.maps.Point(200, 210),
+                            scaledSize: new google.maps.Size(40, 40)
+                        };
                     }else if(element_code == 3){
                         element_image = "image/aricon.png";
+                        var image = {
+                            url: element_image,
+                            //size: new google.maps.Size(500, 500),
+                            //origin: new google.maps.Point(0,0),
+                            //anchor: new google.maps.Point(200, 210),
+                            scaledSize: new google.maps.Size(40, 40)
+                        };
                     }else if(element_code == 4){
                         element_image = "image/information.png";
+                        var image = {
+                            url: element_image,
+                            //size: new google.maps.Size(500, 500),
+                            //origin: new google.maps.Point(0,0),
+                            //anchor: new google.maps.Point(200, 210),
+                            scaledSize: new google.maps.Size(40, 40)
+                        };
                     }else if(element_code == 5){
                         explantion[priority] = new Array(3) ;
                         explantion[priority][0] = data[i].element_detail_code;
@@ -1208,7 +1275,7 @@ function culturalElementSelect(){
                         var tab = $("#startTab"+data[i].language_code) ;
                         tab.empty();
 
-                        var content = "<button class='audio-ment-update'>수정</button><button class='audio-ment-delete'>삭제</button>"
+                        var content = "<button class='audio-ment-update'>修整</button><button class='audio-ment-delete'>削除</button>"
                                      +"<audio src='audio/"+data[i].data_file_name+"' controls style='margin-top: 30px'></audio>"
 
                         tab.append(content);
@@ -1217,7 +1284,7 @@ function culturalElementSelect(){
 
                         var tab = $("#endTab"+data[i].language_code) ;
                         tab.empty();
-                        var content = "<button class='audio-ment-update'>수정</button><button class='audio-ment-delete'>삭제</button>"
+                        var content = "<button class='audio-ment-update'>修整</button><button class='audio-ment-delete'>削除</button>"
                                      +"<audio src='audio/"+data[i].data_file_name+"' controls style='margin-top: 30px'></audio>"
                         tab.append(content);
 
@@ -1226,12 +1293,12 @@ function culturalElementSelect(){
 
                         var tab = $("#secTab"+data[i].language_code) ;
                         tab.empty();
-                        var content = "<button class='audio-ment-update'>수정</button><button class='audio-ment-delete'>삭제</button>"
+                        var content = "<button class='audio-ment-update'>修整</button><button class='audio-ment-delete'>削除</button>"
                                     +"<audio src='audio/"+data[i].data_file_name+"' controls style='margin-top: 30px'></audio>"
                                     +"<div class='section-end-point'>"
-                                        +"<span>종료지점</span>"
-                                        +"<span style='margin-left: 30px'>15초</span>"
-                                        +"<span>25초</span>"
+                                        +"<span>修了ポイント</span>"
+                                        +"<span style='margin-left: 30px'>15秒</span>"
+                                        +"<span>25秒</span>"
                                     +"</div>"
                         tab.append(content);
                     }
@@ -1239,7 +1306,7 @@ function culturalElementSelect(){
                         var marker = new google.maps.Marker({
                             position: {lat: data[i].latitude, lng: data[i].longitude},
                             map: map,
-                            icon: element_image
+                            icon: image
                         });
                         //element_detail_code = maxValue 값
                         maxValue = data[i].element_detail_code;
@@ -1250,12 +1317,14 @@ function culturalElementSelect(){
                             if(data[i].element_detail_file == null){
                                 data[i].element_detail_file = "";
                             }
+                            console.log("ccc");
                             marker.infowindow = new google.maps.InfoWindow({
-                                content: "<div style='width:170px; height: 25px'><button onclick='QRCreate($(this),maxValue);' class='qr-create' style='position:absolute; top: 0; left:0'>qr코드 생성</button>"
-                                        + "<button onclick = 'DeleteMarker(" + marker.code + ");' class='infowindow-delete' style='position:absolute; top: 0; left:100px'>Delete</button>"
+                                content: "<div style='width:200px; height: 25px'><button onclick='QRCreate($(this),maxValue);' class='qr-create' style='position:absolute; top: 0; left:0'>QRコード生成</button>"
+                                        + "<button onclick = 'DeleteMarker(" + marker.code + ");' class='infowindow-delete' style='position:absolute; top: 0; left:110px'>Delete</button>"
                                         + "</div><img src='"+data[i].element_detail_file+"'>"
                             })
-                        }if(element_code == 3){
+                            console.log("aaa");
+                        }else if(element_code == 3){
 
                             if(data[i].element_detail_file == null){
                                 marker.infowindow = new google.maps.InfoWindow({
@@ -1278,11 +1347,11 @@ function culturalElementSelect(){
                                     + "</div>"
                                 })
                             }
-                        }
-                        else{
+                        }else{
                             marker.infowindow = new google.maps.InfoWindow({
                                 content:"<div style='width: 70px; height: 30px'><button onclick = 'DeleteMarker(" + marker.code + ");' class='infowindow-delete'  style='position:absolute; top: 0;'>Delete</button></div>"
                             })
+                            console.log("aaac");
                         }
                         google.maps.event.addListener(marker, 'click', function(){
                             this.infowindow.open(map,this);
@@ -1344,7 +1413,7 @@ function startGuide(){
         $("#endGuide audio").val("");
         $(".sectionGuide audio").val("");
 
-        $("#explan_cultural_name").text(cultural_name+" 해설포인트");
+        $("#explan_cultural_name").text(cultural_name+" 解説ポイント");
         console.log("cultural_name" + cultural_name);
         $("#explanation_show").css("display","block");
     } else {
@@ -1371,7 +1440,7 @@ function startAudioRegister(element_code) {
             contentType: false,
             data: form,
             success: function (data) {
-                alert("음성 업로드 완료 :" + data);
+                alert("音声のアップロードの完了 :" + data);
                 language_code = 1 ;
             },
             error: function () {
@@ -1404,7 +1473,7 @@ function QRCreate(a,maxValue){
             element_detail_file : googleQRUrl
         },
         success : function (data) {
-            alert("QR코드가 등록되었습니다.");
+            alert("QRコードが登録されました。");
         },
         error : function (){
             alert("audio fail");
