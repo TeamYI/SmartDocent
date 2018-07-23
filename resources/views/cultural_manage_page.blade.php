@@ -116,7 +116,7 @@
                         var distance1 = distance(ppCount);
                         var time = distance1*1000/0.33;
                         if(ppCount != 3){
-                            argA.before("<div class='timeShow' style='position: absolute ; left:" + (array[ppCount] -150) + "px'>예상도착시간 : "+ parseInt(time) +"초</div>");
+                            argA.before("<div class='timeShow' style='position: absolute ; left:" + (array[ppCount] -150) + "px'>予想到着時間 : "+ parseInt(time) +"秒</div>");
                         }
                         console.log("time : " + time);
                         section = sectionPlay(ppCount, time);
@@ -286,7 +286,7 @@
                     console.log(parseInt(time%60));
                     console.log(typeof(offsetX-200));
                     if(position != 'end') {
-                        $(this).before("<div class='timeShow' style='top=100px; position: absolute ; left:" + (offsetX - 200) + "px'>예상도착시간 : "+ parseInt(time) +"초</div>");
+                        $(this).before("<div class='timeShow' style='top=100px; position: absolute ; left:" + (offsetX - 200) + "px'>予想到着時間 : "+ parseInt(time) +"秒</div>");
                     }
                     $(".1th").each(function(){
                         var start = $(this).attr("data-start");
@@ -402,11 +402,11 @@
     <div class="content-wrap">
         <section id="section-linemove-1" style="padding:40px; background:#f2eeee">
             <div>
-            <h2 style="margin-left: 8%;margin-right: 20px ;margin-bottom:40px; display: inline-block">경상감영공원</h2>
-                <div class="play-button" data-name="play" onclick="ppButton($(this))" style="display: inline-block; position: absolute; left:40%; top:35px; cursor:pointer;">
+            <h2 style="margin-left: 8%;margin-right: 20px ;margin-bottom:40px; display: inline-block">キョンサンガムヨン公園</h2>
+                <div class="play-button" data-name="play" onclick="ppButton($(this))" style="display: inline-block; position: absolute; left:50%; top:35px; cursor:pointer;">
                     <img src="image/black-play-symbol.png" width="50px" height="50px" alt="">
                 </div>
-                <div class="replay-button" data-name="replay" onclick="replayButton($(this))" style="display: inline-block; position: absolute; left:45%; top:35px;cursor:pointer;">
+                <div class="replay-button" data-name="replay" onclick="replayButton($(this))" style="display: inline-block; position: absolute; left:55%; top:35px;cursor:pointer;">
                     <img src="image/replay.png" width="50px" height="50px" alt="">
                 </div>
             </div>
@@ -461,7 +461,7 @@
                 {{--나니모나이--}}
             </div>
             <div style="width:100%; ">
-                <h3 style="margin-left: 8%;">구간멘트</h3>
+                <h3 style="margin-left: 8%;">区間解説</h3>
                 @foreach($element_info_1 as $one)
                     @foreach($element_info_2 as $two)
                         @if($two->language_code == 1)
@@ -469,7 +469,8 @@
                                 <div class="section-audio" style='width:100%; height:10%' data-code="{{$one->element_detail_code}}" data-time='{{$two->duration}}' data-start="{{$one->section_start}}" data-end="{{$one->section_end}}">
                                     <div style="width:<?PHP print 8+14*($one->section_start)?>%; height:50%; float:left"></div>
                                     <div class="section-update" style="border : 1px solid black; width:<?PHP print 14*($one->section_end-$one->section_start) ?>%; height:50%; float:left; text-align:center; font-size:12px">
-                                        파일명 : ko_<?PHP print $two->data_file_name ?> , 시간 : <?PHP print $two->duration ?>
+                                        ファイル名 : ko_<?PHP print $two->data_file_name ?><BR>
+                                        時間 : <?PHP print $two->duration ?>秒
                                     </div>
                                     <div style="width:100%; height:50%; float:left"></div>
 
@@ -485,19 +486,19 @@
             </div>
             <div style="width:100%; height:20% ; margin-top: 20px">
                 <div style="width:8%;height:50%; float:left"></div>
-                <h3>경로이탈멘트</h3>
+                <h3>経路離脱音声</h3>
                 <div id="course_error" style="border:1px solid black; width:15%;height:25%; float:left;text-align:center; font-size:12px">
-                    파일명 : ko_warning.m4a
+                    ファイル名 : ko_warning.m4a
                 </div>
             </div>
         </section>
         <section id="section-linemove-2" style="padding:40px; background:#f2eeee">
             <div>
-                <h2 style="margin-left: 8%;margin-right: 20px ;margin-bottom:40px; display: inline-block">경상감영공원</h2>
-                <div class="play-button" data-name="play" onclick="ppButton($(this))" style="display: inline-block; position: absolute; left:40%; top:35px; cursor:pointer;">
+                <h2 style="margin-left: 8%;margin-right: 20px ;margin-bottom:40px; display: inline-block">キョンサンガムヨン公園</h2>
+                <div class="play-button" data-name="play" onclick="ppButton($(this))" style="display: inline-block; position: absolute; left:50%; top:35px; cursor:pointer;">
                     <img src="image/black-play-symbol.png" width="50px" height="50px" alt="">
                 </div>
-                <div class="replay-button" data-name="replay" onclick="replayButton($(this))" style="display: inline-block; position: absolute; left:45%; top:35px;cursor:pointer;">
+                <div class="replay-button" data-name="replay" onclick="replayButton($(this))" style="display: inline-block; position: absolute; left:55%; top:35px;cursor:pointer;">
                     <img src="image/replay.png" width="50px" height="50px" alt="">
                 </div>
             </div>
@@ -550,7 +551,7 @@
 
 
             <div style="width:100%; ">
-                <h3 style="margin-left: 8%;">구간멘트</h3>
+                <h3 style="margin-left: 8%;">区間解説</h3>
                 @foreach($element_info_1 as $one)
                     @foreach($element_info_2 as $two)
                         @if($two->language_code == 2)
@@ -558,7 +559,8 @@
                                 <div class="1th" style='width:100%; height:10%' data-code="{{$one->element_detail_code}}" data-time='{{$two->duration}}' data-start="{{$one->section_start}}" data-end="{{$one->section_end}}">
                                     <div style="width:<?PHP print 8+14*($one->section_start)?>%; height:50%; float:left"></div>
                                     <div class="section-update" style="border : 1px solid black; width:<?PHP print 14*($one->section_end-$one->section_start) ?>%; height:50%; float:left; text-align:center; font-size:12px">
-                                        파일명 : E_<?PHP print $two->data_file_name ?> , 시간 : <?PHP print $two->duration ?>
+                                        ファイル名 : E_<?PHP print $two->data_file_name ?><br>
+                                        時間 : <?PHP print $two->duration ?>秒
                                     </div>
                                     <div style="width:100%; height:50%; float:left"></div>
                                 </div>
@@ -573,19 +575,19 @@
             </div>
             <div style="width:100%; height:20% ; margin-top: 20px">
                 <div style="width:8%;height:50%; float:left"></div>
-                <h3>경로이탈멘트</h3>
+                <h3>経路離脱音声</h3>
                 <div id="course_error" style="border:1px solid black; width:15%;height:25%; float:left;text-align:center; font-size:12px">
-                    파일명 : E_warning.m4a
+                    ファイル名 : E_warning.m4a
                 </div>
             </div>
         </section>
         <section id="section-linemove-3" style="padding:40px; background:#f2eeee">
             <div>
-                <h2 style="margin-left: 8%;margin-right: 20px ;margin-bottom:40px; display: inline-block">경상감영공원</h2>
-                <div class="play-button" data-name="play" onclick="ppButton($(this))" style="display: inline-block; position: absolute; left:40%; top:35px; cursor:pointer;">
+                <h2 style="margin-left: 8%;margin-right: 20px ;margin-bottom:40px; display: inline-block">キョンサンガムヨン公園</h2>
+                <div class="play-button" data-name="play" onclick="ppButton($(this))" style="display: inline-block; position: absolute; left:50%; top:35px; cursor:pointer;">
                     <img src="image/black-play-symbol.png" width="50px" height="50px" alt="">
                 </div>
-                <div class="replay-button" data-name="replay" onclick="replayButton($(this))" style="display: inline-block; position: absolute; left:45%; top:35px;cursor:pointer;">
+                <div class="replay-button" data-name="replay" onclick="replayButton($(this))" style="display: inline-block; position: absolute; left:55%; top:35px;cursor:pointer;">
                     <img src="image/replay.png" width="50px" height="50px" alt="">
                 </div>
             </div>
@@ -638,7 +640,7 @@
 
 
             <div style="width:100%; ">
-                <h3 style="margin-left: 8%;">구간멘트</h3>
+                <h3 style="margin-left: 8%;">区間解説</h3>
                 @foreach($element_info_1 as $one)
                     @foreach($element_info_2 as $two)
                         @if($two->language_code == 3)
@@ -646,7 +648,8 @@
                                 <div class="1th" style='width:100%; height:10%' data-code="{{$one->element_detail_code}}" data-time='{{$two->duration}}' data-start="{{$one->section_start}}" data-end="{{$one->section_end}}">
                                     <div style="width:<?PHP print 8+14*($one->section_start)?>%; height:50%; float:left"></div>
                                     <div class="section-update" style="border : 1px solid black; width:<?PHP print 14*($one->section_end-$one->section_start) ?>%; height:50%; float:left; text-align:center; font-size:12px">
-                                        파일명 : ch_<?PHP print $two->data_file_name ?> , 시간 : <?PHP print $two->duration ?>
+                                        ファイル名 : ch_<?PHP print $two->data_file_name ?><br>
+                                        時間 : <?PHP print $two->duration ?>秒
                                     </div>
                                     <div style="width:100%; height:50%; float:left"></div>
                                 </div>
@@ -661,19 +664,19 @@
             </div>
             <div style="width:100%; height:20% ; margin-top: 20px">
                 <div style="width:8%;height:50%; float:left"></div>
-                <h3>경로이탈멘트</h3>
+                <h3>経路離脱音声</h3>
                 <div id="course_error" style="border:1px solid black; width:15%;height:25%; float:left;text-align:center; font-size:12px">
-                    파일명 : ch_warning.m4a
+                    ファイル名 : ch_warning.m4a
                 </div>
             </div>
         </section>
         <section id="section-linemove-4" style="padding:40px; background:#f2eeee">
             <div>
-                <h2 style="margin-left: 8%;margin-right: 20px ;margin-bottom:40px; display: inline-block">경상감영공원</h2>
-                <div class="play-button" data-name="play" onclick="ppButton($(this))" style="display: inline-block; position: absolute; left:40%; top:35px; cursor:pointer;">
+                <h2 style="margin-left: 8%;margin-right: 20px ;margin-bottom:40px; display: inline-block">キョンサンガムヨン公園</h2>
+                <div class="play-button" data-name="play" onclick="ppButton($(this))" style="display: inline-block; position: absolute; left:50%; top:35px; cursor:pointer;">
                     <img src="image/black-play-symbol.png" width="50px" height="50px" alt="">
                 </div>
-                <div class="replay-button" data-name="replay" onclick="replayButton($(this))" style="display: inline-block; position: absolute; left:45%; top:35px;cursor:pointer;">
+                <div class="replay-button" data-name="replay" onclick="replayButton($(this))" style="display: inline-block; position: absolute; left:55%; top:35px;cursor:pointer;">
                     <img src="image/replay.png" width="50px" height="50px" alt="">
                 </div>
             </div>
@@ -726,7 +729,7 @@
 
 
             <div style="width:100%; ">
-                <h3 style="margin-left: 8%;">구간멘트</h3>
+                <h3 style="margin-left: 8%;">区間解説</h3>
                 @foreach($element_info_1 as $one)
                     @foreach($element_info_2 as $two)
                         @if($two->language_code == 4)
@@ -734,7 +737,8 @@
                                 <div class="1th" style='width:100%; height:10%' data-code="{{$one->element_detail_code}}" data-time='{{$two->duration}}' data-start="{{$one->section_start}}" data-end="{{$one->section_end}}">
                                     <div style="width:<?PHP print 8+14*($one->section_start)?>%; height:50%; float:left"></div>
                                     <div class="section-update" style="border : 1px solid black; width:<?PHP print 14*($one->section_end-$one->section_start) ?>%; height:50%; float:left; text-align:center; font-size:12px">
-                                        파일명 : J_<?PHP print $two->data_file_name ?> , 시간 : <?PHP print $two->duration ?>
+                                        ファイル名 : J_<?PHP print $two->data_file_name ?><BR>
+                                        時間 : <?PHP print $two->duration ?>秒
                                     </div>
                                     <div style="width:100%; height:50%; float:left"></div>
                                 </div>
@@ -749,9 +753,9 @@
             </div>
             <div style="width:100%; height:20% ; margin-top: 20px">
                 <div style="width:8%;height:50%; float:left"></div>
-                <h3>경로이탈멘트</h3>
+                <h3>経路離脱音声</h3>
                 <div id="course_error" style="border:1px solid black; width:15%;height:25%; float:left;text-align:center; font-size:12px">
-                    파일명 : J_warning.m4a
+                    ファイル名 : J_warning.m4a
                 </div>
             </div>
         </section>
