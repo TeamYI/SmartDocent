@@ -27,6 +27,38 @@ $(document).ready(function(){
         center : {lat: 35.790126, lng: 129.331936},
         zoom: 19,
     })
+    var image = {
+        url: "image/yd.png",
+        scaledSize : new google.maps.Size(655, 550),
+    };
+    var marker = new google.maps.Marker({
+        position: {lat: 35.871664,  lng: 128.592114},
+        icon : image,
+        map: map,
+        zIndex : 0
+    });
+    var image = {
+        url: "image/mr.png",
+        scaledSize : new google.maps.Size(655, 550),
+    };
+    var marker = new google.maps.Marker({
+        position: {lat: 35.871664,  lng: 128.592114},
+        icon : image,
+        map: map,
+        zIndex : 1
+    });
+    var image = {
+        url: "image/mc.png",
+        scaledSize : new google.maps.Size(600, 550),
+    };
+    var marker = new google.maps.Marker({
+        position: {lat: 35.871664,  lng: 128.592114},
+        icon : image,
+        map: map,
+        zIndex : 1
+    });
+
+
 
     // 음성파일이 등록되었을 때 실행.
     if($("#ex_cultural_code").val()){
@@ -81,6 +113,7 @@ $(document).ready(function(){
                                 text : i+1+""
                             },
                             icon : image
+
                         });
                         marker.code = explantion[i][0];
                         google.maps.event.addListener(marker,"click",function(){
@@ -1195,15 +1228,44 @@ function culturalElementSelect(){
                     var element_image ;
                     var priority = data[i].element_priority;
                     console.log("ddddd : "+ priority);
+
                     // 해당 엘리먼트 코드이면 image 파일을 넣으면
                     if(element_code == 1 ){
                         element_image = "image/restroom.png";
+                        var image = {
+                            url: element_image,
+                            //size: new google.maps.Size(500, 500),
+                            //origin: new google.maps.Point(0,0),
+                            //anchor: new google.maps.Point(200, 210),
+                            scaledSize: new google.maps.Size(40, 40)
+                        };
                     }else if(element_code == 2){
                         element_image = "image/qricon.png";
+                        var image = {
+                            url: element_image,
+                            //size: new google.maps.Size(500, 500),
+                            //origin: new google.maps.Point(0,0),
+                            //anchor: new google.maps.Point(200, 210),
+                            scaledSize: new google.maps.Size(40, 40)
+                        };
                     }else if(element_code == 3){
                         element_image = "image/aricon.png";
+                        var image = {
+                            url: element_image,
+                            //size: new google.maps.Size(500, 500),
+                            //origin: new google.maps.Point(0,0),
+                            //anchor: new google.maps.Point(200, 210),
+                            scaledSize: new google.maps.Size(40, 40)
+                        };
                     }else if(element_code == 4){
                         element_image = "image/information.png";
+                        var image = {
+                            url: element_image,
+                            //size: new google.maps.Size(500, 500),
+                            //origin: new google.maps.Point(0,0),
+                            //anchor: new google.maps.Point(200, 210),
+                            scaledSize: new google.maps.Size(40, 40)
+                        };
                     }else if(element_code == 5){
                         explantion[priority] = new Array(3) ;
                         explantion[priority][0] = data[i].element_detail_code;
@@ -1244,7 +1306,7 @@ function culturalElementSelect(){
                         var marker = new google.maps.Marker({
                             position: {lat: data[i].latitude, lng: data[i].longitude},
                             map: map,
-                            icon: element_image
+                            icon: image
                         });
                         //element_detail_code = maxValue 값
                         maxValue = data[i].element_detail_code;
