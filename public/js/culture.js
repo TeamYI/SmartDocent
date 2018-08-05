@@ -1300,6 +1300,15 @@ function culturalElementSelect(){
                                         +"<span style='margin-left: 30px'>15秒</span>"
                                         +"<span>25秒</span>"
                                     +"</div>"
+                                    +"<div class='section-start-end'>"
+                                        +"<span>start</span>"
+                                        +"<span>1</span>"
+                                        +"<span>end</span>"
+                                        +"<span>2</span>"
+                                    +"</div>"
+                                    +"<div class='section-plusicon'>"
+                                        +"<img src='image/PlusIcon.png'>"
+                                    +"</div>"
                         tab.append(content);
                     }
                     if(element_code != 5){
