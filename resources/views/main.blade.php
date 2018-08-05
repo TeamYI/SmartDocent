@@ -57,7 +57,7 @@
     <div class="menu-list" style="top: 290px ;">
         <div style="border: 5px solid #cebeba; padding-top: 5px; position: absolute; width: 180px; height: 140px;">
             <img src="image/manageCourse.png" style="width: 170px; height: 80px;" alt="">
-            <span style="color: #231b19; font-weight: bold ; font-size: 18px; position: absolute; left: 50px; bottom: 10px;">コース管理</span>
+            <span style="color: #231b19; font-weight: bold ; font-size: 18px; position: absolute; left: 50px; bottom: 10px;">コース検証</span>
         </div>
         <a href="/manage_list">
             <div style="width: 60px; height: 180px ;background: #cebeba ; position: absolute;top: 0;right: 0;">
