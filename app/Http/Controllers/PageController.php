@@ -67,10 +67,20 @@ class PageController extends Controller
         $data_file_name = $this->AudioDataFile->file_name();
         $cultural_info1 = $this->CulturalDetail->language_cultural_name($cultural_code);
 
-
-        return view('cultural_manage_page')->with("cultural_info",$cultural_info)
+        /*return view('cultural_manage_page')->with("cultural_info",$cultural_info)
             ->with("element_info_1",$element_info_1)->with("element_info_2",$element_info_2)
-            ->with("data_file_name",$data_file_name)->with("cultural_info1", $cultural_info1);
+            ->with("data_file_name",$data_file_name)->with("cultural_info1", $cultural_info1);*/
+
+        if($cultural_code == 1){
+           return view('simulation')->with("cultural_info",$cultural_info)
+                ->with("element_info_1",$element_info_1)->with("element_info_2",$element_info_2)
+                ->with("data_file_name",$data_file_name)->with("cultural_info1", $cultural_info1);
+        }
+        else {
+            return view('cultural_manage_page')->with("cultural_info",$cultural_info)
+                ->with("element_info_1",$element_info_1)->with("element_info_2",$element_info_2)
+                ->with("data_file_name",$data_file_name)->with("cultural_info1", $cultural_info1);
+        }
     }
 
 }
