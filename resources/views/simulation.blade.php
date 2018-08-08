@@ -219,9 +219,11 @@
                         if ((argA != 0 && previous != argA - 1) || argA == 3) {
                             $("#course_error").css("background", "#ff9a55");
                             setTimeout(function () {
+
                                 arrayImage[argA].attr("src", "image/"+([argA+1])+"on.png");
                                 //cv
                                 //0805$(".kaiketu"+([argA+1])).css("background", "#ff9a55");
+                                arrayImage[argA].attr("src", "image/g_end_on.png");
                                 $(".kaiketu5").css("background", "#ff9a55");
                                 $("#course_error").css("background", "#f2eeee");
                             }, 8000);
@@ -259,7 +261,7 @@
                 },8000, function () {
                     section.children(".section-update").css("background", "#f2eeee");
                     $(".timeShow").remove();
-                    /*에이알*/          argB.before("<div class='timeShow' style='top: 100px ; font-size: 20px; color:#ff9a55; position: absolute ; left:" + (array[argA+1] -100) + "px'>AR</div>");
+                    /*에이알*/          argB.before("<div class='timeShow' style='top: 100px ; font-size: 20px; color:#ff9a55; position: absolute ; left:" + (array[argA+1] -100) + "px'></div>");
                     argB.children("img").attr("src", "image/black-play-symbol.png");
                     argB.attr("data-name", "play");
 
@@ -351,24 +353,24 @@
             <div style="width:100%; height:4% ">
                 <div style="width:7%; height:100%; float:left"></div>
                 <div style="width:20%; height:100%; float:left;">
-                    <div class="kaiketu1" style="width:50%; height:100%; border:1px solid #231b19;">解説音声パイル_1</div>
+                    <div {{--class="kaiketu1" --}}style="width:50%; height:100%; border:1px solid #231b19;">解説音声パイル_1</div>
                 </div>
                 <div style="width:20%; height:100%; float:left;">
-                    <div class="kaiketu2" style="width:50%; height:100%; border:1px solid #231b19;">解説音声パイル_2</div>
+                    <div {{--class="kaiketu2"--}} style="width:50%; height:100%; border:1px solid #231b19;">解説音声パイル_2</div>
                 </div>
                 <div style="width:20%; height:100%; float:left;">
-                    <div class="kaiketu3" style="width:50%; height:100%; border:1px solid #231b19;">解説音声パイル_3</div>
+                    <div {{--class="kaiketu3"--}} style="width:50%; height:100%; border:1px solid #231b19;">解説音声パイル_3</div>
                 </div>
                 <div style="width:20%; height:100%; float:left;">
-                    <div class="kaiketu4" style="width:50%; height:100%; border:1px solid #231b19;">解説音声パイル_4</div>
+                    <div {{--class="kaiketu4"--}} style="width:50%; height:100%; border:1px solid #231b19;">解説音声パイル_4</div>
                 </div>
-                <div class="kaiketu5" style="width:10%; height:100%; float:left; border:1px solid #231b19;">解説音声パイル_5</div>
+                <div {{--class="kaiketu5"--}} style="width:10%; height:100%; float:left; border:1px solid #231b19;">解説音声パイル_5</div>
             </div>
             <div style="width:100%; height:5%">
                 {{--나니모나이--}}
             </div>
             <div style="width:100%; ">
-                <h3 style="margin-left: 8%;">ビックリ常識</h3>
+                <h3 style="margin-left: 8%;">豆知識</h3>
                 <?PHP $a=1; ?>
                 @foreach($element_info_1 as $one)
                     @foreach($element_info_2 as $two)
@@ -395,7 +397,7 @@
             <div style="width:100%; height:20% ; margin-top: 20px">
                 <div style="width:8%;height:50%; float:left"></div>
                 <h3 style = "color:red">経路離脱音声</h3>
-                <div id="course_error" style="border:1px solid black; color:red; width:15%;height:25%; float:left;text-align:center; font-size:16px">
+                <div id="course_error" style="border:1px solid black; width:15%;height:25%; float:left;text-align:center; font-size:16px">
                     経路離脱音声パイル_1
                 </div>
             </div>

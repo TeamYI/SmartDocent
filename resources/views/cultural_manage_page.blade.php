@@ -89,7 +89,7 @@
                 arraySection[count][1] = start;
                 arraySection[count][2] = end;
                 arraySection[count][3] = sectionTime;
-
+                count++;
 
             });
 
@@ -464,7 +464,7 @@
                 {{--나니모나이--}}
             </div>
             <div style="width:100%; ">
-                <h3 style="margin-left: 8%;">区間解説</h3>
+                <h3 style="margin-left: 8%;">豆知識</h3>
                 @foreach($element_info_1 as $one)
                     @foreach($element_info_2 as $two)
                         @if($two->language_code == 1)
@@ -489,7 +489,7 @@
             </div>
             <div style="width:100%; height:20% ; margin-top: 20px">
                 <div style="width:8%;height:50%; float:left"></div>
-                <h3>経路離脱音声</h3>
+                <h3 style = "color:red">経路離脱音声</h3>
                 <div id="course_error" style="border:1px solid black; width:15%;height:25%; float:left;text-align:center; font-size:12px">
                     ファイル名 : ko_warning.m4a
                 </div>
@@ -554,7 +554,7 @@
 
 
             <div style="width:100%; ">
-                <h3 style="margin-left: 8%;">区間解説</h3>
+                <h3 style="margin-left: 8%;">豆知識</h3>
                 @foreach($element_info_1 as $one)
                     @foreach($element_info_2 as $two)
                         @if($two->language_code == 2)
@@ -643,7 +643,7 @@
 
 
             <div style="width:100%; ">
-                <h3 style="margin-left: 8%;">区間解説</h3>
+                <h3 style="margin-left: 8%;">豆知識</h3>
                 @foreach($element_info_1 as $one)
                     @foreach($element_info_2 as $two)
                         @if($two->language_code == 3)
@@ -732,7 +732,7 @@
 
 
             <div style="width:100%; ">
-                <h3 style="margin-left: 8%;">区間解説</h3>
+                <h3 style="margin-left: 8%;">豆知識</h3>
                 @foreach($element_info_1 as $one)
                     @foreach($element_info_2 as $two)
                         @if($two->language_code == 4)
