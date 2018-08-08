@@ -90,6 +90,7 @@
                 arraySection[count][2] = end;
                 arraySection[count][3] = sectionTime;
 
+                count++;
 
             });
 
@@ -231,6 +232,7 @@
                 image.animate({
                     left: array[argA]-100
                 },17000, function () {
+                    console.log(section);
                     section.children(".section-update").css("background", "#f2eeee");
                     $(".timeShow").remove();
                     argB.before("<div class='timeShow' style='top: 100px ; font-size: 20px; color:#ff9a55; position: absolute ; left:" + (array[argA+1] -100) + "px'>AR</div>");

@@ -126,7 +126,7 @@
         }
         .accordion_title_cultural{
             float:left ;
-            width: 59%;
+            width: 54%;
             margin-right: 5px;
         }
         .detail_button {
@@ -134,6 +134,7 @@
             margin-right:5px ;
         }
         .accordion_content_cultural{
+            width : 335px ;
             margin: 5px 0;
             padding : 0px 5px;
             background: white;
@@ -426,7 +427,7 @@
                     <ll>
                         <a href="#" class="uk-accordion-title accordion_title_province">ソウル特別市</a>
                         <div class="uk-accordion-content accordion_content_province">
-                            <ul uk-accordion style="width: 320px;">
+                            <ul uk-accordion style="width: 350px;">
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"서울특별시")!== false)
                                         <ll>
@@ -455,7 +456,7 @@
                     <ll>
                         <a href="#" class="uk-accordion-title accordion_title_province">京畿道</a>
                         <div class="uk-accordion-content accordion_content_province">
-                            <ul uk-accordion style="width: 320px;">
+                            <ul uk-accordion style="width: 350px;">
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"경기도")!== false)
                                         <ll>
@@ -484,7 +485,7 @@
                     <ll>
                         <a href="#" class="uk-accordion-title accordion_title_province">江原道</a>
                         <div class="uk-accordion-content accordion_content_province">
-                            <ul uk-accordion style="width: 320px;">
+                            <ul uk-accordion style="width: 350px;">
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"강원도")!== false)
                                         <ll>
@@ -513,7 +514,7 @@
                     <ll>
                         <a href="#" class="uk-accordion-title accordion_title_province">忠清北道</a>
                         <div class="uk-accordion-content accordion_content_province">
-                            <ul uk-accordion style="width: 320px;">
+                            <ul uk-accordion style="width: 350px;">
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"충청북도")!== false)
                                         <ll>
@@ -542,7 +543,7 @@
                     <ll>
                         <a href="#" class="uk-accordion-title accordion_title_province">忠清南道</a>
                         <div class="uk-accordion-content accordion_content_province">
-                            <ul uk-accordion style="width: 320px;">
+                            <ul uk-accordion style="width: 350px;">
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"충청남도")!== false)
                                         <ll>
@@ -571,7 +572,7 @@
                     <ll>
                         <a href="#" class="uk-accordion-title accordion_title_province">仁川広域市</a>
                         <div class="uk-accordion-content accordion_content_province">
-                            <ul uk-accordion style="width: 320px;">
+                            <ul uk-accordion style="width: 350px;">
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"인천광역시")!== false)
                                         <ll>
@@ -600,7 +601,7 @@
                     <ll>
                         <a href="#" class="uk-accordion-title accordion_title_province">大邱広域市</a>
                         <div class="uk-accordion-content accordion_content_province">
-                            <ul uk-accordion style="width: 320px;">
+                            <ul uk-accordion style="width: 350px;">
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"대구광역시")!== false)
                                         <ll>
@@ -629,7 +630,7 @@
                     <ll>
                         <a href="#" class="uk-accordion-title accordion_title_province">慶尚北道</a>
                         <div class="uk-accordion-content accordion_content_province">
-                            <ul uk-accordion style="width: 320px;">
+                            <ul uk-accordion style="width: 350px;">
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"경상북도")!== false)
                                         <ll>
@@ -658,7 +659,7 @@
                     <ll>
                         <a href="#" class="uk-accordion-title accordion_title_province">慶尚南道</a>
                         <div class="uk-accordion-content accordion_content_province">
-                            <ul uk-accordion style="width: 320px;">
+                            <ul uk-accordion style="width: 350px;">
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"경상남도")!== false)
                                         <ll>
@@ -688,7 +689,7 @@
                         <a href="#" class="uk-accordion-title accordion_title_province">全羅南道
                         </a>
                         <div class="uk-accordion-content accordion_content_province">
-                            <ul uk-accordion style="width: 320px;">
+                            <ul uk-accordion style="width: 350px;">
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"전라남도")!== false)
                                         <ll>
@@ -718,7 +719,7 @@
                         <a href="#" class="uk-accordion-title accordion_title_province">全羅北道
                         </a>
                         <div class="uk-accordion-content accordion_content_province">
-                            <ul uk-accordion style="width: 320px;">
+                            <ul uk-accordion style="width: 350px;">
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"전라북도")!== false)
                                         <ll>
@@ -747,7 +748,7 @@
                     <ll>
                         <a href="#" class="uk-accordion-title accordion_title_province">蔚山広域市</a>
                         <div class="uk-accordion-content accordion_content_province">
-                            <ul uk-accordion style="width: 320px;">
+                            <ul uk-accordion style="width: 350px;">
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"울산광역시")!== false)
                                         <ll>
@@ -773,7 +774,7 @@
                     <ll>
                         <a href="#" class="uk-accordion-title accordion_title_province">釜山広域市</a>
                         <div class="uk-accordion-content accordion_content_province">
-                            <ul uk-accordion style="width: 320px;">
+                            <ul uk-accordion style="width: 350px;">
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"부산광역시")!== false)
                                         <ll>
@@ -799,7 +800,7 @@
                     <ll>
                         <a href="#" class="uk-accordion-title accordion_title_province">大田広域市</a>
                         <div class="uk-accordion-content accordion_content_province">
-                            <ul uk-accordion style="width: 320px;">
+                            <ul uk-accordion style="width: 350px;">
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"대전광역시")!== false)
                                         <ll>
@@ -825,7 +826,7 @@
                     <ll>
                         <a href="#" class="uk-accordion-title accordion_title_province">済州特別自治道</a>
                         <div class="uk-accordion-content accordion_content_province">
-                            <ul uk-accordion style="width: 320px;">
+                            <ul uk-accordion style="width: 350px;">
                                 @foreach($type_one as $one)
                                     @if(strpos($one->cultural_address ,"제주특별자치도")!== false)
                                         <ll>
@@ -1125,7 +1126,7 @@
 
                 </div>
                 <div style='margin-top: 20px' id="sectionGuide" class="audioGuide">
-                    <div style='font-size: 20px; font-weight: bold;' >区間のコメント</div>
+                    <div style='font-size: 20px; font-weight: bold;' >豆知識  まめちしき</div>
                     <ul class="sectionNav audioNav">
                         <li class="active" rel="secTab1">韓国語</li>
                         <li rel="secTab2">英語</li>
@@ -1383,7 +1384,7 @@
     .file-select-audio{
         position : absolute;
         top: 35px;
-        left : 185px;
+        left : 175px;
     }
     .audio-end-point{
         position: absolute;
