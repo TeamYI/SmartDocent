@@ -42,7 +42,7 @@
     <img src="image/line.png" style="position: absolute; top:80px;left:370px; width: 750px; height: 600px;">
     <img src="image/mainLogo.png" style="position: absolute; top:150px;left:410px; width: 500px;">
     <img src="image/whiteLine.png" style="position: absolute; top:320px;left:410px; width: 670px;">
-    <span style="color: white; font-size: 25px; font-weight: bold; z-index: 999; position: absolute; top: 350px; left: 410px;">「ユーザーの行動に合わせた知能型文化財開設サービス」</span>
+    <span style="color: white; font-size: 25px; font-weight: bold; z-index: 999; position: absolute; top: 350px; left: 410px;">「ユーザーの行動に合わせた知能型文化財解説サービス」</span>
     <div class="menu-list" style="top: 80px;">
         <div style="border: 5px solid #cebeba; padding-top: 5px; position: absolute; width: 180px; height: 140px;">
             <img src="image/regcourse.png" style="width: 170px; height: 80px;" alt="">
