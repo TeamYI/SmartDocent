@@ -314,10 +314,10 @@
 <div class="tabs tabs-style-linemove" style="margin-left: 20px; background: #f2eeee">
     <nav style=" background:#ffffff">
         <ul>
-            <li><a href="#section-linemove-1" class="icon icon-home"><span>한국어</span></a></li>
-            <li><a href="#section-linemove-2" class="icon icon-box"><span>English</span></a></li>
-            <li><a href="#section-linemove-3" class="icon icon-display"><span>中文</span></a></li>
-            <li><a href="#section-linemove-4" class="icon icon-upload"><span>日本語</span></a></li>
+            <li><a href="#section-linemove-1" class="icon"><span>한국어</span></a></li>
+            <li><a href="#section-linemove-2" class="icon"><span>English</span></a></li>
+            <li><a href="#section-linemove-3" class="icon"><span>中文</span></a></li>
+            <li><a href="#section-linemove-4" class="icon"><span>日本語</span></a></li>
         </ul>
     </nav>
     <div class="content-wrap">
