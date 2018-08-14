@@ -259,7 +259,7 @@
                 },8000, function () {
                     section.children(".section-update").css("background", "#f2eeee");
                     $(".timeShow").remove();
-                    /*에이알*/          argB.before("<div class='timeShow' style='top: 100px ; font-size: 20px; color:#ff9a55; position: absolute ; left:" + (array[argA+1] -100) + "px'></div>");
+                    /*에이알*/          argB.before("<div class='timeShow' style='top: 100px ; font-size: 20px; color:#ff9a55; position: absolute ; left:" + (array[argA+1] -100) + "px'>離脱！</div>");
                     argB.children("img").attr("src", "image/black-play-symbol.png");
                     argB.attr("data-name", "play");
 
@@ -314,10 +314,10 @@
 <div class="tabs tabs-style-linemove" style="margin-left: 20px; background: #f2eeee">
     <nav style=" background:#ffffff">
         <ul>
-            <li><a href="#section-linemove-1" class="icon icon-home"><span>한국어</span></a></li>
-            <li><a href="#section-linemove-2" class="icon icon-box"><span>English</span></a></li>
-            <li><a href="#section-linemove-3" class="icon icon-display"><span>中文</span></a></li>
-            <li><a href="#section-linemove-4" class="icon icon-upload"><span>日本語</span></a></li>
+            <li><a href="#section-linemove-1" class="icon"><span>한국어</span></a></li>
+            <li><a href="#section-linemove-2" class="icon"><span>English</span></a></li>
+            <li><a href="#section-linemove-3" class="icon"><span>中文</span></a></li>
+            <li><a href="#section-linemove-4" class="icon"><span>日本語</span></a></li>
         </ul>
     </nav>
     <div class="content-wrap">
@@ -345,28 +345,28 @@
                 <div class="move-place" data-lat="35.8964312" data-long="128.6215455" data-code="1" style="width:20%; height:100%; float:left"><img src="image/1off.png" style="width:50px; height:100%;"></div>
                 <div class="move-place" data-lat="35.8965864" data-long="128.621251" data-code="2" style="width:20%; height:100%; float:left"><img src="image/2off.png" style="width:50px; height:50px;"></div>
                 <div class="move-place" data-lat="35.8964647" data-long="128.620998" data-code="3" style="width:20%; height:100%; float:left"><img src="image/3off.png" style="width:50px; height:50px;" ></div>
-                <div class="move-place" data-code='end' style="width:8%; height:100%; float:left"><img src="image/g_end_off.png" style="width:50px; height:50px;"></div>
+                <div class="move-place" data-code='end' style="width:8%; height:100%; float:left"><img src="image/4off.png" style="width:50px; height:50px;"></div>
             </div>
 
             <div style="width:100%; height:4% ">
                 <div style="width:8%; height:100%; float:left"></div>
                 <div style="width:18%; height:100%; float:left;">
-                    <div class="kaiketu1" style="width:50%; height:100%; border:1px solid #231b19;">解説ファイル_1</div>
+                    <div class="kaiketu11" style="width:50%; height:100%; border:1px solid #231b19;">解説ファイル_1</div>
                 </div>
                 <div style="width:2%; height: 100%; float:left"></div>
                 <div style="width:18%; height:100%; float:left;">
-                    <div class="kaiketu2" style="width:50%; height:100%; border:1px solid #231b19;">解説ファイル_2</div>
+                    <div class="kaiketu22" style="width:50%; height:100%; border:1px solid #231b19;">解説ファイル_2</div>
                 </div>
                 <div style="width:2%; height: 100%; float:left"></div>
                 <div style="width:18%; height:100%; float:left;">
-                    <div class="kaiketu3" style="width:50%; height:100%; border:1px solid #231b19;">解説ファイル_3</div>
+                    <div class="kaiketu33" style="width:50%; height:100%; border:1px solid #231b19;">解説ファイル_3</div>
                 </div>
                 <div style="width:2%; height: 100%; float:left"></div>
                 <div style="width:18%; height:100%; float:left;">
-                    <div class="kaiketu4" style="width:50%; height:100%; border:1px solid #231b19;">解説ファイル_4</div>
+                    <div class="kaiketu44" style="width:50%; height:100%; border:1px solid #231b19;">解説ファイル_4</div>
                 </div>
                 <div style="width:2%; height: 100%; float:left"></div>
-                <div class="kaiketu5" style="width:9%; height:100%; float:left; border:1px solid #231b19;">解説ファイル_5</div>
+                <div class="kaiketu55" style="width:9%; height:100%; float:left; border:1px solid #231b19;">解説ファイル_5</div>
             </div>
             <div style="width:100%; height:5%">
                 {{--나니모나이--}}
