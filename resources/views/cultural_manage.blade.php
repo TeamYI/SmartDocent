@@ -1374,7 +1374,7 @@
     }
     .audio_file audio {
         height: 30px;
-        top:12px;
+        top:33px;
         right:10px;
         position: absolute;
     }

@@ -1276,7 +1276,7 @@ function culturalElementSelect(){
                         tab.empty();
 
                         var content = "<button class='audio-ment-update'>修整</button><button class='audio-ment-delete'>削除</button>"
-                                     +"<audio src='audio/"+data[i].data_file_name+"' controls style='margin-top: 30px'></audio>"
+                                     +"<audio src='audio/"+data[i].data_file_name+"' controls style='margin-top: 80px'></audio>"
 
                         tab.append(content);
                         // $("#startTab"+data[i].language_code+" > audio").attr("src","audio/"+data[i].data_file_name);
@@ -1285,7 +1285,7 @@ function culturalElementSelect(){
                         var tab = $("#endTab"+data[i].language_code) ;
                         tab.empty();
                         var content = "<button class='audio-ment-update'>修整</button><button class='audio-ment-delete'>削除</button>"
-                                     +"<audio src='audio/"+data[i].data_file_name+"' controls style='margin-top: 30px'></audio>"
+                                     +"<audio src='audio/"+data[i].data_file_name+"' controls style='margin-top: 80px'></audio>"
                         tab.append(content);
 
                     }else if(element_code == 8){
@@ -1294,7 +1294,7 @@ function culturalElementSelect(){
                         var tab = $("#secTab"+data[i].language_code) ;
                         tab.empty();
                         var content = "<button class='audio-ment-update'>修整</button><button class='audio-ment-delete'>削除</button>"
-                                    +"<audio src='audio/"+data[i].data_file_name+"' controls style='margin-top: 30px'></audio>"
+                                    +"<audio src='audio/"+data[i].data_file_name+"' controls style='margin-top: 80px'></audio>"
                                     +"<div class='section-end-point'>"
                                         +"<span>修了ポイント</span>"
                                         +"<span style='margin-left: 30px'>15秒</span>"
