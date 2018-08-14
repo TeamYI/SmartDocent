@@ -1024,6 +1024,9 @@
                 height: 30px;
                 padding: 5px;
             }
+            .audio-position {
+                margin-top: 60px;
+            }
 
         </style>
         <div class="nav_content" id="tab3">
@@ -1048,7 +1051,7 @@
                             </label>
                             <input type='file' id="startAudio_1" class='audio_register'>
                             <button onclick="startAudioRegister(6)" class="audio-ment-register">登録</button>
-                            <audio src='' controls ></audio>
+                            <audio src='' controls class="audio-position"></audio>
 
                         </div>
                         <div id="startTab2" class="start_content audio_content">
@@ -1057,7 +1060,7 @@
                             </label>
                             <input type='file' id="startAudio_2" class='audio_register'>
                             <button onclick="startAudioRegister(6)" class="audio-ment-register">登録</button>
-                            <audio src='' controls></audio>
+                            <audio src='' controls class="audio-position"></audio>
                         </div>
                         <div id="startTab3" class="start_content audio_content">
                             <label for="startAudio_3">
@@ -1065,7 +1068,7 @@
                             </label>
                             <input type='file' id="startAudio_3" class='audio_register'>
                             <button onclick="startAudioRegister(6)" class="audio-ment-register">登録</button>
-                            <audio src='' controls ></audio>
+                            <audio src='' controls class="audio-position" ></audio>
                         </div>
                         <div id="startTab4" class="start_content audio_content">
                             <label for="startAudio_4">
@@ -1073,7 +1076,7 @@
                             </label>
                             <input type='file' id="startAudio_4" class='audio_register'>
                             <button onclick="startAudioRegister(6)" class="audio-ment-register">登録</button>
-                            <audio src='' controls ></audio>
+                            <audio src='' controls class="audio-position" ></audio>
                         </div>
                     </div>
                     {{--<div style='font-size: 20px; font-weight: bold;' >안내시작멘트</div>--}}
@@ -1096,7 +1099,7 @@
                             </label>
                             <input type='file' id="endAudio_1" class='audio_register'>
                             <button onclick="startAudioRegister(9)" class="audio-ment-register">登録</button>
-                            <audio src='' controls ></audio>
+                            <audio src='' controls class="audio-position"></audio>
                         </div>
                         <div id="endTab2" class="end_content audio_content" >
                             <label for="endAudio_2">
@@ -1104,7 +1107,7 @@
                             </label>
                             <input type='file' id="endAudio_2" class='audio_register'>
                             <button onclick="startAudioRegister(9)" class="audio-ment-register">登録</button>
-                            <audio src='' controls ></audio>
+                            <audio src='' controls class="audio-position" ></audio>
                         </div>
                         <div id="endTab3" class="end_content audio_content">
                             <label for="endAudio_3">
@@ -1112,7 +1115,7 @@
                             </label>
                             <input type='file' id="endAudio_3" class='audio_register'>
                             <button onclick="startAudioRegister(9)" class="audio-ment-register">登録</button>
-                            <audio src='' controls ></audio>
+                            <audio src='' controls class="audio-position"></audio>
                         </div>
                         <div id="endTab4" class="end_content audio_content">
                             <label for="endAudio_4">
@@ -1120,7 +1123,7 @@
                             </label>
                             <input type='file' id="endAudio_4" class='audio_register'>
                             <button onclick="startAudioRegister(9)" class="audio-ment-register">登録</button>
-                            <audio src='' controls ></audio>
+                            <audio src='' controls class="audio-position"></audio>
                         </div>
                     </div>
 
@@ -1141,7 +1144,7 @@
                                 </label>
                                 <input type='file' id="sectionAudio_1" class='audio_register'>
                                 <button onclick="startAudioRegister(8)" class="audio-ment-register">登録</button>
-                                <audio src='' controls ></audio>
+                                <audio src='' controls class="audio-position"></audio>
                                 <div class="section-end-point">
                                     <span>修了ポイント</span>
                                     <input type="text" width="20">
@@ -1164,7 +1167,7 @@
                             </label>
                             <input type='file' id="sectionAudio_2" class='audio_register'>
                             <button onclick="startAudioRegister(8)" class="audio-ment-register">登録</button>
-                            <audio src='' controls ></audio>
+                            <audio src='' controls class="audio-position"></audio>
                             <div class="section-end-point">
                                 <span>修了ポイント</span>
                                 <input type="text" width="20">
@@ -1180,7 +1183,7 @@
                             </label>
                             <input type='file' id="sectionAudio_3" class='audio_register'>
                             <button onclick="startAudioRegister(8)" class="audio-ment-register">登録</button>
-                            <audio src='' controls ></audio>
+                            <audio src='' controls class="audio-position" ></audio>
                             <div class="section-end-point">
                                 <span>修了ポイント</span>
                                 <input type="text" width="20">
@@ -1196,7 +1199,7 @@
                             </label>
                             <input type='file' id="sectionAudio_4" class='audio_register'>
                             <button onclick="startAudioRegister(8)" class="audio-ment-register">登録</button>
-                            <audio src='' controls ></audio>
+                            <audio src='' controls class="audio-position"></audio>
                             <div class="section-end-point">
                                 <span>修了ポイント</span>
                                 <input type="text" width="20">
